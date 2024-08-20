@@ -15,13 +15,13 @@ function Menu() {
         </div>
 
         <div className='link-wrapper d-flex justify-content-center' >
-          <Link>Example</Link>
+          <Link>News</Link>
         </div>
         <div className='link-wrapper d-flex justify-content-center' >
-          <Link>Example</Link>
+          <Link>Learn</Link>
         </div>
         <div className='link-wrapper d-flex justify-content-center' >
-          <Link>Example</Link>
+          <Link>Community</Link>
         </div>
       </div>
     </>

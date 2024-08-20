@@ -29,7 +29,6 @@ const fetchArticles = async () => {
     });
 
     const data = response.data.result;
-    console.log('Sanity Data:', data);
     return data;
   } catch (error) {
     console.error('Error fetching data from Sanity:', error);
