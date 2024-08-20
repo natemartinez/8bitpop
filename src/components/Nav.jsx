@@ -8,8 +8,7 @@ function Nav() {
 
   return (
     <>
-    <div className='container d-flex'>
-
+    <div className='container d-flex justify-content-center'>
      <nav className='nav-bar'>
       <div className='d-flex mb-4'>
         <h3>LOGO</h3>
