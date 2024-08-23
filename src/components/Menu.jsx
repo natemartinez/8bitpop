@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import Button from "react-bootstrap/Button";
-import '../styles/style.css';
+import '../style.css';
 import axios from 'axios';
 
 function Menu() {

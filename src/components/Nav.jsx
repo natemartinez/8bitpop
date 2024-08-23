@@ -1,10 +1,16 @@
 import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import Button from "react-bootstrap/Button";
-import '../styles/style.css';
+import '../style.css';
 import axios from 'axios';
 
-function Nav() {
+function Nav({ sendPage }) {
+
+  const changePageBtn = (button) => {
+    let newPage = button.target.value;
+    sendPage(newPage)
+  };
+
 
   return (
     <>
@@ -15,9 +21,9 @@ function Nav() {
         <h2>8BitPop</h2>
       </div>    
        <div className='d-flex justify-content-around'>
-         <Button className='nav-btns mx-4'>Retro</Button>
-         <Button className='nav-btns mx-4'>Modern</Button>
-         <Button className='nav-btns mx-4'>Future</Button>
+         <Button onClick={changePageBtn} value="Retro" className='nav-btns mx-4'>Retro</Button>
+         <Button onClick={changePageBtn} value="Modern" className='nav-btns mx-4'>Modern</Button>
+         <Button onClick={changePageBtn} value="Future" className='nav-btns mx-4'>Future</Button>
        </div>
      </nav>
      </div>
