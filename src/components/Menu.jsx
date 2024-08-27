@@ -9,20 +9,22 @@ function Menu() {
   return (
     <>
       <div className='menu-bar'>
-        <div className='profile d-flex flex-column align-items-center'>
+        <div className='profile '>
            <img className='profile-pic'></img>
            <h3 className='greeting'>Welcome, Big Doofus</h3>
         </div>
-
-        <div className='link-wrapper d-flex justify-content-center' >
-          <Link>News</Link>
+        <div className='menu-links'>
+          <div className='link-wrapper d-flex justify-content-center' >
+           <Link>News</Link>
+          </div>
+          <div className='link-wrapper d-flex justify-content-center' >
+           <Link>Learn</Link>
+          </div>
+          <div className='link-wrapper d-flex justify-content-center' >
+           <Link>Community</Link>
+          </div>
         </div>
-        <div className='link-wrapper d-flex justify-content-center' >
-          <Link>Learn</Link>
-        </div>
-        <div className='link-wrapper d-flex justify-content-center' >
-          <Link>Community</Link>
-        </div>
+        
       </div>
     </>
   );

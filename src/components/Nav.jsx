@@ -15,8 +15,9 @@ function Nav({ sendPage }) {
   return (
     <>
     <div className='container d-flex justify-content-center'>
-     <nav className='nav-bar'>
-      <div className='d-flex mb-4'>
+     <nav className='nav-bar mb-4'>
+      <div className='d-flex mb-4 justify-content-center'>
+        <Button className='main-btn' value="Main" onClick={changePageBtn}>Back to Main</Button>
         <h3>LOGO</h3>
         <h2>8BitPop</h2>
       </div>    

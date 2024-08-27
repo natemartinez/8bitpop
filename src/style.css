@@ -14,6 +14,12 @@ body{
     font-size: 1.25em!important;
 }
 
+.main-btn{
+    position: relative;
+    background: transparent;
+
+}
+
 /*Menu Bar*/
 .menu-bar{
     position: fixed;
@@ -21,8 +27,14 @@ body{
     width: 10em;
     top: 0;
     z-index: 3;
+    background-color: #232326;
 }
 
+.profile{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
 .profile-pic{
     width: 5.5em;
     height: 5.5em;
@@ -33,6 +45,12 @@ body{
 .greeting{
     font-size: 0.75em;
 }
+
+.menu-links{
+    display: flex;
+    justify-content: space-evenly;
+    flex-direction: column;
+}
 .link-wrapper{
     margin-top: 2em;
     font-size: 1.75em;
@@ -42,17 +60,44 @@ body{
     color: white
 }
 
-/*Article Cards, Carousels */
-.trend-carousel-wrapper{
-    margin-top: 5em;
-    margin-left: 7em;
-    margin-bottom: 10em;
-}
-.trend-lineup{
-    display: flex;
-    justify-content: space-evenly;
+@media screen and (max-width: 500px){
+
+    .main-btn{
+        position: relative;
+        top: unset;
+        left: unset;
+    }
+    .menu-bar{
+        top: unset;
+        bottom: 0;
+        height: 15%;
+        width: 100%;
+    }
+    .menu-links{
+        flex-direction: row;
+    }
+    .profile{
+        display: none!important;
+    }
+    .link-wrapper {
+        font-size: 2.25em;
+    }
 }
 
+  
+/*Article Cards, Carousels */
+.main-post{
+  margin-top: 5em;
+}
+.news-list{
+    margin-top: 5em;
+}
+.trend-topics{
+    margin-bottom: 5em;
+}
+.mainpost-cover{
+    width: 100%;
+}
 
 
 .feature-carousel-wrapper{
@@ -60,9 +105,27 @@ body{
     margin-left: 5em;
     
 }
+.feature-card{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    width: 100%;
+    height: 20em;
+    background-color: gray;
+    
+}
+.feature-card-link{
+    padding: 5em;
+}
 
 .carousel-indicators{
     margin-bottom: -4rem!important;
+}
+.carousel.carousel-slider .control-arrow:hover{
+    background: none;
+}
+.carousel-status{
+    display: none;
 }
 
 .article-card{
@@ -80,11 +143,81 @@ body{
 
 /*Main content*/
 
+.main-content{
+    margin-left: 5em;
+}
 .content{
     display: flex;
     justify-content: center;
 }
 
+@media screen and (max-width:500px) {
+    .main-content{
+        margin-left: 0em!important;
+    }
+
+    .article-card{
+        width: 100%!important;
+        height: 20em!important;
+        
+    }
+    .article-card p{
+        font-size: 1.5em;
+    }
+
+    .main-post{
+        margin-top: 3em;
+    }
+    .mainpost-cover-wrapper{
+        margin: 2em;
+    }
+
+
+
+    .feature-carousel-wrapper{
+        margin-left: 0em!important;
+        padding: 0em;
+    }
+    .feature-carousel-wrapper .article-card{
+        margin-left: 2em;
+    }
+    .feature-card{
+        display: flex;
+        flex-direction: column;
+        height: 25em;
+    }
+    .feature-card-link{
+        font-size: 1.5em;
+        padding: 0em;
+        height: 30em;
+    }
+
+    .carousel .control-prev.control-arrow {
+        left: -10px;
+    }
+    .carousel .control-next.control-arrow{
+        right: -10px;
+    }
+    
+    
+
+}
+
+
+/*Retro Page */
+.retroPage{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.retro-feat{
+    width: 100%;
+}
+.retro-feat-img {
+    width: 100%;
+    height: 100%;
+}
 
 
 

@@ -20,9 +20,9 @@ const sanityApiVersion = '2023-08-01';
 const sanityToken = 'skbZxwUqhV9uT2NjJijdCkmXIB38b1t3gw3H4HgsGxyrvMc2a3y7cpo0uoi5slVjoaOluLArf46tXuJbLVGNal7ISRbGA9POVWGyPZ9lFRwBw9kdQKjT8Dxb57t52JNZChojjlVxCbgMHS2iOHsBB46tltRnJWNLesgWBU2ckvLsDV28EjpA';
 const sanityUrl = `https://${sanityProjectId}.api.sanity.io/v${sanityApiVersion}/data/query/${sanityDataset}`;
 
-const fetchArticles = async () => {
+const fetchTrending = async () => {
   try {
-    const query = '*[_type == "post"]{title, content, category}';
+    const query = '*[_type == "trending"]{title, content, category, priority, cover}';
     const response = await axios.get(sanityUrl, {
       params: { query },
       headers: sanityToken ? { Authorization: `Bearer ${sanityToken}` } : {}
@@ -36,9 +36,34 @@ const fetchArticles = async () => {
   }
 };
 
-app.get('/api/articles', async (req, res) => {
+app.get('/api/trending', async (req, res) => {
   try {
-    const data = await fetchArticles();
+    const data = await fetchTrending();
+    res.json(data);
+  } catch (error) {
+    res.status(500).send('Error fetching data from Sanity');
+  }
+});
+
+const fetchFeatured = async () => {
+  try {
+    const query = '*[_type == "featured"]{title, content, category, priority}';
+    const response = await axios.get(sanityUrl, {
+      params: { query },
+      headers: sanityToken ? { Authorization: `Bearer ${sanityToken}` } : {}
+    });
+
+    const data = response.data.result;
+    return data;
+  } catch (error) {
+    console.error('Error fetching data from Sanity:', error);
+    throw error;
+  }
+};
+
+app.get('/api/featured', async (req, res) => {
+  try {
+    const data = await fetchFeatured();
     res.json(data);
   } catch (error) {
     res.status(500).send('Error fetching data from Sanity');
