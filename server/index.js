@@ -45,6 +45,7 @@ app.get('/api/trending', async (req, res) => {
   }
 });
 
+
 const fetchFeatured = async () => {
   try {
     const query = '*[_type == "featured"]{title, content, category, priority}';

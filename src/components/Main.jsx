@@ -7,7 +7,7 @@ import axios from 'axios';
 
 import Menu from './Menu';
 import Nav from './Nav';
-import FeatureCarousel from './FeatureCarousel';
+import Featured from './Featured';
 import Trend from './Trend';
 import SocialMedia from './SocialMedia';
 
@@ -19,8 +19,8 @@ function Main() {
   const [loading, setLoading] = useState(false);
 
   const changePage = (newPage) => {
-    
     setLoading(true);
+    console.log(newPage);
 
     switch (newPage) {
       case 'Retro':
@@ -42,6 +42,7 @@ function Main() {
         setFuturePage(true);
         break;
       case 'Main':
+        console.log('Heading to Main')
         setMainPage(true);
         setRetroPage(false);
         setModernPage(false);
@@ -50,10 +51,8 @@ function Main() {
       default:
         break;
     }
-    loadContent()
 
   };
-
 
 
   useEffect(() => {
@@ -76,20 +75,6 @@ function Main() {
       setTimeout(() => setLoading(false), [1000]);
     };
   }, [futurePage])
-  /*
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(null);
-  */
-
-  /*
-  if (loading) {
-    return <div>Loading...</div>;
-  }
-
-  if (error) {
-    return <div>Error: {error.message}</div>;
-  }
-  */
 
  
   return (
@@ -103,11 +88,21 @@ function Main() {
             <div className='content retroPage'> 
             <div className='mt-4 mb-4'>
               <h2>This is the retro page</h2>
-            </div>  
-              
-            <div className='retro-feat'>
+              <div>
+                <h2>Retro Game of the Week</h2>
+                <div>
+                  <h2>Image</h2>
+                  <h3>Random Game</h3>
+                </div>
+                <div>
+                  <h2>Similar games list</h2>
+                </div>
+              </div>
+
+            </div>        
+            <div className='retro-feature'>
                <div className='d-flex p-5'>
-                 <div className='retro-feat-img border border-primary'>
+                 <div className='retro-feature-img border border-primary'>
                   <h3>Image</h3>
                  </div>
                  
@@ -123,20 +118,61 @@ function Main() {
             </div>
             </div> : ''}
           {modernPage ? 
-            <div className='content modernPage'>   
-            <h2>This is the modern page</h2>
+            <div className='content modernPage'>  
+              <h2 className='m-5'>This is the modern page</h2>
+              <div>
+                <h2>Coolest art styles w/ examples of games using that style</h2>
+                <h2>Video that shows behind the scenes content</h2>
+                <h2>VR Indie Game Development</h2>
+                <h2>Game storytelling elements</h2>
+              </div>
             </div> : ''}
           {futurePage ? 
             <div className='content futurePage'>   
-            <h2>This is the future page</h2>
+              <h2 className='m-5'>This is the future page</h2>
+               <div>
+                 <h2>Game Dev concept ideas</h2>
+               </div>
             </div> : ''}
           {mainPage ? <div>
+                       <div className='featured-review-wrapper d-flex justify-content-center'>
+                        <div className='featured-review'>
+                          <h2>If there's a live stream or re-recording of last game expo
+                          or a review of my own
+                          </h2>
+                        </div>
+                         
+                       </div>
                        <h1 className='text-center mt-3'>Trending Topics</h1>
                        <Trend></Trend>
                        <h1 className='text-center mt-3'>Featured Topics</h1>
-                       <FeatureCarousel></FeatureCarousel>  
-                      </div> : ''
-          }
+                       <Featured></Featured>  
+                       <div>
+                        <h2>Indie Game Spotlight</h2>
+                       </div>
+                       <div>
+                        <h2>Game Dev Tips</h2>
+                       </div>
+                       <div>
+                        <h2>Current Game Jams</h2>
+                       </div>
+                       <div>
+                        <h2>Polls, quizzes, personality tests - Similar to myers-briggs, but with games
+                        </h2>
+                       </div>
+                       <div>
+                        <h2>Best soundtracks</h2>
+                       </div>
+                       <div>
+                        <h2>MODERN</h2>
+                       </div>
+                       <div>
+                        <h2>RETRO</h2>
+                       </div>
+                       <div>
+                        <h2>FUTURE</h2>
+                       </div>
+                      </div> : ''}
         </div> 
        }
     

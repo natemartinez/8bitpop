@@ -4,6 +4,7 @@ import { CarouselItem } from 'react-bootstrap';
 import "react-responsive-carousel/lib/styles/carousel.min.css"; 
 import axios from "axios";
 import Button from "react-bootstrap/Button";
+import '../style.css';
 
 function FeatureCarousel(){
   const [posts, setPosts] = useState(null);
@@ -26,29 +27,27 @@ function FeatureCarousel(){
     getFeatured();
   }, []);
 
-
-
-
   // Have each feature card have a fi
 
     return(
         <>
          <div className="container">
-          <Carousel className="feature-carousel-wrapper" interval={null}>
-
-             {posts !== null ? posts.map((post, index) => 
-                <div key={index} className="feature-card">
-                  <h2>Image</h2>
-                  <div className="feature-card-link">
-                    <a href="#" className="text-white text-decoration-none">
-                     <p className="p-3">{post.title}</p>
-                    </a>
-                    <Button>{post.category}</Button>
-                  </div>
-                  
-                </div>) : ''
-              }
-          </Carousel>
+          <div className="main-feature-wrapper">   
+            <Carousel interval={null}>
+               {posts !== null ? posts.map((post, index) => 
+                  <div key={index} className="feature-card">
+                    <h2>Image</h2>
+                    <div className="feature-card-link">
+                      <a href="#" className="text-white text-decoration-none">
+                       <p className="p-3">{post.title}</p>
+                      </a>
+                      <Button>{post.category}</Button>
+                    </div>
+                    
+                  </div>) : ''
+                }
+            </Carousel>
+          </div>
         </div> 
         </>
     )

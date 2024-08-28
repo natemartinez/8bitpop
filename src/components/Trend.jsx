@@ -9,6 +9,7 @@ function Trend(){
     const [mainPost, setMainPost] = useState(null);
     const [mainPostCover, setMainPostCover] = useState(null);
     const [newsList, setNewsList] = useState(null);
+
     //const [posts, setPosts] = useState(null);
 
     async function getTrends() {
@@ -59,11 +60,11 @@ function Trend(){
     return(
         <>
         <div className="container trend-topics">
-          <div className="main-post d-flex flex-column align-items-center">
+          <div className="main-post d-flex align-items-center justify-content-center">
             <div className="mainpost-cover-wrapper">
               {mainPost ? <img className='mainpost-cover' src={mainPostCover} alt="" /> : ''}
             </div>
-            <h2>{mainPost ? mainPost.title : ''}</h2>
+            <Link className="text-white text-decoration-none" to={"/articles/trending"}><h2>{mainPost ? mainPost.title : ''}</h2></Link>
           </div>
 
           <div className="news-list">
