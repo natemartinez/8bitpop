@@ -143,7 +143,7 @@ body{
     display: none;
 }
 
-/*Main content*/
+/*Main page content*/
 
 .main-content{
     margin-left: 10em;
@@ -173,6 +173,12 @@ body{
 
 
 
+.chest-img{
+    width: 50%;
+}
+
+
+
 @media screen and (max-width:500px) {
     .nav-btn-divs{
         flex-direction: column;
@@ -180,6 +186,7 @@ body{
     .btn.active{
         font-size: 1.5em!important;
         background-color: aqua!important;
+        pointer-events: none;
     }
 
     .main-content{
@@ -204,6 +211,7 @@ body{
     }
     .mainpost-cover-wrapper{
         margin: 2em;
+        width: 100%;
     }
 
     .article-cover{
@@ -212,7 +220,11 @@ body{
     }
     .article-cover-wrapper{
         width: 75%
-    };
+    }
+
+    .main-feature-wrapper{
+        margin-top: 5em;
+    }
 
     .feature-carousel-wrapper .article-card{
         margin-left: 2em;
@@ -233,11 +245,46 @@ body{
     }
     .carousel .control-next.control-arrow{
         right: -10px;
+    } 
+
+
+    .indie-spotlight{
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        margin-top: 5em;
+        margin-bottom: 5em;
     }
-    
-    
+   
+    .featured-indie-game{
+        width: 50%;
+        height: 15em;
+        background-color: black;
+        border: 2px solid white;
+    }
+    .chest-img{
+        width: 75%;
+        height: 15em;
+        margin-top: 2em;
+    }
+
+    .game-tip{
+        width: 50%;
+        height: 15em;
+        background-color: aquamarine;
+        margin: 0 auto;
+    }
+
+
+    /* Logos */
+    .trend-icons{
+        width: 25%;
+        height: 10%;
+    }
+
 
 }
+
 
 
 /*Retro Page */

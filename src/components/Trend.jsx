@@ -10,7 +10,6 @@ function Trend(){
     const [mainPostCover, setMainPostCover] = useState(null);
     const [newsList, setNewsList] = useState(null);
 
-    //const [posts, setPosts] = useState(null);
 
     async function getTrends() {
       try {
@@ -20,7 +19,6 @@ function Trend(){
         console.error(error);
       }
     }
-
     async function organizePosts(posts) {
       let listArray = [];
 
@@ -28,8 +26,8 @@ function Trend(){
           let priority = posts[i].priority;
 
           if(priority == 'High'){
-            console.log('Main Post: ', posts[i]);
             setMainPost(posts[i]);
+            setMainPostCover(posts[i].logo)
           } else if(priority == 'Medium'){
             listArray.push(posts[i]);
           } else{
@@ -39,27 +37,19 @@ function Trend(){
          setNewsList(listArray);
        };
 
-       console.log('News List: ', listArray);
-
         // this function will organize each post by priority
     }
-
-    async function getImages(link) {
-      setMainPostCover(link)
-    }
+  
 
     useEffect(() => {
       getTrends();
-      getImages('https://cdn.sanity.io/images/m5zbytnr/production/7e8014ad85ebae1fae3117ac9bdd07b15715ee60-1920x1370.jpg');
     }, []);
 
-    useEffect(() => {
-      console.log(mainPost)
-    }, [])
 
     return(
         <>
         <div className="container trend-topics">
+        <h1 className='text-center mt-3'>Trending Topics</h1>
           <div className="main-post d-flex align-items-center justify-content-center">
             <div className="mainpost-cover-wrapper">
               {mainPost ? <img className='mainpost-cover' src={mainPostCover} alt="" /> : ''}
@@ -71,7 +61,7 @@ function Trend(){
               {newsList ?  
                 newsList.map((post, index) => 
                   <div key={index} className="d-flex">
-                    <p>category icon</p>
+                    <img src={post.logo} className='trend-icons' alt="icon" />
                     <h5>{post.title}</h5>
                   </div>
                 ): ''}

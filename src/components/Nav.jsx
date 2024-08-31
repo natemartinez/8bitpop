@@ -47,7 +47,6 @@ function Nav({ sendPage }) {
   };
 
   const MainBtn = ({isActive, isDisabled}) => {
-    console.log(isActive);
    // isActive = true;
    // isDisabled = false
     const className = `nav-btns mx-4 ${isActive ? 'active' : ''}${isDisabled ? 'disabled' : ''}`;
@@ -84,7 +83,7 @@ function Nav({ sendPage }) {
      <nav className='nav-bar mb-4'>
        <div className='d-flex mb-4 justify-content-center'>
         <h3>LOGO</h3>
-        <h2>8BitPop</h2>
+        <h2>8BitPOP</h2>
        </div>  
         <div className='d-flex nav-btn-divs'>
           <div>

@@ -8,6 +8,7 @@ import '../style.css';
 
 function FeatureCarousel(){
   const [posts, setPosts] = useState(null);
+  const [mainReview, setMainReview] = useState(null);
 
   // The API needs to send specific 'featured' data
 
@@ -15,24 +16,49 @@ function FeatureCarousel(){
   async function getFeatured() {
     try {
       const response = await axios.get('http://localhost:3001/api/featured');
-      setPosts(response.data);
-  
+      organizeFeatures(response.data)
     } catch (error) {
       console.error(error);
     }
   }
 
+  const organizeFeatures = (features) => {
+    let postArr = [];
+    for(let i=0; i<features.length;i++){
+      let category = features[i].category;
+      switch(category){
+        case 'Review':
+          setMainReview(features[i]);
+          break
+        case 'Post':
+          postArr.push(features[i]);
+          break
+        default:
+          break
+      }     
+    };
+    setPosts(postArr);
+  }
 
   useEffect(() => {
     getFeatured();
   }, []);
 
-  // Have each feature card have a fi
 
     return(
         <>
          <div className="container">
-          <div className="main-feature-wrapper">   
+          <div className="main-feature-wrapper"> 
+          <h1 className='text-center mt-3'>Featured Topics</h1>
+            <div className='featured-review-wrapper d-flex justify-content-center'>
+              {mainReview !== null ? 
+                <div className='featured-review'>
+                  <h2>{mainReview.title}</h2>
+                  <h2>Review Grade</h2>
+                </div> : ''}  
+            </div>
+
+
             <Carousel interval={null}>
                {posts !== null ? posts.map((post, index) => 
                   <div key={index} className="feature-card">
@@ -44,8 +70,7 @@ function FeatureCarousel(){
                       <Button>{post.category}</Button>
                     </div>
                     
-                  </div>) : ''
-                }
+                  </div>) : ''}
             </Carousel>
           </div>
         </div> 
