@@ -20,6 +20,8 @@ function Main() {
   const [futurePage, setFuturePage] = useState(false);
   const [loading, setLoading] = useState(false);
 
+  const [content, setContent] = useState(null);
+
   const [chestImg, setChestImg] = useState(null);
 
 
@@ -38,7 +40,6 @@ function Main() {
         setRetroPage(false);
         setModernPage(true);
         setFuturePage(false);
-        getModernContent();
         break;
       case 'Future':
         setMainPage(false);
@@ -68,20 +69,36 @@ function Main() {
     }
   };
 
+  async function fetchContent(page) {
+    setLoading(true);
+    try {
+      const response = await axios.get('http://localhost:3001/api/content');
+      getPageContent(response.data, page)
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  const getPageContent = (content, page) => {
+     console.log(content);
+     console.log(page);
+     let pageContent = [];
+
+    for(let i=0; i<content.length;i++){
+      if(content[i].class == null && content[i].page == 'modern'){
+        pageContent.push(content[i]);
+      };
+    };
+
+     setContent(pageContent);
+     setLoading(false);
+  };
+
   const setImages = (gallery) => {
    const chest = gallery.find(image => image.title === 'chest');
 
    setChestImg(chest.link);
 
-  };
-
-  async function getModernContent(){
-    try {
-      const response = await axios.get('http://localhost:3001/api/modern');
-      console.log(response.data)
-    } catch (error) {
-      console.error(error);
-    }
   };
 
   useEffect(() => {
@@ -102,7 +119,9 @@ function Main() {
   }, [retroPage])
   useEffect(() => {
     if(modernPage){
-      setTimeout(() => setLoading(false), [1000]);
+      setTimeout(() => 
+        fetchContent('modern'),
+      [500]);
     };
   }, [modernPage])
   useEffect(() => {
@@ -164,6 +183,11 @@ function Main() {
             <div className='content modernPage'>  
               <h2 className='m-5'>This is the modern page</h2>
               <div>
+                {content ? content.map((post, index) =>
+                  <div key={index} className='post-blocks'>
+                    <h2>{post.title}</h2>
+                  </div>
+                ): ''}
                 <div>
                   <h2>Coolest art styles w/ examples of games using that style</h2>
                 </div>

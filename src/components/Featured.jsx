@@ -15,30 +15,28 @@ function FeatureCarousel(){
 
   async function getFeatured() {
     try {
-      const response = await axios.get('http://localhost:3001/api/featured');
+      const response = await axios.get('http://localhost:3001/api/content');
       organizeFeatures(response.data)
     } catch (error) {
       console.error(error);
     }
   }
 
-  const organizeFeatures = (features) => {
-    let postArr = [];
-    for(let i=0; i<features.length;i++){
-      let category = features[i].category;
-      switch(category){
-        case 'Review':
-          setMainReview(features[i]);
-          break
-        case 'Post':
-          postArr.push(features[i]);
-          break
-        default:
-          break
-      }     
-    };
-    setPosts(postArr);
-  }
+  const organizeFeatures = (posts) => {
+
+    let features = [];
+
+    for(let i=0; i < posts.length; i++){
+      let postClass = posts[i].class;
+      let postPriority = posts[i].priority;
+       if(postClass == 'feature' && postPriority == 'low'){
+        features.push(posts[i]);
+       };
+     };
+
+     console.log(features)
+     setPosts(features);
+  };
 
   useEffect(() => {
     getFeatured();
@@ -67,7 +65,6 @@ function FeatureCarousel(){
                       <a href="#" className="text-white text-decoration-none">
                        <p className="p-3">{post.title}</p>
                       </a>
-                      <Button>{post.category}</Button>
                     </div>
                     
                   </div>) : ''}

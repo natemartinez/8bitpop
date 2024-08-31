@@ -177,7 +177,9 @@ body{
     width: 50%;
 }
 
-
+.post-blocks{
+    border-radius: 10px;
+}
 
 @media screen and (max-width:500px) {
     .nav-btn-divs{
@@ -262,11 +264,18 @@ body{
         background-color: black;
         border: 2px solid white;
     }
-    .chest-img{
-        width: 75%;
-        height: 15em;
-        margin-top: 2em;
+
+    .modernPage{
+        flex-direction: column;
     }
+
+    .post-blocks{
+        width: 66%;
+        height: 10em;
+        background-color: #40404d;
+        padding: 1em;
+    }
+    
 
     .game-tip{
         width: 50%;
@@ -281,7 +290,11 @@ body{
         width: 25%;
         height: 10%;
     }
-
+    .chest-img{
+        width: 75%;
+        height: 15em;
+        margin-top: 2em;
+    }
 
 }
 

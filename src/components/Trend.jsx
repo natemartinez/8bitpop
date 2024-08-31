@@ -13,31 +13,28 @@ function Trend(){
 
     async function getTrends() {
       try {
-        const response = await axios.get('http://localhost:3001/api/trending');
-        organizePosts(response.data)
+        const response = await axios.get('http://localhost:3001/api/content');
+        organizePosts(response.data);
       } catch (error) {
         console.error(error);
       }
-    }
+    };
+
     async function organizePosts(posts) {
-      let listArray = [];
+      let trends = [];
 
        for(let i=0; i < posts.length; i++){
-          let priority = posts[i].priority;
-
-          if(priority == 'High'){
-            setMainPost(posts[i]);
-            setMainPostCover(posts[i].logo)
-          } else if(priority == 'Medium'){
-            listArray.push(posts[i]);
-          } else{
-            listArray.push(posts[i]);
-          }
-
-         setNewsList(listArray);
+        let postClass = posts[i].class;
+        let postPriority = posts[i].priority;
+         if(postClass == 'trending' && postPriority == 'high' ){
+           setMainPost(posts[i]);
+         };
+         if(postClass == 'trending' && postPriority == 'medium'){
+          trends.push(posts[i]);
+         };
        };
 
-        // this function will organize each post by priority
+       setNewsList(trends);
     }
   
 
@@ -52,7 +49,7 @@ function Trend(){
         <h1 className='text-center mt-3'>Trending Topics</h1>
           <div className="main-post d-flex align-items-center justify-content-center">
             <div className="mainpost-cover-wrapper">
-              {mainPost ? <img className='mainpost-cover' src={mainPostCover} alt="" /> : ''}
+              {mainPost ? <img className='mainpost-cover' src={mainPost.coverLink} alt="" /> : ''}
             </div>
             <Link className="text-white text-decoration-none" to={"/articles/trending"}><h2>{mainPost ? mainPost.title : ''}</h2></Link>
           </div>

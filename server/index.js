@@ -20,9 +20,9 @@ const sanityApiVersion = '2023-08-01';
 const sanityToken = 'skbZxwUqhV9uT2NjJijdCkmXIB38b1t3gw3H4HgsGxyrvMc2a3y7cpo0uoi5slVjoaOluLArf46tXuJbLVGNal7ISRbGA9POVWGyPZ9lFRwBw9kdQKjT8Dxb57t52JNZChojjlVxCbgMHS2iOHsBB46tltRnJWNLesgWBU2ckvLsDV28EjpA';
 const sanityUrl = `https://${sanityProjectId}.api.sanity.io/v${sanityApiVersion}/data/query/${sanityDataset}`;
 
-const fetchTrending = async () => {
+const fetchContent = async (params) => {
   try {
-    const query = '*[_type == "trending"]{title, content, category, priority, cover, class, logo, coverImg}';
+    const query = '*[_type == "content"]{title, class, priority, type, coverLink, page}';
     const response = await axios.get(sanityUrl, {
       params: { query },
       headers: sanityToken ? { Authorization: `Bearer ${sanityToken}` } : {}
@@ -36,65 +36,15 @@ const fetchTrending = async () => {
   }
 };
 
-app.get('/api/trending', async (req, res) => {
+app.get('/api/content', async (req, res) => {
   try {
-    const data = await fetchTrending();
+    const data = await fetchContent();
     res.json(data);
   } catch (error) {
     res.status(500).send('Error fetching data from Sanity');
   }
 });
 
-
-const fetchFeatured = async () => {
-  try {
-    const query = '*[_type == "featured"]{title, content, category, priority, class, logo, coverImg, period, review}';
-    const response = await axios.get(sanityUrl, {
-      params: { query },
-      headers: sanityToken ? { Authorization: `Bearer ${sanityToken}` } : {}
-    });
-
-    const data = response.data.result;
-    return data;
-  } catch (error) {
-    console.error('Error fetching data from Sanity:', error);
-    throw error;
-  }
-};
-
-app.get('/api/featured', async (req, res) => {
-  try {
-    const data = await fetchFeatured();
-    res.json(data);
-  } catch (error) {
-    res.status(500).send('Error fetching data from Sanity');
-  }
-});
-
-const fetchModernPosts = async () => {
-  try {
-    const query = '*[_type == "featured"]{title, image, link, class}';
-    const response = await axios.get(sanityUrl, {
-      params: { query },
-      headers: sanityToken ? { Authorization: `Bearer ${sanityToken}` } : {}
-    });
-
-    const data = response.data.result;
-    return data;
-  } catch (error) {
-    console.error('Error fetching data from Sanity:', error);
-    throw error;
-  }
-};
-
-app.get('/api/modern', async (req, res) => {
-  try {
-    const data = await fetchGallery();
-    res.json(data);
-  } catch (error) {
-    res.status(500).send('Error fetching data from Sanity');
-  }
-});
 const fetchGallery = async () => {
   try {
     const query = '*[_type == "gallery"]{title, image, link, class}';
@@ -110,7 +60,6 @@ const fetchGallery = async () => {
     throw error;
   }
 };
-
 app.get('/api/gallery', async (req, res) => {
   try {
     const data = await fetchGallery();
@@ -119,10 +68,6 @@ app.get('/api/gallery', async (req, res) => {
     res.status(500).send('Error fetching data from Sanity');
   }
 });
-
-
-
-
 
 app.listen(port, () => {
   console.log(`Server is running on http://localhost:${port}`);
