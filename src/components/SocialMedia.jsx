@@ -1,17 +1,53 @@
-import '../style.css'
+import { useState, useEffect } from 'react';
+import { Link } from 'react-router-dom';
+import '../style.css';
+import axios from 'axios';
 
 
 function SocialMedia(){
+  const [facebook, setFacebook] = useState("");
+  const [instagram, setInstagram] = useState("");
+  const [twitter, setTwitter] = useState("");
+  const [links, setLinks] = useState(false);
+
+  async function fetchImgs() {
+    try {
+      const response = await axios.get('http://localhost:3001/api/gallery');
+      setImages(response.data)
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  const setImages = (gallery) => {
+    const fbLogo = gallery.find(image => image.title === 'fb-logo');
+    const igLogo = gallery.find(image => image.title === 'ig-logo');
+    const xLogo = gallery.find(image => image.title === 'x-logo');
+
+    setFacebook(fbLogo.link);
+    setInstagram(igLogo.link);
+    setTwitter(xLogo.link);
+    setLinks(true);
+
+  };
+ 
+   useEffect(() => {
+     fetchImgs()
+   }, []);
 
     return (
        <div className="container">
-         <div className="sm-div">
+         <div className="sm-div d-flex flex-column">
           <div className="heading">
-            <h2>This will be the heading</h2>
+            <h1>Follow us on Social Media!</h1>
           </div>
-          <div className="links">
-            <h4>Space for links</h4>
-          </div>
+          {links ? 
+            <div className="links">
+             <Link><img src={facebook} alt="Facebook" className='sm-links' /></Link>
+             <Link><img src={instagram} alt="Instagram" className='sm-links'/></Link>
+             <Link><img src={twitter} alt="Twitter" className='sm-links'/></Link>   
+           </div> : '' }
+          
          </div>
           
        </div>

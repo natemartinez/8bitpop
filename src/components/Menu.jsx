@@ -6,12 +6,18 @@ import axios from 'axios';
 
 function Menu() {
 
+   
+
   return (
     <>
       <div className='menu-bar'>
         <div className='profile '>
            <img className='profile-pic'></img>
            <h3 className='greeting'>Welcome, Big Doofus</h3>
+        </div>
+        <div>
+          <Link to="/register"><Button>Sign Up</Button></Link>
+          <Link to="/login"><Button>Log In</Button></Link>
         </div>
         <div className='menu-links'>
           <div className='link-wrapper d-flex justify-content-center' >

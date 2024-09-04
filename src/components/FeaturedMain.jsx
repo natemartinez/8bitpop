@@ -6,12 +6,15 @@ import axios from "axios";
 import Button from "react-bootstrap/Button";
 import '../style.css';
 
-function FeatureCarousel(){
+function FeatureMain(){
   const [posts, setPosts] = useState(null);
   const [mainReview, setMainReview] = useState(null);
+  const [viewportWidth, setViewportWidth] = useState(window.innerWidth);
 
-  // The API needs to send specific 'featured' data
-
+  window.addEventListener('resize', function() {
+    let currentWidth = window.innerWidth;
+    setViewportWidth(currentWidth);
+  });
 
   async function getFeatured() {
     try {
@@ -45,7 +48,7 @@ function FeatureCarousel(){
 
     return(
         <>
-         <div className="container">
+         <div className="container feat-topics">
           <div className="main-feature-wrapper"> 
           <h1 className='text-center mt-3'>Featured Topics</h1>
             <div className='featured-review-wrapper d-flex justify-content-center'>
@@ -56,23 +59,42 @@ function FeatureCarousel(){
                 </div> : ''}  
             </div>
 
-
-            <Carousel interval={null}>
-               {posts !== null ? posts.map((post, index) => 
-                  <div key={index} className="feature-card">
-                    <h2>Image</h2>
-                    <div className="feature-card-link">
-                      <a href="#" className="text-white text-decoration-none">
+          <div> 
+            {viewportWidth < 700 ? (
+              <Carousel interval={null}>
+                {posts && posts.length > 0 ? posts.map((post, index) => 
+                   <div key={index} className="feature-card">
+                    <div>
+                      <div className="feature-cover-wrapper">
+                         <img className="feature-cover" src={post.coverLink} alt="" />    
+                      </div>
+                      
+                      <a href="#" className="text-white text-decoration-none">              
                        <p className="p-3">{post.title}</p>
                       </a>
                     </div>
-                    
-                  </div>) : ''}
-            </Carousel>
-          </div>
+                   </div>
+                ) : ''}
+              </Carousel>
+            ) : (
+              posts && posts.length > 0 ? posts.map((post, index) => 
+                <div key={index} className="feature-card">
+                  <div>
+                    <div className="feature-cover-wrapper">
+                      <img className="feature-cover" src={post.coverLink} alt="" />
+                    </div>
+                   <a href="#" className="text-white text-decoration-none">
+                    <p className="p-3">{post.title}</p>
+                   </a>
+                 </div>
+                </div>
+              ) : ''
+            )}
+          </div> 
+         </div>
         </div> 
         </>
     )
 }
 
-export default FeatureCarousel;
+export default FeatureMain;

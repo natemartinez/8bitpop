@@ -6,7 +6,7 @@ import axios from 'axios';
 import Nav from '../Nav';
 import DOMPurify from 'dompurify';
 
-function Trending() {
+function Featured() {
   const [loading, setLoading] = useState(true);
   const [article, setArticle] = useState(null);
   const [coverImg, setCoverImg] = useState(null);
@@ -15,7 +15,8 @@ function Trending() {
   async function fetchArticle() {
     const articles = await axios.get('http://localhost:3001/api/content');
 
-    let curArticle = articles.data[0];
+    console.log(articles)
+  //  let curArticle = articles.data[0];
 
     setCoverImg('https://cdn.sanity.io/images/m5zbytnr/production/7e8014ad85ebae1fae3117ac9bdd07b15715ee60-1920x1370.jpg');
 
@@ -62,5 +63,4 @@ function Trending() {
   );
 }
 
-export default Trending;
-
+export default Featured;

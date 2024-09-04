@@ -6,18 +6,32 @@ body{
     overflow-x: hidden;
 }
 
+#logo{
+    width: 5em;
+}
+
 /* Nav Bar */
 .nav-bar{
-    margin-left: 5em;
+    width: 100%;
+    left: 5%;
+    position: relative;
 }
 .nav-btns{
     width: 5em;
     font-size: 1.25em!important;
+    margin: 0em 0.5em;
 }
 .main-btn{
     position: relative;
     background: transparent;
 
+}
+.control-dots{
+    display: none;
+}
+.default{
+    display: flex;
+    justify-content: center;
 }
 
 /*Menu Bar*/
@@ -87,9 +101,16 @@ body{
         font-size: 2.25em;
     }
 }
+@media screen and (min-width: 500px) and (max-width:1023px){
+    .menu-bar{
+        width: 10em;
+    }
+
+    
+}
 
   
-/*Article Cards, Carousels in Main */
+/*Article Cards, Carousels */
 .main-post{
   margin-top: 5em;
   flex-direction: row!important;
@@ -100,6 +121,9 @@ body{
 .trend-topics{
     margin-bottom: 5em;
 }
+.trend-icons{
+    width: 10%;
+}
 .mainpost-cover{
     width: 100%;
 }
@@ -108,17 +132,31 @@ body{
 }
 
 .feature-card{
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
-    width: 100%;
-    height: 20em;
+    width: 33%;
     background-color: gray;
     
 }
 .feature-card-link{
     padding: 5em;
 }
+.feature-cover{
+    width: 100%;
+}
+.feature-cover-wrapper{
+    width: 100%;
+    height: 50%;
+}
+.featured-review-wrapper{
+    width: 100%;
+}
+.featured-review{
+    width: 75%;
+    height: 15em;
+    padding: 5em;
+    background-color: gray;
+    margin: 1em 0em;
+}
+
 
 .carousel-indicators{
     margin-bottom: -4rem!important;
@@ -143,8 +181,6 @@ body{
     display: none;
 }
 
-/*Main page content*/
-
 .main-content{
     margin-left: 10em;
 }
@@ -153,24 +189,12 @@ body{
     justify-content: center;
 }
 
-.featured-review-wrapper{
-    width: 100%;
-}
-.featured-review{
-    width: 75%;
-    height: 15em;
-    padding: 5em;
-    background-color: gray;
-    margin: 1em 0em;
-}
-
 .article-cover-wrapper{
     width: 66%;
 }
 .article-cover{
     width: 100%;
 }
-
 
 
 .chest-img{
@@ -182,11 +206,20 @@ body{
 }
 
 @media screen and (max-width:500px) {
+    .main-content{
+        position: relative;
+        margin-bottom: 15em;
+    }
+
+
+    #logo{
+        width: 4em;
+    }
     .nav-btn-divs{
         flex-direction: column;
     }
     .btn.active{
-        font-size: 1.5em!important;
+        font-size: 1.2em!important;
         background-color: aqua!important;
         pointer-events: none;
     }
@@ -231,9 +264,11 @@ body{
     .feature-carousel-wrapper .article-card{
         margin-left: 2em;
     }
+    .feature-cover-wrapper{
+        height: 50%;
+    }
     .feature-card{
-        display: flex;
-        flex-direction: column;
+        width: 100%;
         height: 25em;
     }
     .feature-card-link{
@@ -287,13 +322,16 @@ body{
 
     /* Logos */
     .trend-icons{
-        width: 25%;
+        width: 15%;
         height: 10%;
     }
     .chest-img{
         width: 75%;
         height: 15em;
         margin-top: 2em;
+    }
+    .sm-links{
+        width: 20%;
     }
 
 }

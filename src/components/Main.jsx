@@ -8,8 +8,8 @@ import axios from 'axios';
 
 import Menu from './Menu';
 import Nav from './Nav';
-import Featured from './Featured';
-import Trend from './Trend';
+import FeaturedMain from './FeaturedMain';
+import TrendMain from './TrendMain';
 import SocialMedia from './SocialMedia';
 import Review from './Review';
 
@@ -19,9 +19,8 @@ function Main() {
   const [modernPage, setModernPage] = useState(false);
   const [futurePage, setFuturePage] = useState(false);
   const [loading, setLoading] = useState(false);
-
+  const [spotlights, setSpotlightContent] = useState(null);
   const [content, setContent] = useState(null);
-
   const [chestImg, setChestImg] = useState(null);
 
 
@@ -80,17 +79,15 @@ function Main() {
   };
 
   const getPageContent = (content, page) => {
-     console.log(content);
-     console.log(page);
-     let pageContent = [];
+    let curContent = [];
 
-    for(let i=0; i<content.length;i++){
-      if(content[i].class == null && content[i].page == 'modern'){
-        pageContent.push(content[i]);
-      };
-    };
+     for(let i = 0; i < content.length; i++){
+       if(content[i].page == page){
+         curContent.push(content[i]);
+       }
+     };
 
-     setContent(pageContent);
+     setContent(curContent);
      setLoading(false);
   };
 
@@ -109,12 +106,12 @@ function Main() {
 
   useEffect(() => {
     if(mainPage){
-      setTimeout(() => setLoading(false), [1000]);
+      setTimeout(() => fetchContent('main'), [500]);
     };
   }, [mainPage])
   useEffect(() => {
     if(retroPage){
-      setTimeout(() => setLoading(false), [1000]);
+      setTimeout(() => fetchContent('retro'), [500]);
     };
   }, [retroPage])
   useEffect(() => {
@@ -126,7 +123,7 @@ function Main() {
   }, [modernPage])
   useEffect(() => {
     if(futurePage){
-      setTimeout(() => setLoading(false), [1000]);
+      setTimeout(() => fetchContent('future'), [500]);
     };
   }, [futurePage])
 
@@ -137,7 +134,7 @@ function Main() {
        <Menu></Menu>
        <div className='container'>
         <Nav sendPage={changePage}></Nav>
-        {loading ? <h2>Loading...</h2> :
+        {loading ? <h1 className='text-center mt-5'>Loading...</h1> :
         <div className='main-content'>
           {retroPage ? 
             <div className='content retroPage'> 
@@ -205,12 +202,13 @@ function Main() {
                </div>
             </div> : ''}
           {mainPage ? <div>
-                       <Trend></Trend>
-                       <Featured></Featured>  
+                       <TrendMain></TrendMain>
+                       <FeaturedMain></FeaturedMain>  
                        <div className='indie-spotlight-wrapper'>
                         <h2>Indie Game Spotlight</h2>
                         <div className='indie-spotlight'>
                           <div className='featured-indie-game'>Indie Game Cover</div>
+                          <h2>Publisher/Developers</h2>
                           <img src={chestImg} alt="chest" className='chest-img' />
                         </div>                
                        </div>
@@ -274,12 +272,14 @@ function Main() {
                        </div>
                     
                       </div> : ''}
+
+         <SocialMedia></SocialMedia>    
+                  
         </div> 
-       }
-    
-        <SocialMedia></SocialMedia>      
+       }            
        </div>
 
+        
     </div>
   );
 }

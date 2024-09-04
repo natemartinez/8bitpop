@@ -3,13 +3,24 @@ import { Link } from 'react-router-dom';
 import Button from "react-bootstrap/Button";
 import '../style.css';
 import axios from 'axios';
+import { Carousel } from 'react-responsive-carousel';
 
 function Nav({ sendPage }) {
+  const [logo, setLogo] = useState(null);
   const [isMainActive, setMainActive] = useState(true);
   const [isModernActive, setModernActive] = useState(false);
   const [isRetroActive, setRetroActive] = useState(false);
   const [isFutureActive, setFutureActive] = useState(false);
-  const [isDisabled, setIsDisabled] = useState(null);
+  const [mobileView, setMobileView] = useState(false);
+
+  const [viewportWidth, setViewportWidth] = useState(window.innerWidth);
+ 
+
+  window.addEventListener('resize', function() {
+    let currentWidth = window.innerWidth;
+    setViewportWidth(currentWidth);
+  });
+
 
   const changePageBtn = (button) => {
     let newPage = button.target.value;
@@ -45,57 +56,84 @@ function Nav({ sendPage }) {
     }
 
   };
-
   const MainBtn = ({isActive, isDisabled}) => {
    // isActive = true;
    // isDisabled = false
-    const className = `nav-btns mx-4 ${isActive ? 'active' : ''}${isDisabled ? 'disabled' : ''}`;
+    const className = `nav-btns ${isActive ? 'active' : ''}${isDisabled ? 'disabled' : ''}`;
     return <Button className={className} onClick={changePageBtn} value="Main" >Main</Button>
   }
   const ModernBtn = ({isActive, isDisabled}) => {
    // isDisabled = false
-    const className = `nav-btns mx-4 ${isActive ? 'active' : ''}${isDisabled ? 'disabled' : ''}`;
+    const className = `nav-btns ${isActive ? 'active' : ''}${isDisabled ? 'disabled' : ''}`;
     return <Button className={className} onClick={changePageBtn} value="Modern" >Modern</Button>
   }
   const RetroBtn = ({isActive, isDisabled}) => {
    // isDisabled = false
-    const className = `nav-btns mx-4 ${isActive ? 'active' : ''}${isDisabled ? 'disabled' : ''}`;
+    const className = `nav-btns ${isActive ? 'active' : ''}${isDisabled ? 'disabled' : ''}`;
     return <Button className={className} onClick={changePageBtn} value="Retro" >Retro</Button>
   }
   const FutureBtn = ({isActive, isDisabled}) => {
    // isDisabled = false
-    const className = `nav-btns mx-4 ${isActive ? 'active' : ''}${isDisabled ? 'disabled' : ''}`;
+    const className = `nav-btns ${isActive ? 'active' : ''}${isDisabled ? 'disabled' : ''}`;
     return <Button className={className} onClick={changePageBtn} value="Future" >Future</Button>
   }
 
-  const checkPage = async(curPage) => {
-    console.log(curPage)
+  async function getLogo(){
+    try {
+      const response = await axios.get('http://localhost:3001/api/gallery');
+      let images = response.data;
+      for(let i=0; i < images.length; i++){
+        const logoImg = images.find(img => img.title == 'logo');   
+        setLogo(logoImg.link)
+      }
+    } catch (error) {
+      console.error(error);
+    }
   };
 
+  useEffect(() => {
+    getLogo();
+  }, []);
  
   // In the future, I should add a setTimeout() before the user can press another button
-
-
 
   return (
     <>
     <div className='container d-flex justify-content-center '>
-     <nav className='nav-bar mb-4'>
-       <div className='d-flex mb-4 justify-content-center'>
-        <h3>LOGO</h3>
-        <h2>8BitPOP</h2>
+     <nav className='nav-bar'>
+       <div className='d-flex mb-4 mt-3 justify-content-center align-items-center'>
+       {logo ? <img id='logo' src={logo} alt="logo" /> : ''} 
+        <h1>8BitPOP</h1>
        </div>  
-        <div className='d-flex nav-btn-divs'>
-          <div>
-            <MainBtn isActive={isMainActive}></MainBtn>
-            <ModernBtn isActive={isModernActive}></ModernBtn>
-          </div>
-          <div>
-            <RetroBtn isActive={isRetroActive}></RetroBtn> 
-            <FutureBtn isActive={isFutureActive}></FutureBtn>
-          </div>
-
-
+        <div className='nav-btn-divs'>
+          
+          {viewportWidth < 700 ?  
+               <Carousel>
+                  <div>
+                    <MainBtn isActive={isMainActive}></MainBtn>
+                    <ModernBtn isActive={isModernActive}></ModernBtn>
+                  </div>          
+                  <div>
+                    <RetroBtn isActive={isRetroActive}></RetroBtn> 
+                    <FutureBtn isActive={isFutureActive}></FutureBtn>
+                  </div>
+               </Carousel> : 
+               <div className='default'>
+                 <div>
+                   <MainBtn isActive={isMainActive}></MainBtn>
+                 </div>
+                 <div>
+                   <ModernBtn isActive={isModernActive}></ModernBtn>   
+                 </div>
+                  <div>
+                   <RetroBtn isActive={isRetroActive}></RetroBtn>  
+                  </div>      
+                 <div> 
+                   <FutureBtn isActive={isFutureActive}></FutureBtn>
+                 </div>    
+               </div>
+               }
+          
         </div>
      </nav>
     </div>

@@ -22,7 +22,7 @@ const sanityUrl = `https://${sanityProjectId}.api.sanity.io/v${sanityApiVersion}
 
 const fetchContent = async (params) => {
   try {
-    const query = '*[_type == "content"]{title, class, priority, type, coverLink, page}';
+    const query = '*[_type == "content"]{title, class, priority, type, coverLink, logoLink, page}';
     const response = await axios.get(sanityUrl, {
       params: { query },
       headers: sanityToken ? { Authorization: `Bearer ${sanityToken}` } : {}
@@ -66,6 +66,73 @@ app.get('/api/gallery', async (req, res) => {
     res.json(data);
   } catch (error) {
     res.status(500).send('Error fetching data from Sanity');
+  }
+});
+
+/* // may have to make call to check if user exists
+const checkUsers = async (userInfo) => {
+  try {
+    const query = '*[_type == "users"]{username, password}';
+    const response = await axios.get(sanityUrl, {
+      params: { query },
+      headers: sanityToken ? { Authorization: `Bearer ${sanityToken}` } : {}
+    });
+
+    const data = response.data.result;
+    return data;
+  } catch (error) {
+    console.error('Error fetching data from Sanity:', error);
+    throw error;
+  }
+};
+*/
+
+// The addUsers function
+const addUsers = async (username, password) => {
+  const userUrl = `https://${sanityProjectId}.api.sanity.io/v${sanityApiVersion}/data/mutate/${sanityDataset}`;
+
+  console.log(username);
+
+  const response = await fetch(userUrl, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      'Authorization': `Bearer ${sanityToken}`
+    },
+    body: JSON.stringify({
+      mutations: [
+        {
+          "create": {
+            _type: 'user',
+            username: username,
+            password: password
+          }
+        }
+      ]
+    })
+  });
+
+  return response.json();
+};
+
+// Endpoint to add a user
+app.post('api/add-user', async (req, res) => {
+  const { username, password } = req.body;
+
+  console.log(username);
+
+  if (!username || !password) {
+    return res.status(400).json({ error: 'Username and password are required' });
+  }
+
+  try {
+
+
+    const data = await addUsers(username, password);
+    res.status(201).json(data);
+  } catch (error) {
+    console.error('Error:', error);
+    res.status(500).json({ error: 'Failed to add user' });
   }
 });
 
