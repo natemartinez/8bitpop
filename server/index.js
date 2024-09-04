@@ -22,7 +22,7 @@ const sanityUrl = `https://${sanityProjectId}.api.sanity.io/v${sanityApiVersion}
 
 const fetchContent = async (params) => {
   try {
-    const query = '*[_type == "content"]{title, class, priority, type, coverLink, logoLink, page}';
+    const query = '*[_type == "content"]{title, class, priority, type, coverLink, logoLink, page, content, tob}';
     const response = await axios.get(sanityUrl, {
       params: { query },
       headers: sanityToken ? { Authorization: `Bearer ${sanityToken}` } : {}

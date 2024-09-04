@@ -7,7 +7,7 @@ import { Carousel, CarouselItem } from 'react-bootstrap';
 import axios from 'axios';
 
 import Menu from './Menu';
-import Nav from './Nav';
+import Nav from './NavMain';
 import FeaturedMain from './FeaturedMain';
 import TrendMain from './TrendMain';
 import SocialMedia from './SocialMedia';

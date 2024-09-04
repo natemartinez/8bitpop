@@ -99,6 +99,7 @@ body{
     }
     .link-wrapper {
         font-size: 2.25em;
+        margin-top: 0em;
     }
 }
 @media screen and (min-width: 500px) and (max-width:1023px){
@@ -363,4 +364,36 @@ body{
 .heading{
     background-color: #232326;
 
+}
+
+/*Actual article content*/
+@media screen and (max-width:500px) {
+
+    #content{
+        margin-bottom: 5em;
+        padding-bottom: 5em;
+        border-bottom: 1px solid white;
+    }
+
+    #comment-field{
+        width: 80%!important;
+        height: 250px;
+        background-color: transparent;
+        border: 1px solid white;
+        margin: 0 auto;
+        position: relative;
+    }
+
+    #content{
+        margin-top: 5em;
+    }
+}
+
+
+#comment-field{
+    width: 45%;
+    height: 250px;
+    background-color: transparent;
+    border: 1px solid white;
+    margin: 0 auto;
 }
