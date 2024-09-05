@@ -49,8 +49,9 @@ function FeatureMain(){
     return(
         <>
          <div className="container feat-topics">
+          <h1 className='text-center mt-3'>Featured Topics</h1>  
           <div className="main-feature-wrapper"> 
-          <h1 className='text-center mt-3'>Featured Topics</h1>
+          
             <div className='featured-review-wrapper d-flex justify-content-center'>
               {mainReview !== null ? 
                 <div className='featured-review'>
@@ -69,7 +70,7 @@ function FeatureMain(){
                          <img className="feature-cover" src={post.coverLink} alt="" />    
                       </div>
                       
-                      <a href="#" className="text-white text-decoration-none">              
+                      <a href="#" className="post-title text-white text-decoration-none">              
                        <p className="p-3">{post.title}</p>
                       </a>
                     </div>

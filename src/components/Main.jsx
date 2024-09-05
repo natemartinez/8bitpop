@@ -19,7 +19,7 @@ function Main() {
   const [modernPage, setModernPage] = useState(false);
   const [futurePage, setFuturePage] = useState(false);
   const [loading, setLoading] = useState(false);
-  const [spotlights, setSpotlightContent] = useState(null);
+  const [spotlight, setSpotlight] = useState(null);
   const [content, setContent] = useState(null);
   const [chestImg, setChestImg] = useState(null);
 
@@ -58,7 +58,6 @@ function Main() {
     }
 
   };
-
   async function fetchImgs() {
     try {
       const response = await axios.get('http://localhost:3001/api/gallery');
@@ -67,7 +66,6 @@ function Main() {
       console.error(error);
     }
   };
-
   async function fetchContent(page) {
     setLoading(true);
     try {
@@ -77,32 +75,34 @@ function Main() {
       console.error(error);
     }
   };
-
   const getPageContent = (content, page) => {
+
     let curContent = [];
+    let spotlightContent = [];
 
      for(let i = 0; i < content.length; i++){
        if(content[i].page == page){
-         curContent.push(content[i]);
-       }
+         if(content[i].class == 'spotlight'){
+           spotlightContent.push(content[i]);
+         }else{
+           curContent.push(content[i]);
+         } 
+       }   
      };
-
+    
      setContent(curContent);
+     setSpotlight(spotlightContent);
      setLoading(false);
   };
-
   const setImages = (gallery) => {
    const chest = gallery.find(image => image.title === 'chest');
 
    setChestImg(chest.link);
 
   };
-
   useEffect(() => {
     fetchImgs()
   }, []);
-
-
 
   useEffect(() => {
     if(mainPage){
@@ -205,12 +205,16 @@ function Main() {
                        <TrendMain></TrendMain>
                        <FeaturedMain></FeaturedMain>  
                        <div className='indie-spotlight-wrapper'>
-                        <h2>Indie Game Spotlight</h2>
-                        <div className='indie-spotlight'>
-                          <div className='featured-indie-game'>Indie Game Cover</div>
-                          <h2>Publisher/Developers</h2>
-                          <img src={chestImg} alt="chest" className='chest-img' />
-                        </div>                
+                        <h1 className='spotlight-header text-center'>Indie Game Spotlight</h1>
+                        {spotlight !== null ? spotlight.map((post, index) =>
+                          <div key={index} className='indie-spotlight'>
+                            <h2 className='m-3'>{post.title}</h2>
+                            <div className='featured-indie-game'>
+                              <img id='indie-game-cover' src={post.coverLink} alt="game cover" />
+                            </div>
+                            <p>Publisher/Developers: <strong>Mojang</strong></p>
+                            <img src={chestImg} alt="chest" className='chest-img' />
+                          </div>): ''}                    
                        </div>
                        <div className='game-releases'>
                          <h2>Game Releases</h2>

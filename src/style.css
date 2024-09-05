@@ -13,7 +13,6 @@ body{
 /* Nav Bar */
 .nav-bar{
     width: 100%;
-    left: 5%;
     position: relative;
 }
 .nav-btns{
@@ -34,6 +33,7 @@ body{
     justify-content: center;
 }
 
+
 /*Menu Bar*/
 .menu-bar{
     position: fixed;
@@ -43,7 +43,6 @@ body{
     z-index: 3;
     background-color: #232326;
 }
-
 .profile{
     display: flex;
     flex-direction: column;
@@ -59,7 +58,6 @@ body{
 .greeting{
     font-size: 0.75em;
 }
-
 .menu-links{
     display: flex;
     justify-content: space-evenly;
@@ -74,10 +72,18 @@ body{
     color: white
 }
 
+
 @media screen and (max-width: 500px){
+    #logo{
+        width: 5em;
+    }
+    .nav-btn-divs{
+        flex-direction: column;
+    }
 
     .nav-bar{
         margin-left: 0em;
+        left: 0%;
     }
 
     .main-btn{
@@ -93,12 +99,13 @@ body{
     }
     .menu-links{
         flex-direction: row;
+        margin-top: 10%;
     }
     .profile{
         display: none!important;
     }
     .link-wrapper {
-        font-size: 2.25em;
+        font-size: 1.75em;
         margin-top: 0em;
     }
 }
@@ -115,9 +122,18 @@ body{
 .main-post{
   margin-top: 5em;
   flex-direction: row!important;
+  padding: 1em;
+  background-color: #232326;
+  border-radius: 10px;
+  box-shadow: rgba(0, 0, 0, 0.25) 0px 54px 55px, rgba(0, 0, 0, 0.12) 0px -12px 30px, rgba(0, 0, 0, 0.12) 0px 4px 6px, rgba(0, 0, 0, 0.17) 0px 12px 13px, rgba(0, 0, 0, 0.09) 0px -3px 5px;
 }
 .news-list{
     margin-top: 5em;
+}
+.news-list-wrapper{
+    width: 40%;
+    background-color: #232326;
+    box-shadow: rgba(0, 0, 0, 0.25) 0px 54px 55px, rgba(0, 0, 0, 0.12) 0px -12px 30px, rgba(0, 0, 0, 0.12) 0px 4px 6px, rgba(0, 0, 0, 0.17) 0px 12px 13px, rgba(0, 0, 0, 0.09) 0px -3px 5px;
 }
 .trend-topics{
     margin-bottom: 5em;
@@ -134,7 +150,7 @@ body{
 
 .feature-card{
     width: 33%;
-    background-color: gray;
+    background-color:#232326;
     
 }
 .feature-card-link{
@@ -146,6 +162,10 @@ body{
 .feature-cover-wrapper{
     width: 100%;
     height: 50%;
+}
+.main-feature-wrapper{
+    box-shadow: rgba(0, 0, 0, 0.25) 0px 54px 55px, rgba(0, 0, 0, 0.12) 0px -12px 30px, rgba(0, 0, 0, 0.12) 0px 4px 6px, rgba(0, 0, 0, 0.17) 0px 12px 13px, rgba(0, 0, 0, 0.09) 0px -3px 5px;
+    background-color: #232326;
 }
 .featured-review-wrapper{
     width: 100%;
@@ -190,6 +210,13 @@ body{
     justify-content: center;
 }
 
+.game-tip {
+    width: 50%;
+    height: 15em;
+    background-color:#232326;
+    margin: 0 auto;
+}
+
 .article-cover-wrapper{
     width: 66%;
 }
@@ -212,13 +239,6 @@ body{
         margin-bottom: 15em;
     }
 
-
-    #logo{
-        width: 4em;
-    }
-    .nav-btn-divs{
-        flex-direction: column;
-    }
     .btn.active{
         font-size: 1.2em!important;
         background-color: aqua!important;
@@ -244,10 +264,21 @@ body{
     .main-post{
         flex-direction: column!important;
         margin-top: 1.5em;
+        padding: 0em;
     }
     .mainpost-cover-wrapper{
-        margin: 2em;
+        margin: 0em;
         width: 100%;
+    }
+    .post-title{
+        padding: 2em;
+        font-size: 1.5em;
+    }
+
+    .news-list-wrapper{
+        width: 100%;
+        padding: 1em;
+        margin-top: 5em;
     }
 
     .article-cover{
@@ -286,6 +317,12 @@ body{
     } 
 
 
+    .indie-spotlight-wrapper{
+        margin-top: 5em;
+    }
+    .spotlight-header{
+        font-size: 2em;
+    }
     .indie-spotlight{
         display: flex;
         flex-direction: column;
@@ -293,10 +330,12 @@ body{
         margin-top: 5em;
         margin-bottom: 5em;
     }
+    #indie-game-cover{
+        width: 100%;
+    }
    
     .featured-indie-game{
         width: 50%;
-        height: 15em;
         background-color: black;
         border: 2px solid white;
     }
@@ -316,7 +355,6 @@ body{
     .game-tip{
         width: 50%;
         height: 15em;
-        background-color: aquamarine;
         margin: 0 auto;
     }
 
@@ -365,16 +403,20 @@ body{
     background-color: #232326;
 
 }
+.sm-links{
+    width: 5em;
+}
 
 /*Actual article content*/
 @media screen and (max-width:500px) {
 
     #content{
+        margin-top: 5em;
         margin-bottom: 5em;
         padding-bottom: 5em;
         border-bottom: 1px solid white;
+        border-width: 50%;
     }
-
     #comment-field{
         width: 80%!important;
         height: 250px;
@@ -384,9 +426,11 @@ body{
         position: relative;
     }
 
-    #content{
+    .next-articles{
         margin-top: 5em;
+        margin-bottom: 10em;
     }
+
 }
 
 

@@ -1,3 +1,5 @@
+require('dotenv').config();
+
 const axios = require('axios');
 const express = require('express');
 const cors = require('cors');
@@ -14,10 +16,10 @@ app.use(cors());
 
 const port = 3001;
 
-const sanityProjectId = 'm5zbytnr';
-const sanityDataset = 'production';       
-const sanityApiVersion = '2023-08-01';    
-const sanityToken = 'skbZxwUqhV9uT2NjJijdCkmXIB38b1t3gw3H4HgsGxyrvMc2a3y7cpo0uoi5slVjoaOluLArf46tXuJbLVGNal7ISRbGA9POVWGyPZ9lFRwBw9kdQKjT8Dxb57t52JNZChojjlVxCbgMHS2iOHsBB46tltRnJWNLesgWBU2ckvLsDV28EjpA';
+const sanityProjectId = process.env.ID;
+const sanityDataset = process.env.DATASET;       
+const sanityApiVersion = process.env.API_VERSION;    
+const sanityToken = process.env.API_TOKEN;
 const sanityUrl = `https://${sanityProjectId}.api.sanity.io/v${sanityApiVersion}/data/query/${sanityDataset}`;
 
 const fetchContent = async (params) => {

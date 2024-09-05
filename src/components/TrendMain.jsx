@@ -10,7 +10,6 @@ function TrendMain(){
     const [mainPostCover, setMainPostCover] = useState(null);
     const [newsList, setNewsList] = useState(null);
 
-
     async function getTrends() {
       try {
         const response = await axios.get('http://localhost:3001/api/content');
@@ -38,7 +37,6 @@ function TrendMain(){
        setNewsList(trends);
 
     }
-  
 
     useEffect(() => {
       getTrends();    
@@ -51,16 +49,18 @@ function TrendMain(){
           <h1 className='text-center mt-3'>Trending Topics</h1>
           <h3 className="text-center">Check out what everyone's talking about</h3>
           <div className="main-post d-flex align-items-center justify-content-center">
-            <div className="mainpost-cover-wrapper">
+            <div className="mainpost-cover-wrapper mb-3">
               {mainPost ? <img className='mainpost-cover' src={mainPost.coverLink} alt="" /> : ''}
             </div>
-            <Link className="text-white text-decoration-none" to={"/articles/trending"}><h2>{mainPost ? mainPost.title : ''}</h2></Link>
+            <Link className="post-title text-center text-white text-decoration-none" to={"/articles/trending"}><h2>{mainPost ? mainPost.title : ''}</h2></Link>
           </div>
 
-          <div className="news-list">
+         <div className="news-list-wrapper">
+          <h2 className="text-center">Other Trending News</h2>
+           <div className="news-list">
               {newsList ?  
                 newsList.map((post, index) => 
-                  <div key={index} className="d-flex">
+                  <div key={index} className="d-flex align-items-center">
                     <img src={post.logoLink} className='trend-icons' alt="icon" />
                     <Link className="text-white text-decoration-none" to={"/articles/featured"}>
                      <h5>{post.title}</h5>
@@ -68,8 +68,9 @@ function TrendMain(){
                  
                   </div>
                 ): ''}
-          </div>
-         
+           </div>
+         </div>
+
         </div> 
         </>
     )

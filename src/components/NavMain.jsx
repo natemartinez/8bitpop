@@ -101,9 +101,10 @@ function Nav({ sendPage }) {
     <>
     <div className='container d-flex justify-content-center '>
      <nav className='nav-bar'>
-       <div className='d-flex mb-4 mt-3 justify-content-center align-items-center'>
-       {logo ? <img id='logo' src={logo} alt="logo" /> : ''} 
-        <h1>8BitPOP</h1>
+       <div className='d-flex mb-4 mt-2 justify-content-center align-items-center'>
+        <Link to="/new-user"><Button>Log In</Button></Link>
+        {logo ? <img id='logo' src={logo} alt="logo" /> : ''} 
+         <h1>8BitPOP</h1>
        </div>  
         <div className='nav-btn-divs'>
           
