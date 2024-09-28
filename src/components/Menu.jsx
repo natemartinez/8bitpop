@@ -5,7 +5,8 @@ import '../style.css';
 import axios from 'axios';
 
 function Menu() {
-
+  const [bookIcon, setBookIcon] = useState(null);
+  const [communityIcon, setCommunityIcon] = useState(null);
    
 
   return (
@@ -18,9 +19,10 @@ function Menu() {
 
         <div className='menu-links'>
           <div className='link-wrapper d-flex justify-content-center' >
-           <Link>News</Link>
+           <Link>Home</Link>
           </div>
           <div className='link-wrapper d-flex justify-content-center' >
+            
            <Link>Learn</Link>
           </div>
           <div className='link-wrapper d-flex justify-content-center' >

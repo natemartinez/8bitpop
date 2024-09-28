@@ -4,6 +4,7 @@ import { Link, useLocation } from 'react-router-dom';
 import 'react-multi-carousel/lib/styles.css';
 import { Button, Accordion } from 'react-bootstrap';
 import { Carousel, CarouselItem } from 'react-bootstrap';
+import 'react-calendar/dist/Calendar.css';
 import axios from 'axios';
 
 import Menu from './Menu';
@@ -12,6 +13,7 @@ import FeaturedMain from './FeaturedMain';
 import TrendMain from './TrendMain';
 import SocialMedia from './SocialMedia';
 import Review from './Review';
+import Calendar from './Calendar';
 
 function Main() {
   const [mainPage, setMainPage] = useState(true);
@@ -23,6 +25,9 @@ function Main() {
   const [content, setContent] = useState(null);
   const [chestImg, setChestImg] = useState(null);
 
+ // const location = useLocation();
+
+ // const userData = location.state?.userData;
 
   const changePage = (newPage) => {
     setLoading(true);
@@ -58,6 +63,7 @@ function Main() {
     }
 
   };
+
   async function fetchImgs() {
     try {
       const response = await axios.get('http://localhost:3001/api/gallery');
@@ -66,15 +72,28 @@ function Main() {
       console.error(error);
     }
   };
+  //receives all content that belongs in main pages
   async function fetchContent(page) {
     setLoading(true);
     try {
       const response = await axios.get('http://localhost:3001/api/content');
-      getPageContent(response.data, page)
+      getPageContent(response.data, page);
+      fetchReleases();
     } catch (error) {
       console.error(error);
     }
   };
+
+  async function fetchReleases() {
+    try {
+      const releaseInfo = await axios.get('http://localhost:3001/api/releases');
+      console.log(releaseInfo)
+    } catch (error) {
+      console.error(error)
+    }
+  };
+
+  //receives content to then divide them
   const getPageContent = (content, page) => {
 
     let curContent = [];
@@ -100,10 +119,11 @@ function Main() {
    setChestImg(chest.link);
 
   };
-  useEffect(() => {
-    fetchImgs()
-  }, []);
 
+
+  useEffect(() => {
+    fetchImgs();
+  }, []);
   useEffect(() => {
     if(mainPage){
       setTimeout(() => fetchContent('main'), [500]);
@@ -126,6 +146,8 @@ function Main() {
       setTimeout(() => fetchContent('future'), [500]);
     };
   }, [futurePage])
+
+
 
   // Make each retro, modern, and future page needs to be components
  
@@ -203,7 +225,14 @@ function Main() {
             </div> : ''}
           {mainPage ? <div>
                        <TrendMain></TrendMain>
-                       <FeaturedMain></FeaturedMain>  
+                       <FeaturedMain></FeaturedMain> 
+                       <div className='dyk'>
+                        <h2>Did You Know?</h2>
+                        <div className='d-flex flex-row'>
+                         <h1>Image</h1>
+                         <h3>Did you know</h3>  
+                        </div>         
+                       </div> 
                        <div className='indie-spotlight-wrapper'>
                         <h1 className='spotlight-header text-center'>Indie Game Spotlight</h1>
                         {spotlight !== null ? spotlight.map((post, index) =>
@@ -216,13 +245,20 @@ function Main() {
                             <img src={chestImg} alt="chest" className='chest-img' />
                           </div>): ''}                    
                        </div>
-                       <div className='game-releases'>
+                       <div className='game-releases m-5 '>
                          <h2>Game Releases</h2>
-                         <h4>This week</h4>
-                         <h4>Upcoming</h4>
+                         <div className='game-releases-ps5'>
+                          <h4>PlayStation 5</h4>
+                         </div>
+                         <div className='game-releases-xbox'>
+                          <h4>Xbox Series X/S</h4>
+                         </div>
+                         <div className='game-releases-pc'>
+                          <h4>PC</h4>
+                         </div>
                        </div>
-                       <div className='game-tips-wrapper'>
-                        <h2>Game Dev Tips</h2>
+                       <div className='game-tips-wrapper m-5'>
+                         <h2>Game Dev Tips</h2>
                          <Carousel interval={null}>
                             <CarouselItem>
                               <div className='game-tip'>
@@ -238,16 +274,18 @@ function Main() {
                             </CarouselItem>
                          </Carousel>
                        </div>
-                       <div>
-                        <h2>Current Game Jams</h2>
+                       <div className='game-jams-wrapper mt-5'>
+                        <div>
+                          <h2 className='text-center'>Upcoming Game Jams</h2>
+                          <Calendar></Calendar>
+                        </div>     
                        </div>
-                       <div>
-                        <h2>Polls, quizzes, personality tests - Similar to myers-briggs, but with games
-                        </h2>
-                       </div>
-                       <div>
-                        <h2>Best soundtracks</h2>
+
+                       <div className='mechanic-wrapper'>
+                        <h2>Deep dive into Game Mechanics</h2>
+                        {}
                         <Accordion defaultActiveKey="0" alwaysOpen>
+
                          <Accordion.Item eventKey="0">
                            <Accordion.Header>Accordion Item #1</Accordion.Header>
                            <Accordion.Body>
@@ -274,7 +312,14 @@ function Main() {
                          </Accordion.Item>
                         </Accordion>
                        </div>
-                    
+
+                       <div className='mod-news'>
+                        <h2>Oh My Mod! - Modding News</h2>
+                       </div>
+
+                       <div>
+                          <h2>Top 10's</h2>
+                       </div>
                       </div> : ''}
 
          <SocialMedia></SocialMedia>    
@@ -282,7 +327,6 @@ function Main() {
         </div> 
        }            
        </div>
-
         
     </div>
   );

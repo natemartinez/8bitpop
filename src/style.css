@@ -118,7 +118,7 @@ body{
 }
 
   
-/*Article Cards, Carousels */
+/*Main page */
 .main-post{
   margin-top: 5em;
   flex-direction: row!important;
@@ -131,7 +131,6 @@ body{
     margin-top: 5em;
 }
 .news-list-wrapper{
-    width: 40%;
     background-color: #232326;
     box-shadow: rgba(0, 0, 0, 0.25) 0px 54px 55px, rgba(0, 0, 0, 0.12) 0px -12px 30px, rgba(0, 0, 0, 0.12) 0px 4px 6px, rgba(0, 0, 0, 0.17) 0px 12px 13px, rgba(0, 0, 0, 0.09) 0px -3px 5px;
 }
@@ -177,37 +176,16 @@ body{
     background-color: gray;
     margin: 1em 0em;
 }
-
-
-.carousel-indicators{
-    margin-bottom: -4rem!important;
-}
-.carousel.carousel-slider .control-arrow:hover{
-    background: none;
-}
-.carousel-status{
-    display: none;
-}
-
-.article-card{
-    width: 10em;
-    height: 15em;
-    background-color: gray;
-    margin-bottom: 2.5em;
-    justify-content: center;
-    text-align: center;
-}
-
-.styles-module_carousel-arrow__26sRw{
-    display: none;
-}
-
 .main-content{
-    margin-left: 10em;
+    margin-left: 15em;
 }
 .content{
     display: flex;
     justify-content: center;
+}
+.dyk{
+    border: 1px solid white;
+    border-radius: 10px;
 }
 
 .game-tip {
@@ -224,6 +202,44 @@ body{
     width: 100%;
 }
 
+.game-jams-wrapper{
+    margin-top: 5em;
+}
+.react-calendar{
+    background-color: rgb(179, 175, 175)!important;
+}
+.react-calendar__navigation button{
+    color: black
+}
+
+.react-calendar__tile react-calendar__month-view__days__day react-calendar__month-view__days__day--weekend{
+    color: white;
+}
+
+/*Carousels*/
+.carousel-indicators{
+    margin-bottom: -4rem!important;
+}
+.carousel.carousel-slider .control-arrow{
+    opacity: 100%;
+}
+
+.carousel-status{
+    display: none;
+}
+
+.article-card{
+    width: 10em;
+    height: 15em;
+    background-color: gray;
+    margin-bottom: 2.5em;
+    justify-content: center;
+    text-align: center;
+}
+
+.styles-module_carousel-arrow__26sRw{
+    display: none;
+}
 
 .chest-img{
     width: 50%;
@@ -353,7 +369,7 @@ body{
     
 
     .game-tip{
-        width: 50%;
+        width: 75%;
         height: 15em;
         margin: 0 auto;
     }
@@ -376,7 +392,6 @@ body{
 }
 
 
-
 /*Retro Page */
 .retroPage{
     display: flex;
@@ -391,6 +406,15 @@ body{
     width: 100%;
     height: 100%;
 }
+
+.game-releases > div{
+    width: 66%;
+    height: 15em;
+    background-color: #232326;
+    margin: 0 auto;
+}
+
+
 
 /* Social Media */
 .sm-div{
@@ -440,4 +464,20 @@ body{
     background-color: transparent;
     border: 1px solid white;
     margin: 0 auto;
+}
+
+/* Sign up and Log In pages */
+.input-form{
+    display: flex;
+    flex-direction: column;
+    margin-top: 5em;
+    align-items: center;
+}
+
+.info-field-wrapper{
+    width: 75%;
+}
+.info-field{
+    height: 4em;
+    width: 100%;
 }
