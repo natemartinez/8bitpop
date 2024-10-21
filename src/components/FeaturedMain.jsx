@@ -49,9 +49,9 @@ function FeatureMain(){
     return(
         <>
          <div className="container feat-topics">
-          <h1 className='text-center mt-3'>Featured Topics</h1>  
+          <p className='feat-title text-center mt-3'>Featured Topics  - Use Grid Format</p>  
           <div className="main-feature-wrapper"> 
-          
+           
             <div className='featured-review-wrapper d-flex justify-content-center'>
               {mainReview !== null ? 
                 <div className='featured-review'>
@@ -60,7 +60,7 @@ function FeatureMain(){
                 </div> : ''}  
             </div>
 
-          <div> 
+          <div className='feature-posts d-flex flex-column'> 
             {viewportWidth < 700 ? (
               <Carousel interval={null}>
                 {posts && posts.length > 0 ? posts.map((post, index) => 

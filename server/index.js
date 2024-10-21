@@ -100,57 +100,44 @@ app.post('/api/users', async(req, res) => {
 });
 
 
-const fetchPS5Releases = async () => {
-  var currentTime = Date.now();
-  console.log(currentTime)
+const fetchGameReleases = async () => {
+  var currentTime = Math.floor(Date.now() / 1000);
 
   try {
     const response = await axios({
       method: 'POST',
-      url: 'https://api.igdb.com/v4/release_dates',
+      url: 'https://api.igdb.com/v4/games',
       headers: axiosHeaders,
-      data: `fields game; 
-             where game.platforms = 167 & date > ${currentTime}; 
-             sort date desc;
-             limit 10;`
-             // 167 = PS5 ID (found inside IGDB /platforms)
-    });
-    
-    searchGamesByIDs(response.data); // Should output a list of game details (name, first_release_date, platforms)
+      data: `fields name, first_release_date, rating, rating_count, cover.url, platforms;
+             where first_release_date > ${currentTime};
+             sort rating;
+             sort rating_count desc;
+             limit 6;`
+            
+    }); 
+  
+    // Should output a list of game details (name, first_release_date, platforms)
+    return response.data;
+
   } catch (error) {
     console.error('Error fetching upcoming releases:', error);
   }
 };
 
+
+// fetchPS5Releases => search game ID's based on output => back to upcoming releases with array of games and info
+
+
+
 app.get('/api/releases', async(req, res) => {
  try {
-   const releaseInfo = await fetchPS5Releases();
-   //res.status(200).json(releaseInfo); 
+   const gameReleases = await fetchGameReleases();
+   res.status(200).json(gameReleases);
  } catch (error) {
    console.error(error);
    res.status(500).json({ message: 'Error fetching releases' });
  }
 });
-
-// fetchPS5Releases => search game ID's based on output => back to upcoming releases with array of games and info
-
-const searchGamesByIDs = (idArray) => {
-
-  const newArr = idArray.map(curGame => curGame.game);
-
-   // need to find a way to search for multiple games within the idArray, to then output 
-   // an array of games and their info
-
-   axios.post('https://api.igdb.com/v4/games', `fields name; where id = (${newArr});`, {headers: axiosHeaders})
-   .then(response => {
-    console.log(response.data);
-   })
-   .catch(error => {
-    console.error(error);
-   });
-
-};
-
 
 app.listen(port, () => {
   console.log(`Server is running on http://localhost:${port}`);

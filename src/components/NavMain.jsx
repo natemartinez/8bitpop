@@ -99,12 +99,11 @@ function Nav({ sendPage }) {
 
   return (
     <>
-    <div className='container d-flex justify-content-center '>
+    <div className='container d-flex justify-content-center nav-wrapper'>
      <nav className='nav-bar'>
        <div className='d-flex mb-4 mt-2 justify-content-center align-items-center'>
-        <Link to="/login"><Button>Log In</Button></Link>
         {logo ? <img id='logo' src={logo} alt="logo" /> : ''} 
-         <h1>8BitPOP</h1>
+         <h1 id='site-name'>8BitPOP</h1>
        </div>  
         <div className='nav-btn-divs'>
           

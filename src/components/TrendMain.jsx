@@ -45,35 +45,49 @@ function TrendMain(){
 
     return(
        <>
-        <div className="container trend-topics">
-          <h1 className='text-center mt-3'>Trending Topics</h1>
-          <h3 className="text-center">Check out what everyone's talking about</h3>
+        <div className="trend-topic-wrapper">
+         <div className="trend-topics">
           <div>
-           <div className="main-post d-flex align-items-center justify-content-center">
-             <div className="mainpost-cover-wrapper mb-3">
-              {mainPost ? <img className='mainpost-cover' src={mainPost.coverLink} alt="" /> : ''}
+            <h3 className='trend-title text-center mt-3'>Trending Topics</h3>
+            <h3 className="text-center">Check out what everyone's talking about</h3>            
+          </div>
+          <div className="main-post-wrapper">
+            <div>
+             <div className="main-post d-flex justify-content-center">
+              <div className="mainpost-cover-wrapper mb-3">
+               {mainPost ? <img className='mainpost-cover' src={mainPost.coverLink} alt="" /> : ''}
+              </div>
+              <div className="mainpost-desc">
+               <Link className="post-title text-center text-white text-decoration-none" to={"/articles/trending"} >
+               <h3 className="pt-3 pb-3">{mainPost ? mainPost.title : ''}</h3>
+               </Link>
+               <p>
+                This will eventually be a quick intro sentence to the article. 
+                <br/>
+                Should be captivating
+               </p>              
              </div>
-             <Link className="post-title text-center text-white text-decoration-none" to={"/articles/trending"}><h2>{mainPost ? mainPost.title : ''}</h2></Link>
-             <p>This will eventually be a quick intro sentence to the article. Should be captivating</p>
-           </div>
 
-           <div className="news-list-wrapper">
-           <h2 className="text-center">Other Trending News</h2>
-           <div className="news-list">
-              {newsList ?  
+             </div>              
+            </div>
+            <div className="news-list-wrapper pt-3 pb-3">
+             <h2 className="text-center other-trend-title mt-3">Other Trending News</h2>
+              <div className="news-list">
+               {newsList ?  
                 newsList.map((post, index) => 
                   <div key={index} className="d-flex align-items-center">
                     <img src={post.logoLink} className='trend-icons' alt="icon" />
                     <Link className="text-white text-decoration-none" to={"/articles/featured"}>
-                     <h5>{post.title}</h5>
-                    </Link>
-                 
+                     <p className="news-list-items">{post.title}</p>
+                    </Link>        
                   </div>
                 ): ''}
-           </div>
-           </div>  
+              </div>
+            </div>  
           </div>
-        </div> 
+         </div>          
+        </div>
+ 
        </>
     )
 }
