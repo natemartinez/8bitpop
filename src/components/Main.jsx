@@ -66,10 +66,10 @@ function Main() {
 
   };
 
-  async function fetchImgs() {
+  async function fetchMedia(page) {
     try {
       const response = await axios.get('http://localhost:3001/api/gallery');
-      setImages(response.data)
+      setMedia(response.data, page)
     } catch (error) {
       console.error(error);
     }
@@ -80,7 +80,6 @@ function Main() {
     try {
       const response = await axios.get('http://localhost:3001/api/content');
       getPageContent(response.data, page);
-      fetchReleases();
     } catch (error) {
       console.error(error);
     }
@@ -111,12 +110,22 @@ function Main() {
          } 
        }   
      };
+     
+     if(page == 'main'){
+       fetchReleases();
+     }
+
+     console.log('Current content',curContent)
     
      setContent(curContent);
      setSpotlight(spotlightContent);
      setLoading(false);
   };
-  const setImages = (gallery) => {
+
+  const setMedia = (gallery, page) => {
+    console.log(gallery);
+    console.log(page);
+    
    const chest = gallery.find(image => image.title === 'chest');
 
    setChestImg(chest.link);
@@ -125,21 +134,23 @@ function Main() {
 
 
   useEffect(() => {
-    fetchImgs();
-  }, []);
-  useEffect(() => {
     if(mainPage){
-      setTimeout(() => fetchContent('main'), [500]);
+      setTimeout(() => 
+          fetchMedia('main'),
+          fetchContent('main'), [500]);
     };
   }, [mainPage])
   useEffect(() => {
     if(retroPage){
-      setTimeout(() => fetchContent('retro'), [500]);
+      setTimeout(() => 
+        fetchMedia('retro'),
+        fetchContent('retro'), [500]);
     };
   }, [retroPage])
   useEffect(() => {
     if(modernPage){
       setTimeout(() => 
+        fetchMedia('modern'),
         fetchContent('modern'),
       [500]);
     };
@@ -238,9 +249,11 @@ function Main() {
                 </div>
                 <div className='d-flex mt-3 mb-3 era-posts'>
                   <div>
-                    <h2>Image Placement</h2>
+                    <h2>Embed Video</h2>
                   </div>
-                  <h2>Video that shows behind the scenes content</h2>
+                  <div className='p-3'>
+                    <h2>Palworld Trailer</h2>
+                  </div>
                 </div>
                 <div className='d-flex mt-3 mb-3 era-posts'>
                   <div>
@@ -252,7 +265,7 @@ function Main() {
                   <div>
                     <h2>Image Placement</h2>
                   </div>
-                  <h2>Game storytelling elements</h2>
+                  <h2>Random Article Title</h2>
                 </div>   
               </div>
             </div> : ''}

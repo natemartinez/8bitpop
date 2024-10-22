@@ -41,7 +41,7 @@ const axiosHeaders = {
 
 const fetchContent = async (params) => {
   try {
-    const query = '*[_type == "content"]{title, class, priority, type, coverLink, logoLink, page, content, tob}';
+    const query = '*[_type == "article"]{title, class, priority, type, coverLink, logoLink, page, content, tob}';
     const response = await axios.get(sanityUrl, {
       params: { query },
       headers: sanityToken ? { Authorization: `Bearer ${sanityToken}` } : {}
@@ -65,7 +65,7 @@ app.get('/api/content', async (req, res) => {
 
 const fetchGallery = async () => {
   try {
-    const query = '*[_type == "gallery"]{title, image, link, class}';
+    const query = '*[_type == "gallery"]{title, page, type, image, link, class}';
     const response = await axios.get(sanityUrl, {
       params: { query },
       headers: sanityToken ? { Authorization: `Bearer ${sanityToken}` } : {}
