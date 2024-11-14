@@ -41,7 +41,7 @@ const axiosHeaders = {
 
 const fetchContent = async (params) => {
   try {
-    const query = '*[_type == "article"]{title, class, priority, type, coverLink, logoLink, page, content, tob}';
+    const query = '*[_type == "article"]{title, class, priority, type, coverLink, logoLink, coverImg, page, content, tob}';
     const response = await axios.get(sanityUrl, {
       params: { query },
       headers: sanityToken ? { Authorization: `Bearer ${sanityToken}` } : {}
@@ -62,6 +62,30 @@ app.get('/api/content', async (req, res) => {
     res.status(500).send('Error fetching data from Sanity');
   }
 });
+const fetchMechanics = async (params) => {
+  try {
+    const query = '*[_type == "mechanics"]{name, examples}';
+    const response = await axios.get(sanityUrl, {
+      params: { query },
+      headers: sanityToken ? { Authorization: `Bearer ${sanityToken}` } : {}
+    });
+
+    const data = response.data.result;
+    return data;
+  } catch (error) {
+    console.error('Error fetching data from Sanity:', error);
+    throw error;
+  }
+};
+app.get('/api/mechanics', async (req, res) => {
+  try {
+    const data = await fetchMechanics();
+    res.json(data);
+  } catch (error) {
+    res.status(500).send('Error fetching data from Sanity');
+  }
+});
+
 
 const fetchGallery = async () => {
   try {
@@ -99,7 +123,6 @@ app.post('/api/users', async(req, res) => {
   }
 });
 
-
 const fetchGameReleases = async () => {
   var currentTime = Math.floor(Date.now() / 1000);
 
@@ -124,11 +147,6 @@ const fetchGameReleases = async () => {
   }
 };
 
-
-// fetchPS5Releases => search game ID's based on output => back to upcoming releases with array of games and info
-
-
-
 app.get('/api/releases', async(req, res) => {
  try {
    const gameReleases = await fetchGameReleases();
@@ -137,6 +155,30 @@ app.get('/api/releases', async(req, res) => {
    console.error(error);
    res.status(500).json({ message: 'Error fetching releases' });
  }
+});
+
+const fetchArchives = async () => {
+  try {
+    const query = '*[_type == "archives"]{title, page, priority, coverLink}';
+    const response = await axios.get(sanityUrl, {
+      params: { query },
+      headers: sanityToken ? { Authorization: `Bearer ${sanityToken}` } : {}
+    });
+
+    const data = response.data.result;
+    return data;
+  } catch (error) {
+    console.error('Error fetching data from Sanity:', error);
+    throw error;
+  }
+};
+app.get('/api/archives', async (req, res) => {
+  try {
+    const data = await fetchArchives();
+    res.json(data);
+  } catch (error) {
+    res.status(500).send('Error fetching data from Sanity');
+  }
 });
 
 app.listen(port, () => {

@@ -27,18 +27,11 @@ function FeatureMain(){
 
   const organizeFeatures = (posts) => {
 
-    let features = [];
+    let mainPosts = posts.filter(posts => posts.page == 'main');
+    let featurePosts = mainPosts.filter(posts => posts.priority == 'low');
 
-    for(let i=0; i < posts.length; i++){
-      let postClass = posts[i].class;
-      let postPriority = posts[i].priority;
-       if(postClass == 'feature' && postPriority == 'low'){
-        features.push(posts[i]);
-       };
-     };
-
-     console.log(features)
-     setPosts(features);
+    console.log('Featured Posts: ', featurePosts)
+    setPosts(featurePosts);
   };
 
   useEffect(() => {
@@ -49,7 +42,7 @@ function FeatureMain(){
     return(
         <>
          <div className="container feat-topics">
-          <p className='feat-title text-center mt-3'>Featured Topics  - Use Grid Format</p>  
+          <p className='feat-title text-center mt-3'>Featured Topics</p>  
           <div className="main-feature-wrapper"> 
            
             <div className='featured-review-wrapper d-flex justify-content-center'>
@@ -60,7 +53,7 @@ function FeatureMain(){
                 </div> : ''}  
             </div>
 
-          <div className='feature-posts d-flex flex-column'> 
+          <div className='feature-posts d-flex flex-wrap'> 
             {viewportWidth < 700 ? (
               <Carousel interval={null}>
                 {posts && posts.length > 0 ? posts.map((post, index) => 
@@ -78,17 +71,18 @@ function FeatureMain(){
                 ) : ''}
               </Carousel>
             ) : (
-              posts && posts.length > 0 ? posts.map((post, index) => 
-                <div key={index} className="feature-card">
-                  <div>
+              posts && posts.length > 0 ? posts.map((post, index) =>               
+                 <div key={index} className="feature-card col-md-6">
+                   <div className="feature-card-content flex-column">
                     <div className="feature-cover-wrapper">
                       <img className="feature-cover" src={post.coverLink} alt="" />
                     </div>
-                   <a href="#" className="text-white text-decoration-none">
-                    <p className="p-3">{post.title}</p>
-                   </a>
+                    <a href="#" className="text-white text-decoration-none">
+                     <p className="p-3">{post.title}</p>
+                    </a>
+                  </div>
                  </div>
-                </div>
+              
               ) : ''
             )}
           </div> 

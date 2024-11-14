@@ -12,7 +12,6 @@ function Menu() {
   return (
     <>
      <div className='menu-bar-wrapper'>
-      <div className='menu-bar'>
         <div className='profile'>
            <img className='profile-pic'></img>
            <h3 className='greeting'></h3>
@@ -36,9 +35,8 @@ function Menu() {
           </div>
 
         </div>
-        
       </div>
-     </div>
+    
     </>
   );
 }

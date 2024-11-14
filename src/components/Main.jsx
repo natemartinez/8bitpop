@@ -23,13 +23,15 @@ function Main() {
   const [loading, setLoading] = useState(false);
   const [spotlight, setSpotlight] = useState(null);
   const [content, setContent] = useState(null);
-  const [chestImg, setChestImg] = useState(null);
+  const [gameReleases, setGameReleases] = useState(null);
 
-  const [gameReleases, setGameReleases] = useState(null)
+  const [modernVideo, setModernVideo] = useState(null);
+  const [modernArtCarousel, setModernArtCarousel] = useState(null);
 
- // const location = useLocation();
-
- // const userData = location.state?.userData;
+  const [retroGOTW, setRetroGOTW] = useState(null);
+  const [retroPosts, setRetroPosts] = useState(null);
+  const [archiveContent, setArchiveContent] = useState(null);
+  const [selectedPost, setSelectedPost] = useState('');
 
   const changePage = (newPage) => {
     setLoading(true);
@@ -79,12 +81,21 @@ function Main() {
     setLoading(true);
     try {
       const response = await axios.get('http://localhost:3001/api/content');
-      getPageContent(response.data, page);
+      setPageContent(response.data, page);
     } catch (error) {
       console.error(error);
     }
   };
-
+  async function fetchArchives(page) {
+    setLoading(true);
+    try {
+      const response = await axios.get('http://localhost:3001/api/archives');
+      console.log('Archives:', response.data);
+      setArchiveContent(response.data)
+    } catch (error) {
+      console.error(error);
+    }
+  };
   async function fetchReleases() {
     try {
       const releaseInfo = await axios.get('http://localhost:3001/api/releases');
@@ -94,41 +105,58 @@ function Main() {
       console.error(error)
     }
   };
+  async function fetchMechanics() {
+    try {
+      const releaseInfo = await axios.get('http://localhost:3001/api/mechanics');
+      console.log('Mechanics: ', releaseInfo.data);
+    } catch (error) {
+      console.error(error)
+    }
+  };
 
   //receives content to then divide them
-  const getPageContent = (content, page) => {
-
-    let curContent = [];
-    let spotlightContent = [];
-
-     for(let i = 0; i < content.length; i++){
-       if(content[i].page == page){
-         if(content[i].class == 'spotlight'){
-           spotlightContent.push(content[i]);
-         }else{
-           curContent.push(content[i]);
-         } 
-       }   
-     };
-     
-     if(page == 'main'){
-       fetchReleases();
-     }
-
-     console.log('Current content',curContent)
+  const setPageContent = (content, page) => {
+    let curContent = content.filter(item => item.page === page);
     
-     setContent(curContent);
-     setSpotlight(spotlightContent);
-     setLoading(false);
+    if(page == 'main'){
+       fetchReleases();
+       fetchMechanics();
+       setContent(curContent);
+    }
+    if(page == 'modern'){
+      setContent(curContent);
+    }
+    if(page == 'retro'){
+      let gameoftheweek = curContent.filter(item => item.priority == 'high');
+      let retroPosts = curContent.filter(item => item.priority == 'medium');
+      let archivePosts = curContent.filter(item => item.priority == 'low');
+      fetchArchives();
+      //returns an array
+      setRetroGOTW(gameoftheweek[0]);
+      setRetroPosts(retroPosts);
+      setArchiveContent(archivePosts);
+    };
+
+    setLoading(false);
   };
 
   const setMedia = (gallery, page) => {
-    console.log(gallery);
-    console.log(page);
-    
-   const chest = gallery.find(image => image.title === 'chest');
 
-   setChestImg(chest.link);
+    const pageContents = gallery.filter(content => content.page === page);
+    const pageVideo = gallery.filter(content => content.page === page && content.type == 'video');
+    const pageArt = gallery.filter(content => content.page === page && content.type == 'photo');
+
+    if(page == 'modern'){
+      setModernArtCarousel(pageArt);
+      setModernVideo(pageVideo);      
+    };
+
+
+  };
+
+  /*Function for Retro Page */
+  const changePosts = () => {
+    // This function will look at articles endpoint with a query to what was clicked
 
   };
 
@@ -174,61 +202,58 @@ function Main() {
         <div className='main-content'>
           {retroPage ? 
             <div className='content retroPage'> 
-             <div className='d-flex flex-column mt-4 mb-4'>
-              <h2>This is the retro page</h2>
-              <div>
-                  <div>
+             <div className='d-flex mt-4 mb-4 '>
+             {retroGOTW !== null ?    
+              <div className='d-flex flex-column align-items-center'>
+                <div className='mb-5 mt-3'>
                     <h3>Retro Game of the Week</h3>
-                  </div>                
-                <div className='era-main d-flex'>
-                  <div>
-                   <h2>Image</h2>
-                   <h3>Random Game</h3>
+                </div>  
+                <div className='d-flex justify-content-center container mt-3'>
+                  <div className='col-lg-5'>
+                    <img className='retro-gotw' src={retroGOTW.coverLink} alt={retroGOTW.title} />
                   </div>
-                  <div>
-                    <h2>Make a mini-article intro</h2>
-                    <p>Should be a headline and description of about 3-4 sentences</p>
+                  <div className='era-main col-lg-3 mx-5'>
+                    <h3 className='text-center'>A look back at:</h3>
+                    <p className='retro-gotw-title text-center'>{retroGOTW.title}</p>
                   </div>
-                </div>        
-
+                </div>  
+    
                 <div>
                   <h2>Similar games list</h2>
                 </div>
-              </div>
+              </div> : '' } 
+             </div>     
+             {retroPosts !== null ? retroPosts.map((post, index) =>  
+                <div className='retro-feature mb-5 d-flex justify-content-center' key={index}>
+                  <div className='d-flex flex-row era-posts p-5'>
+                    <div className='retro-feature-div border border-primary'>
+                      <img className='retro-feature-img' src={post.coverLink} alt="" />
+                    </div>
+                 
+                   <div>
+                    <h2>{post.title}</h2>
+                    <p>This is just an example of the mini description for the article.</p>
+                    <p>The description should be intriging.</p>
+                    <Button value='Read More'>Read More</Button>
+                   </div>     
+                </div>
+               <div></div>
+                </div>) :  ''}
 
-             </div>        
-             <div className='retro-feature mb-5'>
-               <div className='d-flex era-posts p-5'>
-                 <div className='retro-feature-img border border-primary'>
-                  <h3>Image</h3>
-                 </div>
-                 
-                 <div>
-                  <h2>Title</h2>
-                  <p>This is just an example of the mini description for the article.</p>
-                  <p>The description should be intriging.</p>
-                  <Button value='Read More'>Read More</Button>
-                 </div>
-                 
-               </div>
-               <div></div>
-             </div>
-             <div className='retro-feature'>
-               <div className='d-flex era-posts p-5'>
-                 <div className='retro-feature-img border border-primary'>
-                  <h3>Image</h3>
-                 </div>
-                 
-                 <div>
-                  <h2>Title</h2>
-                  <p>This is just an example of the mini description for the article.</p>
-                  <p>The description should be intriging.</p>
-                  <Button value='Read More'>Read More</Button>
-                 </div>
-                 
-               </div>
-               <div></div>
-             </div>
+              <div className='archive d-flex flex-column'>
+                <div>
+                  <Carousel interval={null}>
+                    {archiveContent !== null ? archiveContent.map((post, index) =>
+                       <CarouselItem key={index}>
+                         <div>
+                           <img className='archive-cover' src={post.coverLink} alt="" />
+                           <h2>{post.title}</h2>
+                         </div>
+                       </CarouselItem>) : ''}
+                  </Carousel>
+                </div>
+                <Button onClick={(query) => changePosts(query)}>Select</Button>
+              </div>
             </div> : ''}
           {modernPage ? 
             <div className='content modernPage'>             
@@ -241,31 +266,66 @@ function Main() {
                  ): ''}                  
                 </div>
 
-                <div className='d-flex mt-3 mb-3 era-posts'>
+                <div className='d-flex flex-column align-items-center mt-1 mb-3 era-posts'>
                   <div>
-                    <h2>Image Placement</h2>
+                    <p className='modern-long-title'>Games with <strong>cartoon </strong>animations</p>
                   </div>
-                  <h2>Coolest art styles w/ examples of games using that style</h2>
+                  <div className='art-examples mt-3'>
+                    
+                           <Carousel interval={null} className=''>
+                           {modernArtCarousel !== null ? modernArtCarousel.map((artItem, index) =>  
+                               <CarouselItem key={index}>
+                                   <div className='game-art'>
+                                     <div>
+                                       <h2>{artItem.title}</h2>
+                                     </div>
+                                     <div className='game-art-img'>
+                                       <img src={artItem.link} alt={artItem.title} />
+                                     </div>                    
+                                   </div>
+                               </CarouselItem>): '' }
+                           </Carousel> 
+                  </div>
                 </div>
-                <div className='d-flex mt-3 mb-3 era-posts'>
-                  <div>
-                    <h2>Embed Video</h2>
-                  </div>
+                <div className='d-flex flex-column mt-3 mb-3 era-posts'>
                   <div className='p-3'>
-                    <h2>Palworld Trailer</h2>
-                  </div>
-                </div>
-                <div className='d-flex mt-3 mb-3 era-posts'>
+                    <p className='modern-title'><strong>Palworld Trailer</strong></p>
+                  </div>                  
                   <div>
-                    <h2>Image Placement</h2>
+                    {modernVideo !== null ? 
+                      <div>
+                        <iframe className='game-trailer-div' width="560" height="315" src="https://www.youtube.com/embed/uV0zfAwazcs?si=8DwXGEd2LGvdy2Vh" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+                      </div>
+                    
+                    : ''}
                   </div>
-                  <h2>VR Indie Game Development</h2>
+
                 </div>
-                <div className='d-flex mt-3 mb-3 era-posts'>
+                <div className='d-flex flex-column mt-3 mb-3 era-posts'>
                   <div>
-                    <h2>Image Placement</h2>
+                    <p className='modern-long-title'><strong>VR Indie Game Development</strong></p>
                   </div>
-                  <h2>Random Article Title</h2>
+                  <div className='d-flex'>
+                   <div>
+                    <h2>Image Placement</h2>
+                   </div>
+                   <div>
+                    <p>Example text</p>
+                   </div>                    
+                  </div>       
+                </div>
+                <div className='d-flex flex-column mt-3 mb-3 era-posts'>
+                  <div>
+                  <p className='modern-long-title'><strong>Popular games with unique gameplay</strong></p>
+                  </div>
+                  <div className='d-flex'>
+                   <div>
+                    <h2>Image Placement</h2>
+                   </div>
+                   <div>
+                    <p>Example text</p>
+                   </div>                    
+                  </div>  
                 </div>   
               </div>
             </div> : ''}
@@ -314,14 +374,18 @@ function Main() {
                        </div>
                        <div className='game-releases d-flex flex-column align-items-center'>
                          <h2 className='mt-5 mb-5'>Upcoming Games</h2>
-                         <div className='game-releases-list d-flex '>
-                          <ul>
+                         <div className='game-releases-list d-flex'>
+                          <ul className='d-flex flex-column'>
                             {gameReleases !== null ? 
                               gameReleases.map((element, index) =>
-                               <li key={index} className='release-titles'>
-                                 <p>{element.name}</p>
+                               <li key={index} className='release-titles mt-4 flex-row d-flex'>
+                                {element.cover?.url ? 
+                                  (<img className='game-releases-cover' src={element.cover.url} alt="game cover" />) : 
+                                  (<img className='game-releases-cover' alt="game cover" />)
+                                }
+                                <p>{element.name}</p>
                                </li>
-                              ): ''}                  
+                              ) : ''}                  
                           </ul>
                          </div>
                        </div>
