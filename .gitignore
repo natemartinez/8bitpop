@@ -27,3 +27,5 @@ yarn-error.log*
 # HTTPS Proxy certificates
 localhost.pem
 localhost-key.pem
+
+refreshToken.js
