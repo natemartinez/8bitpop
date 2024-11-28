@@ -29,8 +29,6 @@ function FeatureMain(){
 
     let mainPosts = posts.filter(posts => posts.page == 'main');
     let featurePosts = mainPosts.filter(posts => posts.priority == 'low');
-
-    console.log('Featured Posts: ', featurePosts)
     setPosts(featurePosts);
   };
 

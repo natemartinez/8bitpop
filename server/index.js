@@ -39,6 +39,9 @@ const axiosHeaders = {
   'Content-Type': 'text/plain'
 };
 
+
+
+
 const fetchContent = async (params) => {
   try {
     const query = '*[_type == "article"]{title, class, priority, type, coverLink, logoLink, coverImg, page, content, tob}';
@@ -157,9 +160,9 @@ app.get('/api/releases', async(req, res) => {
  }
 });
 
-const fetchArchives = async () => {
+const fetchSpotlight = async () => {
   try {
-    const query = '*[_type == "archives"]{title, page, priority, coverLink}';
+    const query = '*[_type == "spotlight"]{title, link, platforms, description}';
     const response = await axios.get(sanityUrl, {
       params: { query },
       headers: sanityToken ? { Authorization: `Bearer ${sanityToken}` } : {}
@@ -172,9 +175,9 @@ const fetchArchives = async () => {
     throw error;
   }
 };
-app.get('/api/archives', async (req, res) => {
+app.get('/api/spotlight', async (req, res) => {
   try {
-    const data = await fetchArchives();
+    const data = await fetchSpotlight();
     res.json(data);
   } catch (error) {
     res.status(500).send('Error fetching data from Sanity');

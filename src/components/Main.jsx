@@ -15,6 +15,8 @@ import SocialMedia from './SocialMedia';
 import Review from './Review';
 import Calendar from './Calendar';
 
+import DOMPurify from 'dompurify';
+
 function Main() {
   const [mainPage, setMainPage] = useState(true);
   const [retroPage, setRetroPage] = useState(false);
@@ -22,6 +24,7 @@ function Main() {
   const [futurePage, setFuturePage] = useState(false);
   const [loading, setLoading] = useState(false);
   const [spotlight, setSpotlight] = useState(null);
+  const [spotlightInfo, setSpotlightInfo] = useState(null);
   const [content, setContent] = useState(null);
   const [gameReleases, setGameReleases] = useState(null);
 
@@ -76,6 +79,7 @@ function Main() {
       console.error(error);
     }
   };
+
   //receives all content that belongs in main pages
   async function fetchContent(page) {
     setLoading(true);
@@ -113,6 +117,17 @@ function Main() {
       console.error(error)
     }
   };
+  async function fetchSpotlight() {
+    try {
+      const spotlight = await axios.get('http://localhost:3001/api/spotlight');
+      console.log('Spotlight: ', spotlight.data);
+      
+      setSpotlightInfo(spotlight.data.description);
+      setSpotlight(spotlight.data)
+    } catch (error) {
+      console.error(error)
+    }
+  };
 
   //receives content to then divide them
   const setPageContent = (content, page) => {
@@ -139,7 +154,6 @@ function Main() {
 
     setLoading(false);
   };
-
   const setMedia = (gallery, page) => {
 
     const pageContents = gallery.filter(content => content.page === page);
@@ -154,18 +168,13 @@ function Main() {
 
   };
 
-  /*Function for Retro Page */
-  const changePosts = () => {
-    // This function will look at articles endpoint with a query to what was clicked
-
-  };
-
 
   useEffect(() => {
     if(mainPage){
       setTimeout(() => 
           fetchMedia('main'),
           fetchContent('main'), [500]);
+          fetchSpotlight();
     };
   }, [mainPage])
   useEffect(() => {
@@ -356,20 +365,21 @@ function Main() {
                         </div>
        
                        </div> 
-                       <div className='indie-spotlight-wrapper d-flex'>
+                       <div className='indie-spotlight-wrapper d-flex mt-4'>
+                        <h2 className='spotlight-header text-center mb-3'>Indie Game Spotlight</h2>
 
-                        <h2 className='spotlight-header text-center'>Indie Game Spotlight</h2>
-                        {spotlight !== null ? spotlight.map((post, index) =>
-                          <div key={index} className='indie-spotlight d-flex'>  
-                            <div className='featured-indie-game'>
-                              <h3 className='m-3'>{post.title}</h3>
-                              <img id='indie-game-cover' src={post.coverLink} alt="game cover" />
-                            </div>
-                            <div>
-                              <p>Publisher/Developers: <strong>Mojang</strong></p>
-                              <button>Buy on itch.io</button>
-                              <button>Buy on Google Play</button>                              
-                            </div>
+                        {spotlight !== null ? spotlight.map((game, index) =>
+                          <div key={index} className='indie-spotlight d-flex flex-column mt-4'>  
+                              <div className=' d-flex justify-content-center featured-indie-cover'>
+                                <div>
+                                 <h3 className='m-3'>{game.title}</h3>
+                                 <p>{game.platforms}</p>                                  
+                                </div>
+                                <img id='indie-game-cover' src={game.link} alt="game cover" />
+                              </div>
+                              <div className='d-flex text-center indie-description'>                           
+                                <p>{game.description}</p>
+                              </div>
                           </div>): ''}                    
                        </div>
                        <div className='game-releases d-flex flex-column align-items-center'>

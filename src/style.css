@@ -695,7 +695,7 @@ body{
         width: 100%;
     }
    
-    .featured-indie-game{
+    .featured-indie-cover{
         width: 50%;
         background-color: black;
         border: 2px solid white;
@@ -770,6 +770,11 @@ body{
     }
     .jam-names{
         font-size: 1.5em;
+    }
+
+    .indie-description{
+        padding: 2.5em 15em;
+        font-size: 1.2em;
     }
 }
 
