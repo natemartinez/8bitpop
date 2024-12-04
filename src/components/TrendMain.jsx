@@ -34,14 +34,9 @@ function TrendMain(){
 
     return(
        <>
-        <div className="trend-topic-wrapper">
-         <div className="trend-topics">
-          <div>
-            <h3 className='trend-title text-center mt-3'>Trending Topics</h3>
-            <h3 className="text-center">Check out what everyone's talking about</h3>            
-          </div>
-          <div className="main-post-wrapper">
-            <div>
+         <div className="trend-topics container">
+          <div className="col-6">
+           <div className="main-post-wrapper">
              <div className="main-post d-flex justify-content-center">
               <div className="mainpost-cover-wrapper mb-3">
                {mainPost !== null ? <img className='mainpost-cover' src={mainPost.coverLink} alt="" /> : ''}
@@ -55,26 +50,27 @@ function TrendMain(){
                 <br/>
                 Should be captivating
                </p>              
-             </div>
-            </div>              
-            </div>
-            <div className="news-list-wrapper pt-3 pb-3">
-             <h2 className="text-center other-trend-title mt-3">Other Trending News</h2>
+              </div>
+             </div>                
+           </div>            
+          </div>
+          <div className="col-6">
+            <div className="news-list-wrapper">
+              <h2 className="text-center other-trend-title mt-3">Other Trending News</h2>
               <div className="news-list">
                {newsList ?  
                 newsList.map((post, index) => 
                   <div key={index} className="d-flex align-items-center">
                     <img src={post.logoLink} className='trend-icons' alt="icon" />
                     <Link className="text-white text-decoration-none" to={"/articles/featured"}>
-                     <p className="news-list-items">{post.title}</p>
+                     <h3 className="news-list-items">{post.title}</h3>
                     </Link>        
                   </div>
                 ): ''}
-              </div>
-            </div>  
+              </div>              
+            </div>
           </div>
          </div>          
-        </div>
  
        </>
     )

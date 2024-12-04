@@ -7,6 +7,7 @@ import axios from 'axios';
 function Menu() {
   const [bookIcon, setBookIcon] = useState(null);
   const [communityIcon, setCommunityIcon] = useState(null);
+  const [mainReview, setMainReview] = useState(null);
    
 
   return (
@@ -28,15 +29,17 @@ function Menu() {
           <div className='link-wrapper d-flex justify-content-center' >
            <Link>Community</Link>
           </div>
-          <div className='ad-space-wrapper'>
-            <div className='ad-space'>
-              <h2>Ad Space</h2>
-            </div>            
-          </div>
-
+                       
+          <div className='featured-review-wrapper d-flex justify-content-center'>
+              {mainReview !== null ? 
+                <div className='featured-review'>
+                  <h2>{mainReview.title}</h2>
+                  <h2>Review Grade</h2>
+                </div> : ''}  
+          </div>   
+                  
         </div>
-      </div>
-    
+      </div>   
     </>
   );
 }

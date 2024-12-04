@@ -24,8 +24,8 @@ body{
     position: relative;
 }
 .nav-btns{
-    width: 5em;
-    font-size: 1.25em!important;
+    width: 7.5em;
+    font-size: 1.5em!important;
     margin: 0em 0.5em;
 }
 .main-btn{
@@ -150,10 +150,10 @@ body{
 }
 @media screen and (min-width: 1024px){
     .trend-title{
-        font-size: 2.25em!important;
+        font-size: 2em!important;
     }
     .other-trend-title{
-        font-size: 2em!important;
+        font-size: 1.5em!important;
     }
 
     .feat-title{
@@ -193,7 +193,7 @@ body{
     color: white;
 }
 .accordion-item{
-    width: 66%;
+    width: 75%;
 }
 .accordion-button:after {
     background-image: url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='%23ffffff'><path fill-rule='evenodd' d='M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z'/></svg>") !important;
@@ -223,8 +223,9 @@ body{
     margin: 0em 0vw;
 }
 .main-post{
-  width: 80%;
-  margin: 5vw 5vw;
+  width: 75%;
+  height: 25em;
+  margin: 3vw 3vw;
   flex-wrap: wrap;
   font-size: 1.5em;
   padding: 0em;
@@ -234,7 +235,7 @@ body{
 }
 /* Main: Trending*/
 .mainpost-cover-wrapper{
-    width: 50%;
+    width: 100%;
     padding: 1em;
 }
 .mainpost-cover{
@@ -246,13 +247,11 @@ body{
 .mainpost-desc p{
     font-size: 2em;
 }
-.trend-topic-wrapper{
-    width: 100%;
-}
+
 .trend-topics{
     display: flex;
-    flex-direction: column;
-    margin-bottom: 5em;
+    flex-direction: row;
+    margin-bottom: 2.5em;
 }
 .main-post-wrapper{
     display: flex;
@@ -268,8 +267,15 @@ body{
     font-size: 1.5em;
 }
 .news-list-wrapper{
+    margin-top: 5em;
     background-color: #232326;
     box-shadow: rgba(0, 0, 0, 0.25) 0px 54px 55px, rgba(0, 0, 0, 0.12) 0px -12px 30px, rgba(0, 0, 0, 0.12) 0px 4px 6px, rgba(0, 0, 0, 0.17) 0px 12px 13px, rgba(0, 0, 0, 0.09) 0px -3px 5px;
+}
+
+@media screen and (max-width: 500px){
+    .trend-topics{
+        flex-direction: column;
+    }
 }
 
 /*Main: Featured*/
@@ -278,15 +284,8 @@ body{
     font-weight: 500;
 }
 
-.main-feature-wrapper{
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-}
-
 .feature-card{
-    width: 33%;
-    background-color:#232326;
+    width: 50%;
     
 }
 .feature-card-link{
@@ -296,7 +295,7 @@ body{
     width: 100%;
 }
 .feature-cover-wrapper{
-    width: 100%;
+    width: 90%;
     height: 50%;
 }
 
@@ -312,9 +311,9 @@ body{
 }
 .feature-posts{
     width: 50%;
-    box-shadow: rgba(0, 0, 0, 0.25) 0px 54px 55px, rgba(0, 0, 0, 0.12) 0px -12px 30px, rgba(0, 0, 0, 0.12) 0px 4px 6px, rgba(0, 0, 0, 0.17) 0px 12px 13px, rgba(0, 0, 0, 0.09) 0px -3px 5px;
-    background-color: #232326;
+   
 }
+
 
 /*Main - Responsiveness*/
 @media screen and (min-width: 500px) and (max-width:1023px){
@@ -340,10 +339,10 @@ body{
         margin-left: 20em;
     }
     #site-name{
-        font-size: 2em;
+        font-size: 2.25em;
     }
     .nav-btns{
-        font-size: 1em!important;
+        font-size: 1.25em!important;
     }    
 
     .main-content{
@@ -357,17 +356,12 @@ body{
     .other-trend-title{
         font-size: 2em;
     }
-    .main-post{
-        width: 66%;
-        margin: 5vw 15vw;
-    }
     .mainpost-cover-wrapper{
-        width: 33%;
+        width: 90%;
     }
 
     .news-list-wrapper{
         height: 25em;
-        width: 66%;
     }
     .news-list{
         margin-top: 0em;
@@ -379,15 +373,18 @@ body{
         margin: 1em;
     }
     .trend-icons{
-        width: 5vw;
+        width: 3.5vw;
+        margin-top: 15px;
+    }
+
+    .post-title{
+        font-size: 1.5em;
     }
 
     .release-titles{
         font-size: 1.25em!important;
         list-style-type: none;
     }
-
-
     .top-ten-modules{
         width: 50%!important;
         margin: 2em 0em!important;
@@ -407,12 +404,16 @@ body{
 
 /*Indie Spotlight*/
 #indie-game-cover{
-    width: 10em;
+    width: 20em;
+    height: 20em;
 }
 .indie-spotlight-wrapper{
     display: flex;
     flex-direction: column;
     align-items: center;
+}
+.indie-description{
+    padding: 15em;
 }
 
 
@@ -515,11 +516,40 @@ body{
 }
 
 /*Game Mechanics*/
-.mech-accordion {
+.mechanic-wrapper{
+    margin: 10em 0em;
+    position: relative;
+}
+#mech-accordion {
     display: flex;
     flex-direction: column;
     align-items: center;
-    width: 66%;
+    width: 100%;
+}
+
+#mechanic-bkgrd{
+    width: 100%;
+    height:75%;
+    position: absolute;
+    z-index: 1;
+    filter: brightness(40%);
+    left: 0;
+    top: 0;
+}
+#mechanic-text{
+    position: relative;
+    left: 0;
+    top: 0;
+    z-index: 2;
+}
+#mechanic-desc{
+    font-size: 1.3em;
+    margin-top: 3em;
+}
+
+.accordion-div{
+    width: 100%;
+    height: 10em;
 }
 .accordion-button{
     font-size: 1.25em!important;
@@ -773,11 +803,10 @@ body{
     }
 
     .indie-description{
-        padding: 2.5em 15em;
-        font-size: 1.2em;
+        padding: 2.5em 10em;
+        font-size: 1.5em;
     }
 }
-
 
 
 /*Modern, Retro, Future Main post */
@@ -795,6 +824,13 @@ body{
     background-color: #40404d;
     padding: 5em;
 }
+
+.game-art-title{
+    width: 10em;
+    height: 5em;
+    background-color: #303039;
+}
+
 
 /* Modern, Retro, Future videos */
 .modern-title{

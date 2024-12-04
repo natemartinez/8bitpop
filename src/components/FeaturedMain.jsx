@@ -39,28 +39,17 @@ function FeatureMain(){
 
     return(
         <>
-         <div className="container feat-topics">
-          <p className='feat-title text-center mt-3'>Featured Topics</p>  
-          <div className="main-feature-wrapper"> 
-           
-            <div className='featured-review-wrapper d-flex justify-content-center'>
-              {mainReview !== null ? 
-                <div className='featured-review'>
-                  <h2>{mainReview.title}</h2>
-                  <h2>Review Grade</h2>
-                </div> : ''}  
-            </div>
-
-          <div className='feature-posts d-flex flex-wrap'> 
-            {viewportWidth < 700 ? (
+         <div className="feat-topics container d-flex">
+          <div className="col-2"></div>
+          <div className='feature-posts col-8 d-flex flex-wrap'> 
+            {viewportWidth < 800 ? (
               <Carousel interval={null}>
                 {posts && posts.length > 0 ? posts.map((post, index) => 
                    <div key={index} className="feature-card">
                     <div>
                       <div className="feature-cover-wrapper">
                          <img className="feature-cover" src={post.coverLink} alt="" />    
-                      </div>
-                      
+                      </div>   
                       <a href="#" className="post-title text-white text-decoration-none">              
                        <p className="p-3">{post.title}</p>
                       </a>
@@ -76,7 +65,7 @@ function FeatureMain(){
                       <img className="feature-cover" src={post.coverLink} alt="" />
                     </div>
                     <a href="#" className="text-white text-decoration-none">
-                     <p className="p-3">{post.title}</p>
+                     <h3 className="post-title pt-3 pb-5">{post.title}</h3>
                     </a>
                   </div>
                  </div>
@@ -84,8 +73,8 @@ function FeatureMain(){
               ) : ''
             )}
           </div> 
+          <div className="col-2"></div>
          </div>
-        </div> 
         </>
     )
 }

@@ -18,6 +18,7 @@ import Calendar from './Calendar';
 import DOMPurify from 'dompurify';
 
 function Main() {
+  /*Content for Main Pages */
   const [mainPage, setMainPage] = useState(true);
   const [retroPage, setRetroPage] = useState(false);
   const [modernPage, setModernPage] = useState(false);
@@ -31,10 +32,16 @@ function Main() {
   const [modernVideo, setModernVideo] = useState(null);
   const [modernArtCarousel, setModernArtCarousel] = useState(null);
 
+  /*Content for Retro Page */
   const [retroGOTW, setRetroGOTW] = useState(null);
   const [retroPosts, setRetroPosts] = useState(null);
   const [archiveContent, setArchiveContent] = useState(null);
   const [selectedPost, setSelectedPost] = useState('');
+
+  /*Game Mechanic Content*/
+  const [mechanicBkgrd, setMechanicBkgrd] = useState(null);
+  const [mechanics, setMechanics] = useState(null);
+
 
   const changePage = (newPage) => {
     setLoading(true);
@@ -70,7 +77,6 @@ function Main() {
     }
 
   };
-
   async function fetchMedia(page) {
     try {
       const response = await axios.get('http://localhost:3001/api/gallery');
@@ -113,6 +119,7 @@ function Main() {
     try {
       const releaseInfo = await axios.get('http://localhost:3001/api/mechanics');
       console.log('Mechanics: ', releaseInfo.data);
+      setMechanics(releaseInfo.data);
     } catch (error) {
       console.error(error)
     }
@@ -155,15 +162,22 @@ function Main() {
     setLoading(false);
   };
   const setMedia = (gallery, page) => {
-
+    console.log(gallery)
     const pageContents = gallery.filter(content => content.page === page);
     const pageVideo = gallery.filter(content => content.page === page && content.type == 'video');
     const pageArt = gallery.filter(content => content.page === page && content.type == 'photo');
+
+    const mechanicBkgrd = gallery.find(content => content.title === 'gameMechanicBkgrd');
+
 
     if(page == 'modern'){
       setModernArtCarousel(pageArt);
       setModernVideo(pageVideo);      
     };
+
+    if(page == 'main'){
+      setMechanicBkgrd(mechanicBkgrd);
+    }
 
 
   };
@@ -290,6 +304,9 @@ function Main() {
                                      </div>
                                      <div className='game-art-img'>
                                        <img src={artItem.link} alt={artItem.title} />
+                                       <div className='game-art-title'>
+                                          <p>{artItem.title}</p>
+                                       </div>
                                      </div>                    
                                    </div>
                                </CarouselItem>): '' }
@@ -352,10 +369,10 @@ function Main() {
               </div>
 
             </div> : ''}
-          {mainPage ? <div>
+          {mainPage ? <div className='container'>
                        <TrendMain></TrendMain>
                        <FeaturedMain></FeaturedMain> 
-                       <div className='dyk d-flex justify-content-center mt-5 mb-5'>
+                       <div className='dyk d-flex justify-content-center mt-5 mb-5 container'>
                         <div className='dyk-box d-flex flex-column'>
                           <h4>Did You Know?</h4>
                           <div className='d-flex flex-row'>
@@ -365,15 +382,15 @@ function Main() {
                         </div>
        
                        </div> 
-                       <div className='indie-spotlight-wrapper d-flex mt-4'>
+                       <div className='indie-spotlight-wrapper d-flex mt-4 container'>
                         <h2 className='spotlight-header text-center mb-3'>Indie Game Spotlight</h2>
-
                         {spotlight !== null ? spotlight.map((game, index) =>
                           <div key={index} className='indie-spotlight d-flex flex-column mt-4'>  
                               <div className=' d-flex justify-content-center featured-indie-cover'>
-                                <div>
-                                 <h3 className='m-3'>{game.title}</h3>
-                                 <p>{game.platforms}</p>                                  
+                                <div className='d-flex flex-column align-items-center'>
+                                 <h2 className='m-5'>{game.title}</h2>
+                                 <h4><strong>Platforms:</strong></h4> 
+                                 <h4>{game.platforms}</h4>                                  
                                 </div>
                                 <img id='indie-game-cover' src={game.link} alt="game cover" />
                               </div>
@@ -382,7 +399,7 @@ function Main() {
                               </div>
                           </div>): ''}                    
                        </div>
-                       <div className='game-releases d-flex flex-column align-items-center'>
+                       <div className='game-releases d-flex flex-column align-items-center container'>
                          <h2 className='mt-5 mb-5'>Upcoming Games</h2>
                          <div className='game-releases-list d-flex'>
                           <ul className='d-flex flex-column'>
@@ -399,7 +416,7 @@ function Main() {
                           </ul>
                          </div>
                        </div>
-                       <div className='game-tips-wrapper d-flex flex-column align-items-center mt-5 mb-5'>
+                       <div className='game-tips-wrapper d-flex flex-column align-items-center mt-5 container'>
                          <h2 className='text-center mb-5'>Game Dev Tips</h2>
                          <Carousel interval={null} className=''>
                             <CarouselItem>
@@ -430,40 +447,46 @@ function Main() {
                             </CarouselItem>
                          </Carousel>
                        </div>
-                       <div className='mechanic-wrapper d-flex flex-column align-items-center mt-5 p-5'>
-                         <h2 className='text-center mb-5'>Deep dive into Game Mechanics</h2>
-                        
-                         <Accordion defaultActiveKey="0" alwaysOpen className='mech-accordion'>
-                          <Accordion.Item eventKey="0">
-                           <Accordion.Header>Accordion Item #1</Accordion.Header>
-                           <Accordion.Body>
-                             Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-                             eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad
-                             minim veniam, quis nostrud exercitation ullamco laboris nisi ut
-                             aliquip ex ea commodo consequat. Duis aute irure dolor in
-                             reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla
-                             pariatur. Excepteur sint occaecat cupidatat non proident, sunt in
-                             culpa qui officia deserunt mollit anim id est laborum.
-                           </Accordion.Body>
-                          </Accordion.Item>
-                          <Accordion.Item eventKey="1">
-                           <Accordion.Header>Accordion Item #2</Accordion.Header>
-                           <Accordion.Body>
-                             Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-                             eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad
-                             minim veniam, quis nostrud exercitation ullamco laboris nisi ut
-                             aliquip ex ea commodo consequat. Duis aute irure dolor in
-                             reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla
-                             pariatur. Excepteur sint occaecat cupidatat non proident, sunt in
-                             culpa qui officia deserunt mollit anim id est laborum.
-                           </Accordion.Body>
-                          </Accordion.Item>
-                         </Accordion>
-                                      
+                       <div className='mechanic-wrapper d-flex flex-column align-items-center container'>
+                        <div className='row'>
+                         <div className='col-2'></div>
+                         <div className='col-8'>
+                          <div className='mechanic-info'>
+                            <div className='mechanic-bkgrd-wrapper'>
+                             {mechanicBkgrd !== null ? <img id='mechanic-bkgrd' src={mechanicBkgrd.link} alt=""/> : ''} 
+                            </div>
+                           <div id='mechanic-text' className='m-5'>
+                            <h3> Deep dive into</h3>
+                            <h1>Game Mechanics</h1>
+                             <p id='mechanic-desc'>
+                              Lorem ipsum dolor sit amet consectetur adipisicing elit.<br></br> Consectetur fugit, aliquam ipsam animi officiis amet omnis explicabo<br></br> excepturi nesciunt quidem voluptas suscipit culpa quibusdam,<br></br> esse, perspiciatis magnam? Cupiditate, eligendi accusantium?
+                             </p>
+                           </div>
+                          </div>
+                         </div> 
+                         <div className='col-2'></div>
+                        </div>
+                        <div className='row'>
+                         <div className='col-8 mt-4'>
+                          <div className='accordion-div'>
+                            <Accordion defaultActiveKey="0" id='mech-accordion'>
+                            {mechanics !== null ? mechanics.map((mechanic, index) => 
+                                <Accordion.Item eventKey={index} key={index} >
+                                  <Accordion.Header>{mechanic.name}</Accordion.Header>
+                                  <Accordion.Body>
+                                   Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
+                                   eiusmod tempor incididunt ut labore et dolore magna aliqua. 
+                                  </Accordion.Body>
+                                </Accordion.Item> 
+                             ) : ''}
+                            </Accordion>
+                          </div>                           
+                         </div>
+                        </div>
                        </div>             
-                       <div className='game-jams-wrapper mt-5 mb-5'>
+                       <div className='game-jams-wrapper mt-5 mb-5 container'>
                         <div>
-                          <h2 className='text-center mb-5'>Upcoming Game Jams</h2>
+                          <h2 className='text-center mb-5 mt-3'>Upcoming Game Jams</h2>
                           <div className='d-flex'>
                             <Calendar></Calendar>
                             <div className='game-jams-list'>
@@ -508,9 +531,30 @@ function Main() {
                        </div>
                        <div className='top-ten d-flex align-items-center flex-column mt-4'>
                           <h2 className='mt-5'>Top 10's</h2>
-                          <div className='top-ten-modules'>Top 10 redemption arcs in Gaming</div>
-                          <div className='top-ten-modules'>Top 10 Debuts for Game Studios</div>
-                          <div className='top-ten-modules'>Top 10 redemption arcs in Gaming</div>
+                          <div className='top-ten-modules'>
+                            <div>
+                              <h4>Top 10 redemption arcs in Gaming</h4> 
+                            </div>
+                            <div>
+
+                            </div>
+                          </div>
+                          <div className='top-ten-modules'>
+                            <div>
+                              <h4>Top 10 Debuts for Game Studios</h4>
+                            </div>
+                            <div>
+
+                            </div>
+                          </div>
+                          <div className='top-ten-modules'>
+                            <div>
+                              <h4>Top 10 redemption arcs in Gaming</h4>  
+                            </div>
+                            <div>
+
+                            </div>     
+                          </div>
                        </div>
                       </div> : ''}
 
