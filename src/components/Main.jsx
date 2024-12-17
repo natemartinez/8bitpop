@@ -42,6 +42,10 @@ function Main() {
   const [mechanicBkgrd, setMechanicBkgrd] = useState(null);
   const [mechanics, setMechanics] = useState(null);
 
+  const [factTopic, setFactTopic] = useState(null);
+  const [factImage, setFactImage] = useState(null);
+  const [fact, setFact] = useState(null);
+
 
   const changePage = (newPage) => {
     setLoading(true);
@@ -118,8 +122,8 @@ function Main() {
   async function fetchMechanics() {
     try {
       const releaseInfo = await axios.get('http://localhost:3001/api/mechanics');
-      console.log('Mechanics: ', releaseInfo.data);
       setMechanics(releaseInfo.data);
+      console.log(releaseInfo.data)
     } catch (error) {
       console.error(error)
     }
@@ -131,6 +135,14 @@ function Main() {
       
       setSpotlightInfo(spotlight.data.description);
       setSpotlight(spotlight.data)
+    } catch (error) {
+      console.error(error)
+    }
+  };
+  async function fetchFacts() {
+    try {
+      const facts = await axios.get('http://localhost:3001/api/facts');
+      chooseFacts(facts.data);
     } catch (error) {
       console.error(error)
     }
@@ -181,6 +193,17 @@ function Main() {
 
 
   };
+  const chooseFacts = (arr) => {
+     if (!Array.isArray(arr) || arr.length === 0) {
+      throw new Error("Input must be a non-empty array.");
+     }
+    const randomIndex = Math.floor(Math.random() * arr.length);
+
+    console.log(arr[randomIndex])
+    setFactTopic(arr[randomIndex].topic);
+    setFactImage(arr[randomIndex].imageLink);
+    setFact(arr[randomIndex].fact);
+  };
 
 
   useEffect(() => {
@@ -189,6 +212,7 @@ function Main() {
           fetchMedia('main'),
           fetchContent('main'), [500]);
           fetchSpotlight();
+          fetchFacts();
     };
   }, [mainPage])
   useEffect(() => {
@@ -373,14 +397,18 @@ function Main() {
                        <TrendMain></TrendMain>
                        <FeaturedMain></FeaturedMain> 
                        <div className='dyk d-flex justify-content-center mt-5 mb-5 container'>
+                        {fact !== null && factTopic !== null && factImage !== null ? 
                         <div className='dyk-box d-flex flex-column'>
-                          <h4>Did You Know?</h4>
+                          <h4>{factTopic}</h4>
                           <div className='d-flex flex-row'>
-                           <h3>Image</h3>
-                           <h3>Did you know</h3>  
+                            <div className='col-6'>
+                              <img src={factImage} id='fact-image' alt="fact image" />
+                            </div>
+                            <div className='col-6'>
+                               <p id='fact'>{fact}</p> 
+                            </div>         
                           </div>  
-                        </div>
-       
+                        </div> : ''}
                        </div> 
                        <div className='indie-spotlight-wrapper d-flex mt-4 container'>
                         <h2 className='spotlight-header text-center mb-3'>Indie Game Spotlight</h2>
@@ -394,18 +422,21 @@ function Main() {
                                 </div>
                                 <img id='indie-game-cover' src={game.link} alt="game cover" />
                               </div>
+                              <div>
+                                <h3>Features:</h3>
+                              </div>
                               <div className='d-flex text-center indie-description'>                           
                                 <p>{game.description}</p>
                               </div>
                           </div>): ''}                    
                        </div>
-                       <div className='game-releases d-flex flex-column align-items-center container'>
-                         <h2 className='mt-5 mb-5'>Upcoming Games</h2>
-                         <div className='game-releases-list d-flex'>
-                          <ul className='d-flex flex-column'>
+                       <div className='game-releases-div container'>
+                         <h2 className=' text-center mt-5 mb-5'>Upcoming Games</h2>
+                         <div>
+                          <ul className='game-releases'>
                             {gameReleases !== null ? 
                               gameReleases.map((element, index) =>
-                               <li key={index} className='release-titles mt-4 flex-row d-flex'>
+                               <li key={index} className='release-titles mt-4 flex-column d-flex'>
                                 {element.cover?.url ? 
                                   (<img className='game-releases-cover' src={element.cover.url} alt="game cover" />) : 
                                   (<img className='game-releases-cover' alt="game cover" />)
@@ -447,8 +478,8 @@ function Main() {
                             </CarouselItem>
                          </Carousel>
                        </div>
-                       <div className='mechanic-wrapper d-flex flex-column align-items-center container'>
-                        <div className='row'>
+                       <div className='mechanic-wrapper container'>
+                        <div className='d-flex row  mb-4'>
                          <div className='col-2'></div>
                          <div className='col-8'>
                           <div className='mechanic-info'>
@@ -456,32 +487,42 @@ function Main() {
                              {mechanicBkgrd !== null ? <img id='mechanic-bkgrd' src={mechanicBkgrd.link} alt=""/> : ''} 
                             </div>
                            <div id='mechanic-text' className='m-5'>
-                            <h3> Deep dive into</h3>
+                            <h3> Deep dive into games with the best</h3>
                             <h1>Game Mechanics</h1>
                              <p id='mechanic-desc'>
                               Lorem ipsum dolor sit amet consectetur adipisicing elit.<br></br> Consectetur fugit, aliquam ipsam animi officiis amet omnis explicabo<br></br> excepturi nesciunt quidem voluptas suscipit culpa quibusdam,<br></br> esse, perspiciatis magnam? Cupiditate, eligendi accusantium?
                              </p>
                            </div>
                           </div>
-                         </div> 
-                         <div className='col-2'></div>
-                        </div>
-                        <div className='row'>
-                         <div className='col-8 mt-4'>
-                          <div className='accordion-div'>
-                            <Accordion defaultActiveKey="0" id='mech-accordion'>
-                            {mechanics !== null ? mechanics.map((mechanic, index) => 
-                                <Accordion.Item eventKey={index} key={index} >
-                                  <Accordion.Header>{mechanic.name}</Accordion.Header>
-                                  <Accordion.Body>
-                                   Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-                                   eiusmod tempor incididunt ut labore et dolore magna aliqua. 
-                                  </Accordion.Body>
-                                </Accordion.Item> 
-                             ) : ''}
-                            </Accordion>
-                          </div>                           
                          </div>
+                         <div className='col-2'></div> 
+                        </div>
+                        <div className='d-flex row mt-4'>
+                          <div className='col-2'></div>
+                          <div className='col-8 accordion-div'>
+                          <Accordion defaultActiveKey="0" id="mech-accordion">
+                           {mechanics !== null ? mechanics.map((mechanic, index) => (
+                              <Accordion.Item eventKey={index} key={index}>
+                                <Accordion.Header>{mechanic.name}</Accordion.Header>
+                                <Accordion.Body>
+                                  {mechanic.links && mechanic.links.length > index ? (
+                                    // Dynamically use the index if it exists within bounds
+                                    <a href={mechanic.links[index].url}>{mechanic.links[index].title}</a>
+                                  ) : (
+                                    // Fallback to the first link or show a placeholder
+                                    mechanic.links.length > 0 ? (
+                                      <a href={mechanic.links[0].url}>{mechanic.links[0].title}</a>
+                                    ) : (
+                                      <span>No links available</span>
+                                    )
+                                  )}
+                                </Accordion.Body>
+                              </Accordion.Item>
+                             )) : ''}
+                            </Accordion>
+
+                          </div> 
+                          <div className='col-2'></div>                          
                         </div>
                        </div>             
                        <div className='game-jams-wrapper mt-5 mb-5 container'>
@@ -558,11 +599,11 @@ function Main() {
                        </div>
                       </div> : ''}
 
-         <SocialMedia></SocialMedia>    
+          <SocialMedia></SocialMedia>    
                   
         </div> 
        }            
-       </div>
+      </div>
         
     </div>
   );

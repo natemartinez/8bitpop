@@ -38,25 +38,20 @@ function TrendMain(){
           <div className="col-6">
            <div className="main-post-wrapper">
              <div className="main-post d-flex justify-content-center">
-              <div className="mainpost-cover-wrapper mb-3">
+              <div className="mainpost-cover-wrapper mb-1">
                {mainPost !== null ? <img className='mainpost-cover' src={mainPost.coverLink} alt="" /> : ''}
               </div>
               <div className="mainpost-desc">
                <Link className="post-title text-center text-white text-decoration-none" to={"/articles/trending"} >
-                 <h3 className="pt-3 pb-3">{mainPost != null ? mainPost.title : ''}</h3>
-               </Link>
-                <p>
-                This will eventually be a quick intro sentence to the article. 
-                <br/>
-                Should be captivating
-               </p>              
+                 <h4 className="pt-1 pb-3">{mainPost != null ? mainPost.title : ''}</h4>
+               </Link>         
               </div>
              </div>                
            </div>            
           </div>
           <div className="col-6">
             <div className="news-list-wrapper">
-              <h2 className="text-center other-trend-title mt-3">Other Trending News</h2>
+              <h2 className="text-center other-trend-title mt-1">Other Trending News</h2>
               <div className="news-list">
                {newsList ?  
                 newsList.map((post, index) => 

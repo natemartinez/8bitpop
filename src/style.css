@@ -49,7 +49,22 @@ body{
     height: 100%;
     z-index: 3;
     background-color: #303039;
+    transition: width 0.3s ease;
 }
+
+.menu-bar-wrapper.collapsed {
+    width: 80px; /* Adjust as needed for the collapsed state */
+}
+  
+.menu-links {
+    transition: opacity 0.3s ease;
+}
+  
+.menu-links.hide-links {
+    opacity: 0;
+    pointer-events: none;
+}
+  
 
 .profile{
     display: flex;
@@ -73,6 +88,14 @@ body{
     padding: 1em;
     font-size: 1em;
 }
+#menu-btn{
+    background: transparent;
+    border: none;
+}
+#menu-btn img{
+    width: 30px;
+}
+
 .link-wrapper{
     margin-top: 2em;
     font-size: 1.75em;
@@ -139,6 +162,7 @@ body{
     .menu-bar-wrapper{
         width: 25%;
     }
+
     .link-wrapper a{
         font-size: 1em!important;
     }
@@ -155,6 +179,7 @@ body{
     .other-trend-title{
         font-size: 1.5em!important;
     }
+
 
     .feat-title{
         font-size: 1.75em!important;
@@ -218,6 +243,9 @@ body{
     margin-left: 20%;
 }
 
+
+
+/* Main: Trending*/
 .main-post-wrapper{
     width: 100%;
     margin: 0em 0vw;
@@ -233,7 +261,6 @@ body{
   border-radius: 10px;
   box-shadow: rgba(0, 0, 0, 0.25) 0px 54px 55px, rgba(0, 0, 0, 0.12) 0px -12px 30px, rgba(0, 0, 0, 0.12) 0px 4px 6px, rgba(0, 0, 0, 0.17) 0px 12px 13px, rgba(0, 0, 0, 0.09) 0px -3px 5px;
 }
-/* Main: Trending*/
 .mainpost-cover-wrapper{
     width: 100%;
     padding: 1em;
@@ -251,7 +278,7 @@ body{
 .trend-topics{
     display: flex;
     flex-direction: row;
-    margin-bottom: 2.5em;
+    margin-bottom: 1.5em;
 }
 .main-post-wrapper{
     display: flex;
@@ -327,22 +354,20 @@ body{
     }
 }
 @media screen and (min-width: 1024px){
-    .mainpost-desc p{
-        font-size: 1em;
+    .main-content{
+        padding: 1em 0em;
     }
-
     .link-wrapper{
         font-size: 2.25em;
     }
-    
     .nav-bar{
         margin-left: 20em;
     }
     #site-name{
-        font-size: 2.25em;
+        font-size: 2em;
     }
     .nav-btns{
-        font-size: 1.25em!important;
+        font-size: 1em!important;
     }    
 
     .main-content{
@@ -356,17 +381,30 @@ body{
     .other-trend-title{
         font-size: 2em;
     }
+    .mainpost-cover{
+        width: 10em;
+    }
     .mainpost-cover-wrapper{
-        width: 90%;
+        width: auto;
+    }
+    .mainpost-desc p{
+        font-size: 1em;
+    }
+    .main-post{
+        width: 25vw;
+        height: 350px;
     }
 
+
     .news-list-wrapper{
-        height: 25em;
+        width: 350px;
+        height: 350px;
+        margin-top: 2.5em;
     }
     .news-list{
         margin-top: 0em;
         padding: 0em 2em;
-        font-size: 1em;
+        font-size: 0.75em;
     }
     .news-list-items{
         font-size: 1.25em;
@@ -376,15 +414,11 @@ body{
         width: 3.5vw;
         margin-top: 15px;
     }
-
     .post-title{
-        font-size: 1.5em;
+        font-size: 1.2em;
+        padding: 3em;
     }
 
-    .release-titles{
-        font-size: 1.25em!important;
-        list-style-type: none;
-    }
     .top-ten-modules{
         width: 50%!important;
         margin: 2em 0em!important;
@@ -397,10 +431,19 @@ body{
     justify-content: center;
 }
 
+
+/*Did you know fact */
 .dyk-box{
     border: 1.5px solid white;
     border-radius: 10px;
 }
+#fact-image{
+    width: 350px;
+}
+#fact{
+    font-size: 1.5em;
+}
+
 
 /*Indie Spotlight*/
 #indie-game-cover{
@@ -416,8 +459,14 @@ body{
     padding: 15em;
 }
 
+@media screen and (min-width: 1024px){
+    #indie-game-cover{
+        width: 250px!important;
+        height: 250px!important;
+    }
+}
 
-
+/*Articles*/
 .article-cover-wrapper{
     width: 66%;
 }
@@ -432,22 +481,21 @@ body{
     font-size: 2em;
     list-style-type: none;
 }
-.game-releases > div{
-    width: 66%;
-    height: 25em;
-    background-color: #232326;
-    margin: 0 auto;
-}
+
 .game-releases-cover{
     width: 5em;
 }
-
 @media screen and (min-width: 1024px){
-    .game-releases > div{
-        width: 66%;
-        height: 50em;
+    .game-releases{
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(225px, 1fr));
+        padding: 0em 10em;
+        gap: 25px;
+    }
+    .release-titles{
         background-color: #232326;
-        margin: 0 auto;
+        font-size: 1.25em;
+        border-radius: 10px;
     }
 }
 
@@ -520,21 +568,17 @@ body{
     margin: 10em 0em;
     position: relative;
 }
-#mech-accordion {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    width: 100%;
-}
 
+.mechanic-bkgrd-wrapper{
+    max-height: 10em;
+}
 #mechanic-bkgrd{
-    width: 100%;
-    height:75%;
+    width: 75%;
+    height:25em;
     position: absolute;
     z-index: 1;
     filter: brightness(40%);
-    left: 0;
-    top: 0;
+    left: 10%;
 }
 #mechanic-text{
     position: relative;
@@ -546,10 +590,9 @@ body{
     font-size: 1.3em;
     margin-top: 3em;
 }
-
-.accordion-div{
+#mech-accordion{
     width: 100%;
-    height: 10em;
+    margin-top: 10em;
 }
 .accordion-button{
     font-size: 1.25em!important;
@@ -563,6 +606,26 @@ body{
     }
     .carousel{
         width: 80%;
+    }
+
+    #mechanic-bkgrd{
+        height: 300px;
+    }
+    #mechanic-text{
+        padding: 2.5em 5em;
+    }
+    #mechanic-text h3{
+        font-size: 1.25em;
+    }
+    #mechanic-text h1{
+        font-size: 2.25em;
+    }
+    #mechanic-text p{
+        font-size: 1em;
+    }
+
+    #mech-accordion{
+        margin-top: 2em;
     }
 }
 
