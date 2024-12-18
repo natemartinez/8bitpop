@@ -123,7 +123,7 @@ function Main() {
     try {
       const releaseInfo = await axios.get('http://localhost:3001/api/mechanics');
       setMechanics(releaseInfo.data);
-      console.log(releaseInfo.data)
+      console.log(releaseInfo.data);
     } catch (error) {
       console.error(error)
     }
@@ -500,26 +500,25 @@ function Main() {
                         <div className='d-flex row mt-4'>
                           <div className='col-2'></div>
                           <div className='col-8 accordion-div'>
-                          <Accordion defaultActiveKey="0" id="mech-accordion">
-                           {mechanics !== null ? mechanics.map((mechanic, index) => (
-                              <Accordion.Item eventKey={index} key={index}>
+                           <Accordion defaultActiveKey="0" id="mech-accordion">
+                              {mechanics !== null ? mechanics.map((mechanic, index) => (
+                               <Accordion.Item eventKey={index} key={index}>
                                 <Accordion.Header>{mechanic.name}</Accordion.Header>
-                                <Accordion.Body>
-                                  {mechanic.links && mechanic.links.length > index ? (
-                                    // Dynamically use the index if it exists within bounds
-                                    <a href={mechanic.links[index].url}>{mechanic.links[index].title}</a>
-                                  ) : (
-                                    // Fallback to the first link or show a placeholder
-                                    mechanic.links.length > 0 ? (
-                                      <a href={mechanic.links[0].url}>{mechanic.links[0].title}</a>
-                                    ) : (
-                                      <span>No links available</span>
-                                    )
-                                  )}
-                                </Accordion.Body>
-                              </Accordion.Item>
-                             )) : ''}
+                                 <Accordion.Body>
+                                   {mechanic.links && mechanic.links.length > 0 ? (
+                                     mechanic.links.map((link, linkIndex) => (
+                                      <div key={linkIndex}>
+                                       <a href={link.title}>{link.title}</a>
+                                      </div>
+                                    ))
+                                 ) : (
+                                     <span>No links available</span>
+                                )}
+                                 </Accordion.Body>
+                                </Accordion.Item>
+                              )) : ''}
                             </Accordion>
+
 
                           </div> 
                           <div className='col-2'></div>                          
