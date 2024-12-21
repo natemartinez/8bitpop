@@ -5,6 +5,8 @@ import NewUser from './components/NewUser';
 import Login from './components/Login';
 import Trending from './components/articles/Trending';
 import PhaserIntro from './components/devtips/PhaserIntro';
+import WorldBuilding from './components/devtips/WorldBuilding';
+import Characters from './components/devtips/Characters';
 
 
 function App() {
@@ -15,6 +17,8 @@ function App() {
       <Route path="/new-user" element={<NewUser/>} />
       <Route path="/articles/trending" element={<Trending/>} />
       <Route path="/devtips/phaser-intro" element={<PhaserIntro/>} />
+      <Route path="/devtips/world-building" element={<WorldBuilding/>} />
+      <Route path="/devtips/characters" element={<Characters/>} />
     </Routes>
     
   );

@@ -53,7 +53,7 @@ body{
 }
 
 .menu-bar-wrapper.collapsed {
-    width: 80px; /* Adjust as needed for the collapsed state */
+    width: 80px; 
 }
   
 .menu-links {
@@ -268,9 +268,7 @@ body{
 .mainpost-cover{
     width: 100%;
 }
-.mainpost-desc{
-    font-size: 1.5vw;
-}
+
 .mainpost-desc p{
     font-size: 2em;
 }
@@ -391,14 +389,14 @@ body{
         font-size: 1em;
     }
     .main-post{
-        width: 25vw;
-        height: 350px;
+        width: 20vw;
+        height: 300px;
     }
 
 
     .news-list-wrapper{
-        width: 350px;
-        height: 350px;
+        width: 400px;
+        height: 300px;
         margin-top: 2.5em;
     }
     .news-list{
@@ -416,7 +414,6 @@ body{
     }
     .post-title{
         font-size: 1.2em;
-        padding: 3em;
     }
 
     .top-ten-modules{
@@ -464,6 +461,10 @@ body{
         width: 250px!important;
         height: 250px!important;
     }
+    .indie-description{
+        padding: 1.5em 10em;
+        font-size: 1.25em;
+    }
 }
 
 /*Articles*/
@@ -473,7 +474,6 @@ body{
 .article-cover{
     width: 100%;
 }
-
 
 
 /*Game Releases */
@@ -497,6 +497,20 @@ body{
         font-size: 1.25em;
         border-radius: 10px;
     }
+}
+
+/*Itch Feed*/
+.itch-game{
+    width: 150px;
+}
+.itch-link{
+    color: white;
+    text-decoration: none;
+}
+.itch-link:hover{
+    color:beige;
+    cursor: pointer;
+
 }
 
 /*Game Dev Tips - Main & Format*/
@@ -592,7 +606,7 @@ body{
 }
 #mech-accordion{
     width: 100%;
-    margin-top: 10em;
+    margin-top: 2em;
 }
 .accordion-button{
     font-size: 1.25em!important;
@@ -625,7 +639,7 @@ body{
     }
 
     #mech-accordion{
-        margin-top: 2em;
+        margin-top: 0em;
     }
 }
 
@@ -787,12 +801,13 @@ body{
     #indie-game-cover{
         width: 100%;
     }
-   
     .featured-indie-cover{
         width: 50%;
         background-color: black;
         border: 2px solid white;
     }
+    
+
 
     .modernPage{
         flex-direction: column;
@@ -862,11 +877,6 @@ body{
         max-height: 30em;
     }
     .jam-names{
-        font-size: 1.5em;
-    }
-
-    .indie-description{
-        padding: 2.5em 10em;
         font-size: 1.5em;
     }
 }

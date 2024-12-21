@@ -9,8 +9,7 @@ function Menu() {
   const [communityIcon, setCommunityIcon] = useState(null);
   const [mainReview, setMainReview] = useState(null);
   const [menuBtn, setMenuBtn] = useState(null);
-  const [isCollapsed, setIsCollapsed] = useState(false); // State for menu collapse
-
+  const [isCollapsed, setIsCollapsed] = useState(false);
   // Function to fetch menu items
   async function getMenuItems() {
     try {
@@ -35,7 +34,6 @@ function Menu() {
   return (
     <>
       <div className={`menu-bar-wrapper ${isCollapsed ? 'collapsed' : ''}`}>
-        {/* Profile Section */}
         <div className='profile'>
           <img className='profile-pic' alt="Profile"></img>
           {!isCollapsed && <h3 className='greeting'>Welcome</h3>}
@@ -48,7 +46,6 @@ function Menu() {
           </div>
         </div>
 
-        {/* Menu Links */}
         <div className={`menu-links ${isCollapsed ? 'hide-links' : ''}`}>
           <Link id='login' to="/login">
             <Button>Log In</Button>
@@ -63,7 +60,6 @@ function Menu() {
             <Link to="/community">Community</Link>
           </div>
 
-          {/* Featured Review Section */}
           <div className='featured-review-wrapper d-flex justify-content-center'>
             {mainReview !== null ? (
               <div className='featured-review'>

@@ -1,14 +1,13 @@
-import {useState, useEffect } from "react";
+import { useEffect } from "react";
 import ModuleForm from "./ModuleForm";
-import axios from "axios";
 
-function WorldBuilding(){
+function Characters(){
   const [title, setTitle] = useState('');
   const [content, setContent] = useState('');
 
   async function fetchContent() {
     try {
-        const response = await axios.get('http://localhost:3001/api/content');
+        const response = await axios.get('http://localhost:3001/api/articles');
         const api = response.data;
         console.log(api)
         //const content = api.filter(data => data.page === 'menu');
@@ -18,15 +17,14 @@ function WorldBuilding(){
   }
 
   useEffect(() => {
-    console.log('useEffect is called')
     fetchContent();
   }, [])
     
  return (
     <div>
-        <ModuleForm title={title} content={content}/>
+        <ModuleForm title={'Getting Started with Phaser'} content={'Yummers'}/>
     </div>
  )
 }
 
-export default WorldBuilding;
+export default Characters;

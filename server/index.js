@@ -19,6 +19,7 @@ app.use((req, res, next) => {
 app.use(express.json());
 app.use(cors());
 
+
 connectDB();
 
 const port = 3001;
@@ -38,7 +39,6 @@ const axiosHeaders = {
   'Accept': 'application/json',
   'Content-Type': 'text/plain'
 };
-
 
 
 const fetchContent = async (params) => {
@@ -64,9 +64,10 @@ app.get('/api/content', async (req, res) => {
     res.status(500).send('Error fetching data from Sanity');
   }
 });
+
 const fetchMechanics = async (params) => {
   try {
-    const query = '*[_type == "mechanics"]{name, links, description}';
+    const query = '*[_type == "mechanics"]{name, links, description, articleTag}';
     const response = await axios.get(sanityUrl, {
       params: { query },
       headers: sanityToken ? { Authorization: `Bearer ${sanityToken}` } : {}
@@ -87,7 +88,6 @@ app.get('/api/mechanics', async (req, res) => {
     res.status(500).send('Error fetching data from Sanity');
   }
 });
-
 
 const fetchGallery = async () => {
   try {
@@ -148,7 +148,6 @@ const fetchGameReleases = async () => {
     console.error('Error fetching upcoming releases:', error);
   }
 };
-
 app.get('/api/releases', async(req, res) => {
  try {
    const gameReleases = await fetchGameReleases();
@@ -201,6 +200,29 @@ const fetchFacts = async () => {
 app.get('/api/facts', async (req, res) => {
   try {
     const data = await fetchFacts();
+    res.json(data);
+  } catch (error) {
+    res.status(500).send('Error fetching data from Sanity');
+  }
+});
+
+const fetchGameJams = async () => {
+  try {
+    const response = await axios({
+      method: 'GET',
+      url: 'https://alakajam.com/api/featuredEvent',
+      headers: axiosHeaders,
+    }); 
+
+    return response.data;
+
+  } catch (error) {
+    console.error('Error fetching upcoming releases:', error);
+  }
+};
+app.get('/api/jams', async (req, res) => {
+  try {
+    const data = await fetchGameJams();
     res.json(data);
   } catch (error) {
     res.status(500).send('Error fetching data from Sanity');

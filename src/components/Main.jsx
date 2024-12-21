@@ -6,6 +6,7 @@ import { Button, Accordion } from 'react-bootstrap';
 import { Carousel, CarouselItem } from 'react-bootstrap';
 import 'react-calendar/dist/Calendar.css';
 import axios from 'axios';
+import DOMPurify from 'dompurify';
 
 import Menu from './Menu';
 import Nav from './NavMain';
@@ -14,8 +15,8 @@ import TrendMain from './TrendMain';
 import SocialMedia from './SocialMedia';
 import Review from './Review';
 import Calendar from './Calendar';
+import ItchFeed from './widgets/ItchFeed'
 
-import DOMPurify from 'dompurify';
 
 function Main() {
   /*Content for Main Pages */
@@ -45,6 +46,9 @@ function Main() {
   const [factTopic, setFactTopic] = useState(null);
   const [factImage, setFactImage] = useState(null);
   const [fact, setFact] = useState(null);
+
+  const [featuredJam, setFeaturedJam] = useState(null);
+  const [jams, setJams] = useState(null);
 
 
   const changePage = (newPage) => {
@@ -147,6 +151,14 @@ function Main() {
       console.error(error)
     }
   };
+  async function fetchJams() {
+    try {
+      const facts = await axios.get('http://localhost:3001/api/jams');
+      sortJams(facts.data);
+    } catch (error) {
+      console.error(error)
+    }
+  };
 
   //receives content to then divide them
   const setPageContent = (content, page) => {
@@ -204,6 +216,11 @@ function Main() {
     setFactImage(arr[randomIndex].imageLink);
     setFact(arr[randomIndex].fact);
   };
+  const sortJams = (arr) => {
+    //let jams = arr.find(item => item.status === 'pending');
+
+    console.log(arr);
+  };
 
 
   useEffect(() => {
@@ -213,6 +230,7 @@ function Main() {
           fetchContent('main'), [500]);
           fetchSpotlight();
           fetchFacts();
+          fetchJams();
     };
   }, [mainPage])
   useEffect(() => {
@@ -242,8 +260,9 @@ function Main() {
  
   return (
     <div>
-       <Menu></Menu>
+       
        <div>
+        <Menu></Menu>
         <Nav sendPage={changePage}></Nav>
         {loading ? <h1 className='text-center mt-5'>Loading...</h1> :
         <div className='main-content'>
@@ -394,8 +413,8 @@ function Main() {
 
             </div> : ''}
           {mainPage ? <div className='container'>
-                       <TrendMain></TrendMain>
-                       <FeaturedMain></FeaturedMain> 
+                       <TrendMain/>
+                       <FeaturedMain/>
                        <div className='dyk d-flex justify-content-center mt-5 mb-5 container'>
                         {fact !== null && factTopic !== null && factImage !== null ? 
                         <div className='dyk-box d-flex flex-column'>
@@ -422,11 +441,13 @@ function Main() {
                                 </div>
                                 <img id='indie-game-cover' src={game.link} alt="game cover" />
                               </div>
-                              <div>
-                                <h3>Features:</h3>
-                              </div>
-                              <div className='d-flex text-center indie-description'>                           
-                                <p>{game.description}</p>
+                              <div className='d-flex align-items-center flex-column mt-3'>
+                                <div className='d-flex row mt-4'>
+                                 <h3>Plot:</h3>                                    
+                                </div>
+                                <div className='row indie-description'>                           
+                                  <p>{game.description}</p>
+                                </div>
                               </div>
                           </div>): ''}                    
                        </div>
@@ -447,6 +468,7 @@ function Main() {
                           </ul>
                          </div>
                        </div>
+                       <ItchFeed />
                        <div className='game-tips-wrapper d-flex flex-column align-items-center mt-5 container'>
                          <h2 className='text-center mb-5'>Game Dev Tips</h2>
                          <Carousel interval={null} className=''>
@@ -486,7 +508,7 @@ function Main() {
                             <div className='mechanic-bkgrd-wrapper'>
                              {mechanicBkgrd !== null ? <img id='mechanic-bkgrd' src={mechanicBkgrd.link} alt=""/> : ''} 
                             </div>
-                           <div id='mechanic-text' className='m-5'>
+                           <div id='mechanic-text'>
                             <h3> Deep dive into games with the best</h3>
                             <h1>Game Mechanics</h1>
                              <p id='mechanic-desc'>
@@ -508,7 +530,7 @@ function Main() {
                                    {mechanic.links && mechanic.links.length > 0 ? (
                                      mechanic.links.map((link, linkIndex) => (
                                       <div key={linkIndex}>
-                                       <a href={link.title}>{link.title}</a>
+                                       <a href={link.route}>{link.title}</a>
                                       </div>
                                     ))
                                  ) : (
@@ -528,19 +550,11 @@ function Main() {
                         <div>
                           <h2 className='text-center mb-5 mt-3'>Upcoming Game Jams</h2>
                           <div className='d-flex'>
-                            <Calendar></Calendar>
                             <div className='game-jams-list'>
-                              <ul>
-                                <li>
-                                  <p className='jam-names'>Game Jam 1</p>
-                                </li>
-                                <li>
-                                  <p className='jam-names'>Game Jam 1</p>
-                                </li>
-                                <li>
-                                  <p className='jam-names'>Game Jam 1</p>
-                                </li>
-                              </ul>
+                              <div>
+                                <p>For AlakaJam</p>
+                                <p>For Itch.io</p>
+                              </div>
                             </div>
                           </div>
                           
@@ -555,7 +569,7 @@ function Main() {
                                 <div>
                                   <h4>Image</h4>
                                 </div>
-                                <h2>Super Smash Bros. Mod</h2>
+                                <h2>Stardew Valley Mod</h2>
                               </div>
                             </CarouselItem>
                             <CarouselItem>

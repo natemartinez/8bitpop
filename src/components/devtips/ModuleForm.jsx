@@ -1,5 +1,4 @@
 import { Carousel, CarouselItem } from 'react-bootstrap';
-//This component will organize all dev tip content
 
 function ModuleForm({title, content, modules}){
 
