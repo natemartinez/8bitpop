@@ -59,7 +59,6 @@ function Menu() {
           <div className='link-wrapper d-flex justify-content-center'>
             <Link to="/community">Community</Link>
           </div>
-
           <div className='featured-review-wrapper d-flex justify-content-center'>
             {mainReview !== null ? (
               <div className='featured-review'>

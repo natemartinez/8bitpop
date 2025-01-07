@@ -39,41 +39,45 @@ function FeatureMain(){
 
     return(
         <>
-         <div className="feat-topics container d-flex">
-          <div className="col-2"></div>
-          <div className='feature-posts col-8 d-flex flex-wrap'> 
-            {viewportWidth < 800 ? (
+         <div className="feat-topics container d-flex justify-content-center">
+          
+          <div className='feature-posts justify-content-center row'> 
+            {viewportWidth < 500 ? (
               <Carousel interval={null}>
-                {posts && posts.length > 0 ? posts.map((post, index) => 
-                   <div key={index} className="feature-card">
-                    <div>
-                      <div className="feature-cover-wrapper">
-                         <img className="feature-cover" src={post.coverLink} alt="" />    
-                      </div>   
-                      <a href="#" className="post-title text-white text-decoration-none">              
-                       <p className="p-3">{post.title}</p>
-                      </a>
-                    </div>
+                {posts && posts.length > 0 ? posts.map((post, index) =>
+
+                   <div key={index} className="col-12 mb-4"> 
+                   <div className="feature-card h-100">
+                     <div>
+                       <div className="feature-cover-wrapper">
+                         <img className="feature-cover img-fluid" src={post.coverLink} alt="" />
+                       </div>
+                       <a href="#" className="post-title text-white text-decoration-none">
+                         <p className="p-3">{post.title}</p>
+                       </a>
+                     </div>
                    </div>
+                 </div>
                 ) : ''}
               </Carousel>
-            ) : (
-              posts && posts.length > 0 ? posts.map((post, index) =>               
-                 <div key={index} className="feature-card col-md-6">
-                   <div className="feature-card-content flex-column">
-                    <div className="feature-cover-wrapper">
-                      <img className="feature-cover" src={post.coverLink} alt="" />
+            ) :  (
+              posts && posts.length > 0 ? posts.map((post, index) =>
+                <div key={index} className="d-flex justify-content-center col-md-4 col-sm-6 mb-4">
+                  <div className="feature-card h-100">
+                    <div className="feature-card-content d-flex flex-column align-items-center">
+                      <div className="feature-cover-wrapper ">
+                        <img className="feature-cover img-fluid" src={post.coverLink} alt="" />
+                      </div>
+                      <a href="#" className="post-title text-white text-decoration-none">
+                        <h3 className="p-3 text-center">{post.title}</h3>
+                      </a>
                     </div>
-                    <a href="#" className="text-white text-decoration-none">
-                     <h3 className="post-title pt-3 pb-5">{post.title}</h3>
-                    </a>
                   </div>
-                 </div>
-              
+                </div>
               ) : ''
             )}
           </div> 
-          <div className="col-2"></div>
+ 
          </div>
         </>
     )

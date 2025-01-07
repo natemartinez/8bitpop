@@ -29,7 +29,7 @@ const ItchFeed = () => {
 
   return (
     <div className="itch-feed container">
-      <h2 className="text-center">Games from Itch.io</h2>
+      <h2 className="text-center">Featured Games from Itch.io</h2>
       {error && <p>{error}</p>}
       <ul>
         {feedItems.map((item, index) => (
@@ -41,7 +41,6 @@ const ItchFeed = () => {
               </a>
               <p>{item.description.split('\n')[0]}</p>            
             </div>
-
           </div>
         ))}
       </ul>

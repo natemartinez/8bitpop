@@ -4,7 +4,6 @@ import { Link, useLocation } from 'react-router-dom';
 import 'react-multi-carousel/lib/styles.css';
 import { Button, Accordion } from 'react-bootstrap';
 import { Carousel, CarouselItem } from 'react-bootstrap';
-import 'react-calendar/dist/Calendar.css';
 import axios from 'axios';
 import DOMPurify from 'dompurify';
 
@@ -14,7 +13,6 @@ import FeaturedMain from './FeaturedMain';
 import TrendMain from './TrendMain';
 import SocialMedia from './SocialMedia';
 import Review from './Review';
-import Calendar from './Calendar';
 import ItchFeed from './widgets/ItchFeed'
 
 
@@ -47,8 +45,12 @@ function Main() {
   const [factImage, setFactImage] = useState(null);
   const [fact, setFact] = useState(null);
 
+
+  /* Game Jam Content */
   const [featuredJam, setFeaturedJam] = useState(null);
-  const [jams, setJams] = useState(null);
+  const [alakajamLogo, setAlakajamLogo] = useState(null);
+  const [itchIoLogo, setItchIoLogo] = useState(null);
+  
 
 
   const changePage = (newPage) => {
@@ -186,13 +188,10 @@ function Main() {
     setLoading(false);
   };
   const setMedia = (gallery, page) => {
-    console.log(gallery)
+
     const pageContents = gallery.filter(content => content.page === page);
     const pageVideo = gallery.filter(content => content.page === page && content.type == 'video');
     const pageArt = gallery.filter(content => content.page === page && content.type == 'photo');
-
-    const mechanicBkgrd = gallery.find(content => content.title === 'gameMechanicBkgrd');
-
 
     if(page == 'modern'){
       setModernArtCarousel(pageArt);
@@ -200,7 +199,13 @@ function Main() {
     };
 
     if(page == 'main'){
+      const mechanicBkgrd = gallery.find(content => content.title === 'gameMechanicBkgrd');
       setMechanicBkgrd(mechanicBkgrd);
+
+      const alakajamLogo = gallery.find(content => content.title === 'alakajam-logo');
+      const itchIoLogo = gallery.find(content => content.title === 'itch.io-logo');
+
+      setAlakajamLogo(alakajamLogo);
     }
 
 
@@ -218,8 +223,14 @@ function Main() {
   };
   const sortJams = (arr) => {
     //let jams = arr.find(item => item.status === 'pending');
+    // need 'display_date', 'title' & 'url'
 
-    console.log(arr);
+    const featuredJam = {
+       name: arr.title,
+       dates: arr.display_dates,
+       link: arr.url
+    }
+    setFeaturedJam(featuredJam);
   };
 
 
@@ -257,10 +268,10 @@ function Main() {
 
 
   // Make each retro, modern, and future page needs to be components
+  // and the parts that make the pages as well
  
   return (
-    <div>
-       
+    <div>       
        <div>
         <Menu></Menu>
         <Nav sendPage={changePage}></Nav>
@@ -418,7 +429,7 @@ function Main() {
                        <div className='dyk d-flex justify-content-center mt-5 mb-5 container'>
                         {fact !== null && factTopic !== null && factImage !== null ? 
                         <div className='dyk-box d-flex flex-column'>
-                          <h4>{factTopic}</h4>
+                          <h4 className='text-center mb-3'>{factTopic}</h4>
                           <div className='d-flex flex-row'>
                             <div className='col-6'>
                               <img src={factImage} id='fact-image' alt="fact image" />
@@ -501,7 +512,7 @@ function Main() {
                          </Carousel>
                        </div>
                        <div className='mechanic-wrapper container'>
-                        <div className='d-flex row  mb-4'>
+                        <div className='d-flex row mb-4'>
                          <div className='col-2'></div>
                          <div className='col-8'>
                           <div className='mechanic-info'>
@@ -546,19 +557,24 @@ function Main() {
                           <div className='col-2'></div>                          
                         </div>
                        </div>             
-                       <div className='game-jams-wrapper mt-5 mb-5 container'>
-                        <div>
+                       <div className='game-jams-wrapper mt-5 mb-5 container align-items-center'>
                           <h2 className='text-center mb-5 mt-3'>Upcoming Game Jams</h2>
-                          <div className='d-flex'>
-                            <div className='game-jams-list'>
+                          <div className='game-jams-list'>
+                            {featuredJam !== null ? 
                               <div>
-                                <p>For AlakaJam</p>
-                                <p>For Itch.io</p>
-                              </div>
-                            </div>
-                          </div>
-                          
-                        </div>     
+                                <div className='d-flex flex-row justify-content-center'>
+                                  {alakajamLogo !== null ? <img src={alakajamLogo.link} alt="Alakajam Logo" id='alakajam-logo'/> : ''}    
+                                  <div id='gamejam-info'>
+                                    <h4>{featuredJam.name}</h4>
+                                    <p>{featuredJam.dates}</p>
+                                    <button className='btn btn-secondary'>
+                                      <a href={featuredJam.link} target="_blank" rel="noopener noreferrer">Link to Jam</a>
+                                    </button>
+                                    
+                                  </div> 
+                                </div>       
+                              </div> : ''}
+                          </div>         
                        </div>
                        <div className='mod-news-wrapper mt-5 mb-5'>
                         <div className='mod-news-div mb-4 align-items-center'>

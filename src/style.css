@@ -9,23 +9,25 @@ body{
     max-width: 100%;
 }
 
+a{
+    color: white!important;
+    text-decoration: none;
+}
+a:hover{
+    cursor: pointer;
+}
+
 #logo{
     width: 5em;
 }
 
 /* Nav Bar */
-.nav-wrapper{
-    position: relative;
-    width: 80%;
-    margin-left: 20em;
-}
 .nav-bar{
-    width: 100%;
     position: relative;
 }
 .nav-btns{
-    width: 7.5em;
-    font-size: 1.5em!important;
+    width: 5em;
+    font-size: 1em!important;
     margin: 0em 0.5em;
 }
 .main-btn{
@@ -41,11 +43,21 @@ body{
     justify-content: center;
 }
 
+@media screen and (min-width: 1023px){
+    .nav-btn-divs{
+        font-size: 1.5vw;
+        display: flex;
+        margin-bottom: 1.5em;
+        margin-top: 1.5em;
+    }
+   
+}
+
 
 /*Menu Bar*/
 .menu-bar-wrapper{
     position: fixed;
-    width: 20%;
+    width: 15%;
     height: 100%;
     z-index: 3;
     background-color: #303039;
@@ -57,6 +69,11 @@ body{
 }
   
 .menu-links {
+    display: flex;
+    justify-content: space-evenly;
+    flex-direction: column;
+    padding: 1em;
+    font-size: 1em;
     transition: opacity 0.3s ease;
 }
   
@@ -81,13 +98,7 @@ body{
 .greeting{
     font-size: 0.75em;
 }
-.menu-links{
-    display: flex;
-    justify-content: space-evenly;
-    flex-direction: column;
-    padding: 1em;
-    font-size: 1em;
-}
+
 #menu-btn{
     background: transparent;
     border: none;
@@ -173,6 +184,10 @@ body{
     }
 }
 @media screen and (min-width: 1024px){
+    .nav-bar{
+        left: 5em;
+    }
+
     .trend-title{
         font-size: 2em!important;
     }
@@ -185,6 +200,7 @@ body{
         font-size: 1.75em!important;
     }
     .menu-links{
+        font-size: 20px;
         padding: 0em;
         align-items: center;
     }
@@ -240,19 +256,11 @@ body{
 .main-content{
     width: 100%;
     padding: 5em 0em;
-    margin-left: 20%;
 }
-
-
 
 /* Main: Trending*/
-.main-post-wrapper{
-    width: 100%;
-    margin: 0em 0vw;
-}
 .main-post{
-  width: 75%;
-  height: 25em;
+  
   margin: 3vw 3vw;
   flex-wrap: wrap;
   font-size: 1.5em;
@@ -269,30 +277,27 @@ body{
     width: 100%;
 }
 
+.mainpost-desc{
+    padding: 0.5em;
+}
 .mainpost-desc p{
     font-size: 2em;
 }
+
 
 .trend-topics{
     display: flex;
     flex-direction: row;
     margin-bottom: 1.5em;
 }
-.main-post-wrapper{
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-}
 
 .trend-icons{
     width: 10%;
 }
 .news-list{
-    margin-top: 5em;
-    font-size: 1.5em;
+    margin-top: 1em;
 }
 .news-list-wrapper{
-    margin-top: 5em;
     background-color: #232326;
     box-shadow: rgba(0, 0, 0, 0.25) 0px 54px 55px, rgba(0, 0, 0, 0.12) 0px -12px 30px, rgba(0, 0, 0, 0.12) 0px 4px 6px, rgba(0, 0, 0, 0.17) 0px 12px 13px, rgba(0, 0, 0, 0.09) 0px -3px 5px;
 }
@@ -303,6 +308,68 @@ body{
     }
 }
 
+@media screen and (min-width: 1023px){
+    .main-content{
+        position: relative;
+        padding: 1em 0em;
+        margin: 0em 5em!important;
+    }
+    .trend-topics{
+        margin-top: 1em;
+        margin-bottom: 5em;
+    }
+    .trend-icons{
+        margin: 1em;
+    }
+    .main-post-wrapper{
+        height: 500px;
+    }
+    .main-post{
+        margin: 0vw 2vw;
+    }
+    .mainpost-cover{
+        width: 85%;
+    }
+    .mainpost-desc{
+        padding: 0em;
+    }
+    .mainpost-desc p{
+        font-size: 0.75em;
+    }
+
+    .news-list-items{
+        font-size: 1.5em;
+    }
+    .news-list-wrapper{
+        padding: 1em;
+    }
+       
+    .post-title{
+        font-size: 1.5em;
+      
+    }
+    .post-title h4{
+        font-size: 2rem;
+    }
+    
+    .trend-topics{
+        padding: 0em 5em;
+    }
+    .trend-title{
+        font-size: 2em;
+        padding: 1em;
+    }
+    .other-trend-title{
+        font-size: 2em;
+    }
+  
+    .trend-icons{
+        width: 3.5vw;
+        margin-top: 15px;
+    }
+
+}
+
 /*Main: Featured*/
 .feat-title{
     font-size: 2em;
@@ -310,8 +377,8 @@ body{
 }
 
 .feature-card{
-    width: 50%;
-    
+    width: 500px;
+    margin-bottom: 1rem;
 }
 .feature-card-link{
     padding: 5em;
@@ -320,10 +387,13 @@ body{
     width: 100%;
 }
 .feature-cover-wrapper{
-    width: 90%;
-    height: 50%;
+    width: 20em;
 }
-
+.feature-card-content {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
 .featured-review-wrapper{
     width: 100%;
 }
@@ -334,92 +404,27 @@ body{
     background-color: gray;
     margin: 1em 0em;
 }
-.feature-posts{
-    width: 50%;
-   
-}
 
-
-/*Main - Responsiveness*/
-@media screen and (min-width: 500px) and (max-width:1023px){
-    .mainpost-desc p{
-        font-size: 1em;
+@media (max-width: 500px) {
+    .feature-posts {
+      flex-direction: column;
     }
-
-    .main-content{
-      padding: 0.5em!important;  
-      margin: 0em 0em!important;
+    .feature-posts .col-12 {
+      display: flex;
+      justify-content: center;
     }
 }
-@media screen and (min-width: 1024px){
-    .main-content{
-        padding: 1em 0em;
+@media screen and (min-width: 1023px) {
+    .feature-cover-wrapper{
+        width: 250px;
     }
-    .link-wrapper{
-        font-size: 2.25em;
-    }
-    .nav-bar{
-        margin-left: 20em;
-    }
-    #site-name{
-        font-size: 2em;
-    }
-    .nav-btns{
-        font-size: 1em!important;
-    }    
-
-    .main-content{
-      padding: 0.5em!important;  
-      margin: 0em 10em!important;
-    }
-
-    .trend-title{
-        font-size: 2em;
-    }
-    .other-trend-title{
-        font-size: 2em;
-    }
-    .mainpost-cover{
-        width: 10em;
-    }
-    .mainpost-cover-wrapper{
-        width: auto;
-    }
-    .mainpost-desc p{
+    .post-title h3{
         font-size: 1em;
     }
-    .main-post{
-        width: 20vw;
-        height: 300px;
+    .feature-posts{
+        padding-left: 5em;
     }
-
-
-    .news-list-wrapper{
-        width: 400px;
-        height: 300px;
-        margin-top: 2.5em;
-    }
-    .news-list{
-        margin-top: 0em;
-        padding: 0em 2em;
-        font-size: 0.75em;
-    }
-    .news-list-items{
-        font-size: 1.25em;
-        margin: 1em;
-    }
-    .trend-icons{
-        width: 3.5vw;
-        margin-top: 15px;
-    }
-    .post-title{
-        font-size: 1.2em;
-    }
-
-    .top-ten-modules{
-        width: 50%!important;
-        margin: 2em 0em!important;
-    }
+    
 }
 
 
@@ -431,14 +436,16 @@ body{
 
 /*Did you know fact */
 .dyk-box{
+    width: 80%;
     border: 1.5px solid white;
     border-radius: 10px;
+    padding: 1em;
 }
 #fact-image{
     width: 350px;
 }
 #fact{
-    font-size: 1.5em;
+    font-size: 1.1em;
 }
 
 
@@ -548,7 +555,7 @@ body{
     position: relative;
     background-color: #232326;
     width: 50%;
-    padding: 50px;
+    padding: 30px 25px;
 }
 
 .module-menu-wrapper{
@@ -645,25 +652,33 @@ body{
 
 /*Game Jams*/
 .game-jams-list{
-    width: 25em;
-    height: 30em;
     background-color: #232326;
-    margin-left: 5em;
+    padding: 2.5em;
 }
 .game-jams-wrapper{
     display: flex;
     justify-content: center;
+    flex-direction: column;
     margin-top: 5em;
 }
-.react-calendar{
-    height: 300px;
-    background-color: rgb(179, 175, 175)!important;
+#alakajam-logo{
+    width: 175px;
+    margin: 0em 2em;
 }
-.react-calendar__navigation button{
-    color: black
+#gamejam-info{
+    margin: 0em 2em;
 }
-.react-calendar__tile react-calendar__month-view__days__day react-calendar__month-view__days__day--weekend{
-    color: white;
+#gamejam-info h4{
+    font-size: 25px;
+}
+
+#gamejam-info p{
+    font-size: 20px;
+}
+#gamejam-info a{
+    font-weight: bold;
+    font-size: 20px;
+    text-decoration: none;
 }
 
 
@@ -702,10 +717,6 @@ body{
 }
 
 @media screen and (max-width:500px) {
-    .main-content{
-        position: relative;
-        margin-bottom: 15em;
-    }
 
     .btn.active{
         font-size: 1.2em!important;
@@ -729,19 +740,6 @@ body{
         font-size: 1.5em;
     }
 
-    .main-post{
-        flex-direction: column!important;
-        margin-top: 1.5em;
-        padding: 0em;
-    }
-    .mainpost-cover-wrapper{
-        margin: 0em;
-        width: 100%;
-    }
-    .post-title{
-        padding: 2em;
-        font-size: 1.5em;
-    }
 
     .news-list-wrapper{
         width: 100%;
@@ -764,9 +762,7 @@ body{
     .feature-carousel-wrapper .article-card{
         margin-left: 2em;
     }
-    .feature-cover-wrapper{
-        height: 50%;
-    }
+  
     .feature-card{
         width: 100%;
         height: 25em;
@@ -871,11 +867,7 @@ body{
         font-size: 1.5em;
     }
 
-    .game-jams-list{
-        width: 25em;
-        height: 10em;
-        max-height: 30em;
-    }
+   
     .jam-names{
         font-size: 1.5em;
     }

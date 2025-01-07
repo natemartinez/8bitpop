@@ -99,14 +99,13 @@ function Nav({ sendPage }) {
 
   return (
     <>
-    <div className='container d-flex justify-content-center nav-wrapper'>
+    <div className='container'>
      <nav className='nav-bar'>
-       <div className='d-flex mb-4 mt-2 justify-content-center align-items-center'>
+       <div className='d-flex mb-4 mt-4 justify-content-center align-items-center'>
         {logo ? <img id='logo' src={logo} alt="logo" /> : ''} 
          <h1 id='site-name'>8BitPOP</h1>
        </div>  
         <div className='nav-btn-divs'>
-          
           {viewportWidth < 700 ?  
                <Carousel>
                   <div>
@@ -118,19 +117,22 @@ function Nav({ sendPage }) {
                     <FutureBtn isActive={isFutureActive}></FutureBtn>
                   </div>
                </Carousel> : 
-               <div className='default'>
-                 <div>
+               <div className='default container d-flex justify-content-center'>
+                <div className='row'>
+                 <div className='col-3'>
                    <MainBtn isActive={isMainActive}></MainBtn>
                  </div>
-                 <div>
+                 <div className='col-3'>
                    <ModernBtn isActive={isModernActive}></ModernBtn>   
                  </div>
-                  <div>
+                  <div className='col-3'>
                    <RetroBtn isActive={isRetroActive}></RetroBtn>  
                   </div>      
-                 <div> 
+                 <div className='col-3'> 
                    <FutureBtn isActive={isFutureActive}></FutureBtn>
-                 </div>    
+                 </div>   
+                </div>
+ 
                </div>
                }
           
