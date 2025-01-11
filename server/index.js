@@ -4,11 +4,16 @@ const axios = require('axios');
 const express = require('express');
 const cors = require('cors');
 const app = express();
+const jwt = require('jsonwebtoken');
+
 
 const UserModel = require('./models/User.js');
 const { MongoClient } = require('mongodb');
 const connectDB = require('./db.js');
 const User = require('./models/User.js');
+const bodyParser = require('body-parser');
+
+app.use(bodyParser.json());
 
 app.use((req, res, next) => {
   res.setHeader("Access-Control-Allow-Origin", "*");
@@ -40,6 +45,72 @@ const axiosHeaders = {
   'Content-Type': 'text/plain'
 };
 
+app.post('/api/register', async (req, res) => {
+  const { username, password, progress, preferences } = req.body;
+
+  if (!username || !password) {
+    return res.status(400).json({
+      success: false,
+      message: 'Username and password are required.',
+    });
+  }
+
+  try {
+    const newUser = new User({ username, password, progress, preferences });
+
+    await newUser.save();
+
+    console.log('User saved');
+    res.status(201).json({
+      success: true,
+      message: 'User created successfully.',
+    });
+  } catch (error) {
+    console.error('Error saving user:', error);
+
+    // Handle Mongoose validation errors
+    if (error.name === 'ValidationError') {
+      const errors = Object.keys(error.errors).reduce((acc, key) => {
+        acc[key] = error.errors[key].message;
+        return acc;
+      }, {});
+
+      return res.status(400).json({
+        success: false,
+        message: 'Validation failed.',
+        errors,
+      });
+    }
+
+    // Generic server error
+    res.status(500).json({
+      success: false,
+      message: 'An internal server error occurred.',
+    });
+  }
+});
+
+app.post('/api/log-in', async (req, res) => {
+  const { username, password } = req.body;
+
+  try {
+    const user = await User.findOne({ username: username });
+    if (!user) {
+      return res.status(400).json({ message: 'User not found' });
+    }
+
+    const isMatch = await bcrypt.compare(password, user.password);
+    if (!isMatch) {
+      return res.status(400).json({ message: 'Invalid credentials' });
+    }
+
+    const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET, { expiresIn: '1h' });
+    res.json({ token, user: { id: user._id, username: user.username } });
+  } catch (error) {
+    console.error('Error logging in:', error);
+    res.status(500).json({ message: 'Server error' });
+  }
+});
 
 const fetchContent = async (params) => {
   try {
@@ -67,7 +138,7 @@ app.get('/api/content', async (req, res) => {
 
 const fetchMechanics = async (params) => {
   try {
-    const query = '*[_type == "mechanics"]{name, links, description, articleTag}';
+    const query = '*[_type == "mechanics"]{name, links, description, articleTag, class}';
     const response = await axios.get(sanityUrl, {
       params: { query },
       headers: sanityToken ? { Authorization: `Bearer ${sanityToken}` } : {}
@@ -113,17 +184,7 @@ app.get('/api/gallery', async (req, res) => {
   }
 });
 
-app.post('/api/users', async(req, res) => {
-   const {username, password, preferences} = req.body;
-
-  try {
-    const newUser = new User({username, password, preferences});
-    await newUser.save();
-    console.log('User saved')
-  } catch (error) {
-    console.error(error);
-  }
-});
+//Info for user database
 
 const fetchGameReleases = async () => {
   var currentTime = Math.floor(Date.now() / 1000);
@@ -223,6 +284,30 @@ const fetchGameJams = async () => {
 app.get('/api/jams', async (req, res) => {
   try {
     const data = await fetchGameJams();
+    res.json(data);
+  } catch (error) {
+    res.status(500).send('Error fetching data from Sanity');
+  }
+});
+
+const fetchDevTips = async () => {
+  try {
+    const query = '*[_type == "devTips"]{title, content}';
+    const response = await axios.get(sanityUrl, {
+      params: { query },
+      headers: sanityToken ? { Authorization: `Bearer ${sanityToken}` } : {}
+    });
+
+    const data = response.data.result;
+    return data;
+  } catch (error) {
+    console.error('Error fetching data from Sanity:', error);
+    throw error;
+  }
+};
+app.get('/api/devtips', async (req, res) => {
+  try {
+    const data = await fetchDevTips();
     res.json(data);
   } catch (error) {
     res.status(500).send('Error fetching data from Sanity');

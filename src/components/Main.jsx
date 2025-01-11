@@ -45,12 +45,14 @@ function Main() {
   const [factImage, setFactImage] = useState(null);
   const [fact, setFact] = useState(null);
 
-
   /* Game Jam Content */
   const [featuredJam, setFeaturedJam] = useState(null);
   const [alakajamLogo, setAlakajamLogo] = useState(null);
   const [itchIoLogo, setItchIoLogo] = useState(null);
-  
+
+  const location = useLocation();
+  const { state } = location;
+  const [currentUser, setCurrentUser] = useState(null);
 
 
   const changePage = (newPage) => {
@@ -95,7 +97,6 @@ function Main() {
       console.error(error);
     }
   };
-
   //receives all content that belongs in main pages
   async function fetchContent(page) {
     setLoading(true);
@@ -233,16 +234,15 @@ function Main() {
     setFeaturedJam(featuredJam);
   };
 
-
   useEffect(() => {
     if(mainPage){
-      setTimeout(() => 
-          fetchMedia('main'),
-          fetchContent('main'), [500]);
-          fetchSpotlight();
-          fetchFacts();
-          fetchJams();
-    };
+      fetchMedia('main'),
+      fetchContent('main');
+      fetchSpotlight();
+      fetchFacts();
+      fetchJams();
+    }           
+
   }, [mainPage])
   useEffect(() => {
     if(retroPage){
@@ -265,7 +265,11 @@ function Main() {
     };
   }, [futurePage])
 
-
+  useEffect(() => {
+    if(state !== null){
+      setCurrentUser(state.userData)
+    }
+  },[state])
 
   // Make each retro, modern, and future page needs to be components
   // and the parts that make the pages as well
@@ -273,7 +277,7 @@ function Main() {
   return (
     <div>       
        <div>
-        <Menu></Menu>
+        <Menu state={currentUser}></Menu>
         <Nav sendPage={changePage}></Nav>
         {loading ? <h1 className='text-center mt-5'>Loading...</h1> :
         <div className='main-content'>
@@ -540,8 +544,13 @@ function Main() {
                                  <Accordion.Body>
                                    {mechanic.links && mechanic.links.length > 0 ? (
                                      mechanic.links.map((link, linkIndex) => (
+                                    
                                       <div key={linkIndex}>
-                                       <a href={link.route}>{link.title}</a>
+                                        <button className={mechanic.class}>
+                                          <img src={link.logoLink} alt="Mechanic icon" />
+                                          <a href={link.route}>{link.title}</a>
+                                        </button>
+                                       
                                       </div>
                                     ))
                                  ) : (
@@ -575,29 +584,6 @@ function Main() {
                                 </div>       
                               </div> : ''}
                           </div>         
-                       </div>
-                       <div className='mod-news-wrapper mt-5 mb-5'>
-                        <div className='mod-news-div mb-4 align-items-center'>
-                         <h2 className='text-center mb-5'>Oh My Mod! - Modding News</h2>
-                         <Carousel interval={null}>
-                            <CarouselItem>
-                              <div className='mod-news'>
-                                <div>
-                                  <h4>Image</h4>
-                                </div>
-                                <h2>Stardew Valley Mod</h2>
-                              </div>
-                            </CarouselItem>
-                            <CarouselItem>
-                              <div className='mod-news'>
-                                <div>
-                                  <h4>Image</h4>
-                                </div>
-                                <h2>Kingdom Hearts Mod</h2>
-                              </div>
-                            </CarouselItem>
-                         </Carousel>                          
-                        </div>
                        </div>
                        <div className='top-ten d-flex align-items-center flex-column mt-4'>
                           <h2 className='mt-5'>Top 10's</h2>

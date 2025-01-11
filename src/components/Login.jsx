@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { Button } from 'react-bootstrap';
 import {Link, useNavigate} from 'react-router-dom';
-import NewUser from './NewUser';
 
 import axios from 'axios';
 
@@ -35,7 +34,7 @@ function Login() {
 
     const data = {
       username: username,
-      password: password
+      password: password,
     };
    
     try {

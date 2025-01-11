@@ -1,0 +1,11 @@
+/*Learn Home*/
+
+.learn-nav{
+    position: absolute;
+    top: 10rem;
+    left: 15rem;
+}
+.learn-nav-item{
+    font-size: 20px;
+    font-weight: 500;
+}

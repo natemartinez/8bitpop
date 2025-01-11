@@ -12,6 +12,10 @@ const UserSchema = new mongoose.Schema({
     required: true,
   // unique: true,
   },
+  progress:{
+    type: Object,
+    required: true
+  },
   preferences: {
     type: Object,
     required: true

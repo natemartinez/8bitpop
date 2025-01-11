@@ -1,13 +1,16 @@
 import { Carousel, CarouselItem } from 'react-bootstrap';
+import { useState,useEffect } from 'react';
+import DOMPurify from 'dompurify';
 
 function ModuleForm({title, content, modules}){
 
-    // first test with practice text
+    let sanitizedContent = DOMPurify.sanitize(content); 
+
 
     return (
        <div>
             <div>
-                <h2>{title}</h2>
+                <h2 id='article-title'>{title}</h2>
             </div>
             <div className="module-menu-wrapper">
                 <Carousel>
@@ -24,7 +27,9 @@ function ModuleForm({title, content, modules}){
                 <div className="game-tip-tob">
                     <h2>Table of Contents</h2>
                 </div>
-                <h2>{content}</h2>
+                <div dangerouslySetInnerHTML={{ __html: sanitizedContent }}>
+                </div>
+                
             </div>
            
        </div>
