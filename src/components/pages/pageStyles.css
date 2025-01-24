@@ -1,11 +1,74 @@
 /*Learn Home*/
 
-.learn-nav{
-    position: absolute;
+.learn-nav-container{
+    position: fixed;
     top: 10rem;
-    left: 15rem;
+    left: 15rem;    
+}
+.learn-nav{
+    position: relative;
+
 }
 .learn-nav-item{
-    font-size: 20px;
+    font-size: 25px;
     font-weight: 500;
+}
+
+
+/*Community Home */
+.input-field-container{
+    margin: 0 auto;
+}
+.input-fields{
+    width: 500px;
+    border-radius: 10px;
+}
+.input-fields input{
+    border-radius: 5px;
+    border: none;
+}
+.content-field{
+    width: 20em;
+    height: 10em;
+}
+
+#tag-field{
+    position: absolute;
+    width: 525px!important;
+}
+#tag-btn{
+    background: transparent;
+    border: none;
+    position: relative;
+    width: 50px;
+    left: 475px;
+}
+.tag-items{
+    list-style-type: none;
+}
+#tag-name{
+    margin: 0;
+    font-style: italic;
+}
+#cancel-tag{
+    background-color: transparent;
+    color: white;
+    border: none;
+    font-size: 15px
+}
+#tag-error{
+    color:rgb(231, 80, 80);
+    font-size: 12px;
+    margin-left: 10px;
+}
+
+.react-codemirror2{
+    background-color: #263238;
+    color: white;
+    width: 750px;
+}
+textarea{
+    background-color: #263238;
+    color: white;
+    width: 250px;
 }

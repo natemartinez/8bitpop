@@ -8,8 +8,9 @@ import PhaserIntro from './components/devtips/PhaserIntro';
 import WorldBuilding from './components/devtips/WorldBuilding';
 import Characters from './components/devtips/Characters';
 
-import Learn from './components/pages/Learn';
+import Build from './components/pages/Build';
 import Community from './components/pages/Community';
+import Profile from './components/pages/Profile';
 
 function App() {
   return (
@@ -21,8 +22,9 @@ function App() {
       <Route path="/devtips/phaser-intro" element={<PhaserIntro/>} />
       <Route path="/devtips/world-building" element={<WorldBuilding/>} />
       <Route path="/devtips/characters" element={<Characters/>} />
-      <Route path="/pages/learn" element={<Learn/>} />
+      <Route path="/pages/build" element={<Build/>} />
       <Route path="/pages/community" element={<Community/>} />
+      <Route path="/pages/profile" element={<Profile/>} />
     </Routes>
     
   );

@@ -103,10 +103,13 @@ function Menu() {
             <Link to="/">Home</Link>
           </div>
           <div className='link-wrapper d-flex justify-content-center'>
-            <Link to="/pages/learn">Learn</Link>
+            <Link to="/pages/build">Build</Link>
           </div>
           <div className='link-wrapper d-flex justify-content-center'>
             <Link to="/pages/community">Community</Link>
+          </div>
+          <div className='link-wrapper d-flex justify-content-center'>
+            <Link to="/pages/profile">Profile</Link>
           </div>
           <div className='featured-review-wrapper d-flex justify-content-center'>
             {mainReview !== null ? (

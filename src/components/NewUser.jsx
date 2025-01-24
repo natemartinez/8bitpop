@@ -6,7 +6,6 @@ import axios from 'axios';
 function NewUser() {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
-  const [userStatus, setUserStatus] = useState('');
   const [message, setMessage] = useState('');
 
   const navigate = useNavigate();
@@ -36,8 +35,11 @@ function NewUser() {
       try {
          const checkUser = await axios.post('http://localhost:3001/api/register', data);
          navigate('/', { state: { userData: data } });
+       
       } catch (error) {
-        console.error(error);
+         if(error.response.status === 400){
+            setMessage("User already exists");
+         } 
       }
     } else{
        setMessage("Must set username and password");
@@ -56,7 +58,6 @@ function NewUser() {
           <div className='input-form'>
               <div className='info-field-wrapper'>
                 <input type="text" placeholder='username' className='info-field mb-1' onChange={updateUsername} />
-                <p>{userStatus}</p>
               </div>
               <div className='info-field-wrapper'><input type="text" placeholder='password' className='info-field' onChange={updatePassword}/></div>
               <div><Button type='submit' className='m-5'  onClick={(event) =>  submitUser(username, password, event)}>Submit</Button></div>

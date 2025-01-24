@@ -170,9 +170,27 @@ a:hover{
         margin-top: 0em;
     }
 }
+@media screen and (max-width: 768px){
+    .menu-bar-wrapper{
+        position: fixed;
+        flex-direction: row;
+        width: 100%!important;
+        height: 15%;
+        bottom: 0;
+        z-index: 1;
+    }
+    .menu-links{
+        flex-direction: row;
+        margin-top: 0%;
+    }
+    .link-wrapper{
+        margin-top: 0em;
+    }
+}
+
 @media screen and (min-width: 500px) and (max-width:1023px){
     .menu-bar-wrapper{
-        width: 25%;
+        width: 15%;
     }
 
     .link-wrapper a{
@@ -323,7 +341,7 @@ a:hover{
         height: 500px;
     }
     .main-post{
-        margin: 0vw 2vw;
+        margin: 0vw 1vw;
     }
     .mainpost-cover{
         width: 85%;

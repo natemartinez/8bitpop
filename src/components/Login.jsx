@@ -38,15 +38,24 @@ function Login() {
     };
    
     try {
-      const checkUser = await axios.post('http://localhost:3001/api/log-in', data);
-      console.log('Here', checkUser)
-      if(checkUser.data == 'User Exists'){
+      const checkUser = await axios.post('http://localhost:3001/api/login', data);
+      console.log(checkUser);
+      if (checkUser.data === 'User Exists') {
         setMessage("Welcome!");
         navigate('/', { state: { userData: data } });
+      } else {
+        setMessage("Invalid credentials.");
       }
     } catch (error) {
-      console.error(error);
+      if (error.response) {
+        console.error("Server Error:", error.response.data);
+        setMessage(error.response.data.message || "Something went wrong!");
+      } else {
+        console.error("Request Error:", error.message);
+        setMessage("Unable to connect to the server.");
+      }
     }
+    
   };
 
 

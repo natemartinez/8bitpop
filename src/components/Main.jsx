@@ -54,6 +54,8 @@ function Main() {
   const { state } = location;
   const [currentUser, setCurrentUser] = useState(null);
 
+  const [message, setMessage] = useState('Loading...');
+
 
   const changePage = (newPage) => {
     setLoading(true);
@@ -89,6 +91,9 @@ function Main() {
     }
 
   };
+  
+
+
   async function fetchMedia(page) {
     try {
       const response = await axios.get('http://localhost:3001/api/gallery');
@@ -104,7 +109,9 @@ function Main() {
       const response = await axios.get('http://localhost:3001/api/content');
       setPageContent(response.data, page);
     } catch (error) {
-      console.error(error);
+      if (error.message === 'Network Error'){
+        setMessage('Unable to connect with server')
+      }
     }
   };
   async function fetchArchives(page) {
@@ -279,7 +286,8 @@ function Main() {
        <div>
         <Menu state={currentUser}></Menu>
         <Nav sendPage={changePage}></Nav>
-        {loading ? <h1 className='text-center mt-5'>Loading...</h1> :
+        
+        {loading ? <h1 className='text-center mt-5'>{message}</h1> :
         <div className='main-content'>
           {retroPage ? 
             <div className='content retroPage'> 

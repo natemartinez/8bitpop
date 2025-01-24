@@ -8,13 +8,14 @@ const jwt = require('jsonwebtoken');
 
 
 const UserModel = require('./models/User.js');
+const PostModel = require('./models/Post.js');
 const { MongoClient } = require('mongodb');
 const connectDB = require('./db.js');
 const User = require('./models/User.js');
+const Post = require('./models/Post.js');
 const bodyParser = require('body-parser');
 
 app.use(bodyParser.json());
-
 app.use((req, res, next) => {
   res.setHeader("Access-Control-Allow-Origin", "*");
   res.setHeader("Access-Control-Allow-Methods", "POST, GET, PUT");
@@ -23,7 +24,6 @@ app.use((req, res, next) => {
 })
 app.use(express.json());
 app.use(cors());
-
 
 connectDB();
 
@@ -38,6 +38,7 @@ const igdbID = process.env.IGDB_ID;
 const igdbSECRET = process.env.IGDB_SECRET;
 const igdbTOKEN = process.env.IGDB_TOKEN;
 
+
 const axiosHeaders = {
   'Client-ID': igdbID,
   'Authorization': `Bearer ${igdbTOKEN}`,
@@ -45,8 +46,10 @@ const axiosHeaders = {
   'Content-Type': 'text/plain'
 };
 
+
+
 app.post('/api/register', async (req, res) => {
-  const { username, password, progress, preferences } = req.body;
+  const { username, password, preferences } = req.body;
 
   if (!username || !password) {
     return res.status(400).json({
@@ -55,9 +58,16 @@ app.post('/api/register', async (req, res) => {
     });
   }
 
-  try {
-    const newUser = new User({ username, password, progress, preferences });
+  const existingUser = await User.findOne({username: username});
+  if (existingUser) {
+    return res.status(400).json({
+      success: false,
+      message: 'User already exists.',
+    });
+  }
 
+  try {
+    const newUser = new User({ username, password: await bcrypt.hash(password, 10), preferences });
     await newUser.save();
 
     console.log('User saved');
@@ -90,25 +100,26 @@ app.post('/api/register', async (req, res) => {
   }
 });
 
-app.post('/api/log-in', async (req, res) => {
+app.post('/api/login', async (req, res) => {
   const { username, password } = req.body;
+  console.log(username, password);
 
   try {
-    const user = await User.findOne({ username: username });
+    // checks if hashed password is matching the one in the database
+    const user = await User.findOne({ username: req.body.username });
     if (!user) {
-      return res.status(400).json({ message: 'User not found' });
-    }
-
-    const isMatch = await bcrypt.compare(password, user.password);
-    if (!isMatch) {
-      return res.status(400).json({ message: 'Invalid credentials' });
-    }
-
-    const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET, { expiresIn: '1h' });
-    res.json({ token, user: { id: user._id, username: user.username } });
-  } catch (error) {
-    console.error('Error logging in:', error);
-    res.status(500).json({ message: 'Server error' });
+       return res.status(400).json({ message: "Invalid credentials" });
+     }
+    const isPasswordValid = await bcrypt.compare(req.body.password, user.password);
+    console.log(isPasswordValid);
+    if (isPasswordValid) {
+       return res.status(200).json({ message: "User Exists" });    
+     }else{
+      return res.status(400).json({ message: "Invalid credentials" });
+     }
+   } catch (error) {
+     console.error('Error logging in:', error);
+     res.status(500).json({ message: 'Server error' });
   }
 });
 
@@ -309,6 +320,29 @@ app.get('/api/devtips', async (req, res) => {
   try {
     const data = await fetchDevTips();
     res.json(data);
+  } catch (error) {
+    res.status(500).send('Error fetching data from Sanity');
+  }
+});
+
+app.post('/api/createPost', async (req, res) => {
+  const { title, content, tags } = req.body;
+
+
+  if (!title || !content || !tags) {
+    return res.status(400).json({
+      success: false,
+      message: 'Author, content, title and tags are required.',
+    });
+  }
+
+  try {
+    const newPost = new Post({title, content, tags });
+    await newPost.save();
+    res.status(201).json({
+      success: true,
+      message: 'Post created successfully.',
+    });
   } catch (error) {
     res.status(500).send('Error fetching data from Sanity');
   }
