@@ -3,27 +3,39 @@ import axios from "axios";
 import { XMLParser } from "fast-xml-parser";
 
 const Roadmaps = () => {
-  const [feedItems, setFeedItems] = useState([]);
   const [error, setError] = useState(null);
+  const [selection, setSelection] = useState(false);
+  const [curCard, setCurCard] = useState('');
 
+  const switchCard = (str) => {
+    setSelection(true);
+    setCurCard(str);
+    setProgram(str)
+  };
 
+  const setProgram = () => {
+    // this function is going to grab from the sanity api
+
+    
+  };
 
   return (
-    <div className="itch-feed container">
+    <div className="container">
       {error && <p>{error}</p>}
-      <ul>
-        {feedItems.map((item, index) => (
-          <div key={index} className="d-flex">
-            <img className="itch-game" src={item.imageurl} alt="game cover" />
-            <div>
-              <a className="itch-link" href={item.link} target="_blank" rel="noopener noreferrer">
-               {item.plainTitle}
-              </a>
-              <p>{item.description.split('\n')[0]}</p>            
-            </div>
+      {!selection ? <h2>Roadmap</h2>: 
+      <ul className="d-flex roadmap-list">
+        <li>
+          <div className="roadmap-card">
+            <a href="#" onClick={() => switchCard('RPG')}><h2>RPG's</h2></a>
           </div>
-        ))}
-      </ul>
+        </li>
+        <li>
+          <div className="roadmap-card">
+           <a href="#" onClick={() => switchCard('shooters')}><h2>Shooters</h2></a> 
+          </div>
+        </li>
+      </ul>}
+
     </div>
   );
 };

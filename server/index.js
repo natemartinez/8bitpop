@@ -349,6 +349,45 @@ app.post('/api/createPost', async (req, res) => {
 });
 
 
+const API_URL = 'https://api-inference.huggingface.co/models/mistralai/Mixtral-8x7B-Instruct-v0.1'; 
+
+const API_KEY = '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';
+
+app.post('/generate', async (req, res) => {
+  const { input } = req.body;
+
+const options = {
+  method: 'POST',
+  url: 'https://chatgpt-42.p.rapidapi.com/gpt4',
+  headers: {
+    'x-rapidapi-key': '1d1e7d6740msh21df59458325f61p13c288jsnfb5d1069b2eb',
+    'x-rapidapi-host': 'chatgpt-42.p.rapidapi.com',
+    'Content-Type': 'application/json'
+  },
+  data: {
+    messages: [
+      {
+        role: 'user',
+        content: input
+      }
+    ],
+    web_access: false
+  }
+};
+
+  
+  try {
+    const response = await axios.request(options);
+    res.status(200).json(response.data);
+    console.log(response.data.result);
+  } catch (error) {
+    console.error(error);
+  }
+});
+
+
+
+
 app.listen(port, () => {
   console.log(`Server is running on http://localhost:${port}`);
 });

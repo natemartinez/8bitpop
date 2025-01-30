@@ -283,7 +283,7 @@ function Main() {
  
   return (
     <div>       
-       <div>
+       <div className='container'>
         <Menu state={currentUser}></Menu>
         <Nav sendPage={changePage}></Nav>
         

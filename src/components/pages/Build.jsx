@@ -4,17 +4,18 @@ import './pageStyles.css';
 import Menu from '../Menu';
 import Programs from './Programs';
 import Roadmaps from './Roadmaps';
-import Goals from './Goals';
+import Notes from './Notes';
 import ToolsandFrameworks from './ToolsandFrameworks';
 import Settings from './Settings';
 
 import XpCircle from '../widgets/XpCircle';
 import Compiler from '../widgets/Compiler';
+import Chatbot from '../widgets/Chatbot';
 
 const Build = () => {
-  const [programs, setPrograms] = useState(true);
+  const [editor, setEditor] = useState(true);
   const [roadmaps, setRoadmaps] = useState(false);
-  const [goals, setGoals] = useState(false);
+  const [notes, setNotes] = useState(false);
   const [toolsandFrameworks, setToolsandFrameworks] = useState(false);
   const [settings, setSettings] = useState(false);
  
@@ -31,26 +32,30 @@ const Build = () => {
   // I would love to incorporate different software to transform the
   // models into a more interactive experience.
 
+  // Need to add testing software for the compiler
+
+  //Also need to add frameworks and tools for the user to use (starter packs)
+
   const changePage = (newPage) => {
    // setLoading(true);
-    setPrograms(false);
+    setEditor(false);
     setRoadmaps(false);
-    setGoals(false);
+    setNotes(false);
     setSettings(false);
     setToolsandFrameworks(false);
 
     switch (newPage) {
-      case 'Programs':
-        console.log('Heading to Programs')
-        setPrograms(true);
+      case 'Editor':
+        console.log('Heading to Editor')
+        setEditor(true);
         break;
       case 'Roadmaps':
         console.log('Heading to Roadmaps')
         setRoadmaps(true);
         break;
-      case 'Goals':
+      case 'Notes':
         console.log('Heading to Goals')
-        setGoals(true);
+        setNotes(true);
         break;
       case 'Tools & Frameworks':
         console.log('Heading to Tools & Frameworks')
@@ -66,15 +71,13 @@ const Build = () => {
 
   };
 
-  useEffect(() => {
-    //setPrograms(true);
-  }, []);
 
 
   return (
     <div className="container d-flex justify-content-center" >
       <div>
         <Menu />
+
       </div>
       <div className='build-content w-100'>
        <div className="build-header w-100 d-flex justify-content-center">
@@ -85,19 +88,29 @@ const Build = () => {
         <div className="build-nav d-flex row justify-content-start">
          <ul className="nav justify-content-center">
           <li className="build-nav-item">
-            <a className="nav-link" href="#" onClick={() => changePage('Programs')}>Programs</a>
+            {editor ? <a className='nav-link active' href='#'>Editor</a> :
+             <a className="nav-link" href="#" onClick={() => changePage('Editor')}>Editor</a>
+            }          
           </li>
           <li className="build-nav-item">
-            <a className="nav-link" href="#" onClick={() => changePage('Roadmaps')}>Roadmaps</a>
+            {roadmaps ? <a className='nav-link active' href='#'>Roadmaps</a> :
+             <a className="nav-link" href="#" onClick={() => changePage('Roadmaps')}>Roadmaps</a>
+            }
           </li>
           <li className="build-nav-item">
-            <a className="nav-link" href="#" onClick={() => changePage('Goals')}>Goals</a>
+            {notes ? <a className='nav-link active' href='#'>Notes</a> :
+             <a className="nav-link" href="#" onClick={() => changePage('Goals')}>Notes</a>
+            }
           </li>
           <li className="build-nav-item">
-            <a className="nav-link" href="#" onClick={() => changePage('Tools & Frameworks')}>Tools & Frameworks</a>
+            {toolsandFrameworks ? <a className='nav-link active' href='#'>Tools and Frameworks</a> :
+             <a className="nav-link" href="#" onClick={() => changePage('Tools and Frameworks')}>Tools and Frameworks</a>
+            }
           </li>
           <li className="build-nav-item">
-            <a className="nav-link" href="#" onClick={() => changePage('Settings')}>Settings</a>
+            {settings ? <a className='nav-link active' href='#'>Settings</a> :
+             <a className="nav-link" href="#" onClick={() => changePage('Settings')}>Settings</a>
+            }
           </li>
          </ul>
         </div>
@@ -105,18 +118,19 @@ const Build = () => {
        <div className='d-flex container'>
         <div className='col-2'></div>
         <div className='col-9'>
-        {programs && <Programs />}
+        {editor && <Compiler />}
         {roadmaps && <Roadmaps />}
-        {goals && <Goals />}
+        {notes && <Notes />}
         {toolsandFrameworks && <ToolsandFrameworks />}
         {settings && <Settings />}          
         </div>
         <div className='col-1'></div>
        </div>
-       <div className='d-flex container justify-content-center'>
-        <Compiler/>
-       </div>
+
       </div> 
+      <div className='chatbot-container'>
+        <Chatbot/>
+      </div>
     </div>
   );
 };
