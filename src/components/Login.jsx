@@ -39,8 +39,7 @@ function Login() {
    
     try {
       const checkUser = await axios.post('http://localhost:3001/api/login', data);
-      console.log(checkUser);
-      if (checkUser.data === 'User Exists') {
+      if (checkUser.data.message === 'User Exists') {
         setMessage("Welcome!");
         navigate('/', { state: { userData: data } });
       } else {

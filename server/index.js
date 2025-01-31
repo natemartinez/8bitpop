@@ -38,6 +38,8 @@ const igdbID = process.env.IGDB_ID;
 const igdbSECRET = process.env.IGDB_SECRET;
 const igdbTOKEN = process.env.IGDB_TOKEN;
 
+const AITOKEN = process.env.AI_TOKEN;
+
 
 const axiosHeaders = {
   'Client-ID': igdbID,
@@ -49,7 +51,7 @@ const axiosHeaders = {
 
 
 app.post('/api/register', async (req, res) => {
-  const { username, password, preferences } = req.body;
+  const { username, password } = req.body;
 
   if (!username || !password) {
     return res.status(400).json({
@@ -123,6 +125,25 @@ app.post('/api/login', async (req, res) => {
   }
 });
 
+
+app.post('/api/curate', async (req, res) => {
+  const preferences = req.body;
+  curateContent(preferences);
+  res.status(200).json({ message: 'Preferences received' });
+});
+
+const curateContent = async (data) => {
+  //connect with the database and update the user preferences
+
+  const currentUser = await User.findOne({ username: data.username});
+
+  if (currentUser){
+    currentUser.preferences = data.preferences;  
+    await currentUser.save();
+  }
+};
+
+
 const fetchContent = async (params) => {
   try {
     const query = '*[_type == "article"]{title, class, priority, type, coverLink, logoLink, coverImg, page, content, tob}';
@@ -132,6 +153,8 @@ const fetchContent = async (params) => {
     });
 
     const data = response.data.result;
+
+
     return data;
   } catch (error) {
     console.error('Error fetching data from Sanity:', error);
@@ -348,11 +371,6 @@ app.post('/api/createPost', async (req, res) => {
   }
 });
 
-
-const API_URL = 'https://api-inference.huggingface.co/models/mistralai/Mixtral-8x7B-Instruct-v0.1'; 
-
-const API_KEY = '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';
-
 app.post('/generate', async (req, res) => {
   const { input } = req.body;
 
@@ -360,7 +378,7 @@ const options = {
   method: 'POST',
   url: 'https://chatgpt-42.p.rapidapi.com/gpt4',
   headers: {
-    'x-rapidapi-key': '1d1e7d6740msh21df59458325f61p13c288jsnfb5d1069b2eb',
+    'x-rapidapi-key': AITOKEN,
     'x-rapidapi-host': 'chatgpt-42.p.rapidapi.com',
     'Content-Type': 'application/json'
   },

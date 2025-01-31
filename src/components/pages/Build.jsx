@@ -128,9 +128,8 @@ const Build = () => {
        </div>
 
       </div> 
-      <div className='chatbot-container'>
-        <Chatbot/>
-      </div>
+      
+      <Chatbot/>
     </div>
   );
 };

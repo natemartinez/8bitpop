@@ -14,20 +14,7 @@ const XpCircle = () => {
 
   return (
     <div style={{ textAlign: "center", marginTop: "20px" }}>
-      <div
-        style={{
-          position: "relative",
-          width: "150px",
-          height: "150px",
-          borderRadius: "50%",
-          border: "10px solid lightgray",
-          backgroundColor: "#3498db",
-          margin: "0 auto",
-          display: "flex",
-          alignItems: "center",
-          justifyContent: "center",
-        }}
-      >
+      <div id="outer-xp">
         <span style={{ color: "white", fontSize: "20px", fontWeight: "bold" }}>
           {progress}%
         </span>

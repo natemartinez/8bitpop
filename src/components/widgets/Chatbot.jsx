@@ -1,9 +1,11 @@
 import React, { useState } from "react";
 import axios from "axios";
 
+
 const Chatbot = () => {
     const [messages, setMessages] = useState([]);
     const [input, setInput] = useState("");
+
 
     const sendMessage = async () => {
         if (!input.trim()) return;
@@ -41,7 +43,7 @@ const Chatbot = () => {
                 onChange={(e) => setInput(e.target.value)} 
                 placeholder="Ask something..." 
             />
-            <button onClick={sendMessage}>Send</button>
+            <button className='chat-send' onClick={sendMessage}>Send</button>
         </div>
     );
 };
