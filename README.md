@@ -2,7 +2,7 @@
 
 An interactive and community-driven blog focused on indie games and the indie gaming industry. Built with MERN stack, this blog provides in-depth articles, developer roadmaps, interactive guides, and community engagement features.
 
-Features:
+## Features:
 
 ### Indie Game Spotlights:
 A dedicated section that highlights the most recent, unique, and innovative indie games. This feature showcases hidden gems, experimental projects, and standout titles from small developers, offering in-depth reviews, developer interviews, and gameplay impressions to help gamers discover fresh experiences.
