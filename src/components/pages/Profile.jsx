@@ -10,6 +10,8 @@ const Profile = () => {
   const [error, setError] = useState(null);
   const [user, setUser] = useState(null);
 
+  const SERVER = import.meta.env.VITE_SERVER;
+
   const storedUser = localStorage.getItem('userData');
   const curationChoice = document.getElementById('curate-form');
 
@@ -29,7 +31,7 @@ const Profile = () => {
       preferences: data
     }
     try {
-      const response = await axios.post('http://localhost:3001/api/curate', dataToUpdate);
+      const response = await axios.post(SERVER + '/api/curate', dataToUpdate);
       console.log(response.data);
      } catch (error) {
       console.error(error);

@@ -7,10 +7,12 @@ function PhaserIntro(){
     const [content, setContent] = useState('');
     const [title, setTitle] = useState('');
 
+    const SERVER = import.meta.env.VITE_SERVER;
+
     // function that receives content from Sanity and returns a JSX element
     async function receiveContent() {
         try {
-          const facts = await axios.get('http://localhost:3001/api/devtips');
+          const facts = await axios.get(SERVER + '/api/devtips');
 
           setTitle(facts.data[0].title);
           setContent(facts.data[0].content);

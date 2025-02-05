@@ -4,6 +4,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 
 function NewUser() {
+  const SERVER = import.meta.env.VITE_SERVER;
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [message, setMessage] = useState('');
@@ -33,7 +34,7 @@ function NewUser() {
       };  
 
       try {
-         const checkUser = await axios.post('http://localhost:3001/api/register', data);
+         const checkUser = await axios.post(SERVER + '/api/register', data);
          navigate('/', { state: { userData: data } });
        
       } catch (error) {

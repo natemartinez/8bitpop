@@ -5,6 +5,7 @@ import axios from 'axios';
 
 
 function SocialMedia(){
+  const SERVER = import.meta.env.VITE_SERVER;
   const [facebook, setFacebook] = useState("");
   const [instagram, setInstagram] = useState("");
   const [twitter, setTwitter] = useState("");
@@ -12,7 +13,7 @@ function SocialMedia(){
 
   async function fetchImgs() {
     try {
-      const response = await axios.get('http://localhost:3001/api/gallery');
+      const response = await axios.get(SERVER + '/api/gallery');
       setImages(response.data)
     } catch (error) {
       console.error(error);

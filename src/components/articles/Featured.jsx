@@ -13,7 +13,9 @@ function Featured() {
   const [content, setContent] = useState(null);
 
   async function fetchArticle() {
-    const articles = await axios.get('http://localhost:3001/api/content');
+    const SERVER = import.meta.env.VITE_SERVER;
+
+    const articles = await axios.get(SERVER + '/api/content');
     setCoverImg('https://cdn.sanity.io/images/m5zbytnr/production/7e8014ad85ebae1fae3117ac9bdd07b15715ee60-1920x1370.jpg');
 
     let sanitizedTitle = DOMPurify.sanitize(curArticle.title);

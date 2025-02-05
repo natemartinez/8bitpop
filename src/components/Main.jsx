@@ -5,7 +5,6 @@ import 'react-multi-carousel/lib/styles.css';
 import { Button, Accordion } from 'react-bootstrap';
 import { Carousel, CarouselItem } from 'react-bootstrap';
 import axios from 'axios';
-import DOMPurify from 'dompurify';
 
 import Menu from './Menu';
 import Nav from './NavMain';
@@ -17,6 +16,9 @@ import ItchFeed from './widgets/ItchFeed'
 
 
 function Main() {
+
+  const SERVER = import.meta.env.VITE_SERVER;
+
   /*Content for Main Pages */
   const [mainPage, setMainPage] = useState(true);
   const [retroPage, setRetroPage] = useState(false);
@@ -96,7 +98,7 @@ function Main() {
 
   async function fetchMedia(page) {
     try {
-      const response = await axios.get('http://localhost:3001/api/gallery');
+      const response = await axios.get(SERVER + '/api/gallery');
       setMedia(response.data, page)
     } catch (error) {
       console.error(error);
@@ -106,7 +108,7 @@ function Main() {
   async function fetchContent(page) {
     setLoading(true);
     try {
-      const response = await axios.get('http://localhost:3001/api/content');
+      const response = await axios.get(SERVER + '/api/content');
       setPageContent(response.data, page);
     } catch (error) {
       if (error.message === 'Network Error'){
@@ -117,7 +119,7 @@ function Main() {
   async function fetchArchives(page) {
     setLoading(true);
     try {
-      const response = await axios.get('http://localhost:3001/api/archives');
+      const response = await axios.get(SERVER + '/api/archives');
       console.log('Archives:', response.data);
       setArchiveContent(response.data)
     } catch (error) {
@@ -126,7 +128,7 @@ function Main() {
   };
   async function fetchReleases() {
     try {
-      const releaseInfo = await axios.get('http://localhost:3001/api/releases');
+      const releaseInfo = await axios.get(SERVER + '/api/releases');
       console.log('Games: ', releaseInfo.data);
       setGameReleases(releaseInfo.data)
     } catch (error) {
@@ -135,7 +137,7 @@ function Main() {
   };
   async function fetchMechanics() {
     try {
-      const releaseInfo = await axios.get('http://localhost:3001/api/mechanics');
+      const releaseInfo = await axios.get(SERVER + '/api/mechanics');
       setMechanics(releaseInfo.data);
       console.log(releaseInfo.data);
     } catch (error) {
@@ -144,7 +146,7 @@ function Main() {
   };
   async function fetchSpotlight() {
     try {
-      const spotlight = await axios.get('http://localhost:3001/api/spotlight');
+      const spotlight = await axios.get(SERVER + '/api/spotlight');
       console.log('Spotlight: ', spotlight.data);
       
       setSpotlightInfo(spotlight.data.description);
@@ -155,7 +157,7 @@ function Main() {
   };
   async function fetchFacts() {
     try {
-      const facts = await axios.get('http://localhost:3001/api/facts');
+      const facts = await axios.get(SERVER + '/api/facts');
       chooseFacts(facts.data);
     } catch (error) {
       console.error(error)
@@ -163,7 +165,7 @@ function Main() {
   };
   async function fetchJams() {
     try {
-      const facts = await axios.get('http://localhost:3001/api/jams');
+      const facts = await axios.get(SERVER + '/api/jams');
       sortJams(facts.data);
     } catch (error) {
       console.error(error)

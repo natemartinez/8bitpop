@@ -8,6 +8,8 @@ const Roadmaps = () => {
   const [selection, setSelection] = useState(false);
   const [curCard, setCurCard] = useState('');
 
+  const SERVER = import.meta.env.VITE_SERVER;
+  
   const switchCard = (str) => {
     setSelection(true);
     setCurCard(str);
@@ -19,7 +21,7 @@ const Roadmaps = () => {
     // list of modules within the game genre (Currency in a RPG, or gun pattern in FPS)
     // content connected with IGDB, maybe have a mixture of SANITY and SERVER info
 
-    const articles = await axios.get('http://localhost:3001/api/content');
+    const articles = await axios.get(SERVER+ '/api/content');
 
     console.log(articles)
     

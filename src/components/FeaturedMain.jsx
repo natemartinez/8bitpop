@@ -11,6 +11,8 @@ function FeatureMain(){
   const [mainReview, setMainReview] = useState(null);
   const [viewportWidth, setViewportWidth] = useState(window.innerWidth);
 
+  const SERVER = import.meta.env.VITE_SERVER;
+
   window.addEventListener('resize', function() {
     let currentWidth = window.innerWidth;
     setViewportWidth(currentWidth);
@@ -18,7 +20,7 @@ function FeatureMain(){
 
   async function getFeatured() {
     try {
-      const response = await axios.get('http://localhost:3001/api/content');
+      const response = await axios.get(SERVER + '/api/content');
       organizeFeatures(response.data)
     } catch (error) {
       console.error(error);

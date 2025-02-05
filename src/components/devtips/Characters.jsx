@@ -5,9 +5,11 @@ function Characters(){
   const [title, setTitle] = useState('');
   const [content, setContent] = useState('');
 
+  const SERVER = import.meta.env.VITE_SERVER;
+
   async function fetchContent() {
     try {
-        const response = await axios.get('http://localhost:3001/api/articles');
+        const response = await axios.get(SERVER + '/api/articles');
         const api = response.data;
         console.log(api)
         //const content = api.filter(data => data.page === 'menu');

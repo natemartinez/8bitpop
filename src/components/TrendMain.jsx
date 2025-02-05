@@ -5,13 +5,14 @@ import Button from "react-bootstrap/Button";
 import axios from "axios";
 
 function TrendMain(){
+    const SERVER = import.meta.env.VITE_SERVER;
     const [posts, setPosts] = useState(null);
     const [mainPost, setMainPost] = useState(null);
     const [newsList, setNewsList] = useState(null);
 
     async function getTrends() {
       try {
-        const response = await axios.get('http://localhost:3001/api/content');
+        const response = await axios.get(SERVER + '/api/content');
         organizePosts(response.data);
       } catch (error) {
         console.error(error);

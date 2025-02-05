@@ -6,6 +6,9 @@ import '../style.css';
 import axios from 'axios';
 
 function Menu() {
+
+  const SERVER = import.meta.env.VITE_SERVER;
+
   const [bookIcon, setBookIcon] = useState(null);
   const [communityIcon, setCommunityIcon] = useState(null);
   const [mainReview, setMainReview] = useState(null);
@@ -19,7 +22,7 @@ function Menu() {
   // Function to fetch menu items
   async function getMenuItems() {
     try {
-      const response = await axios.get('http://localhost:3001/api/gallery');
+      const response = await axios.get(SERVER + '/api/gallery');
       const gallery = response.data;
       const newData = gallery.filter(data => data.page === 'menu');
       setMenuBtn(newData[0]);
@@ -31,25 +34,20 @@ function Menu() {
   const collapseMenu = () =>{
     setIsCollapsed(prevState => !prevState);
   }
-
   const LogOutButton = () => {
       // controls state to reload page when user logs out
     const navigate = useNavigate();
     
-
     const logOut = () => {
       localStorage.removeItem('userData');
       setCurrentUser(null);
       navigate('/');
     }
     
-
-   return (
-    <Button id='logout-btn' onClick={() => logOut()}>Log Out</Button>
-   )
+    return (
+     <Button id='logout-btn' onClick={() => logOut()}>Log Out</Button>
+    )
   };
-
-
 
   useEffect(() => {
     getMenuItems();
@@ -69,7 +67,6 @@ function Menu() {
       console.log(localStorage.getItem('userData'));
     }
   },[state]);
-
 
   return (
     <>

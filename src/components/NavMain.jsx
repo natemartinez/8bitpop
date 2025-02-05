@@ -6,6 +6,8 @@ import axios from 'axios';
 import { Carousel } from 'react-responsive-carousel';
 
 function Nav({ sendPage }) {
+
+  const SERVER = import.meta.env.VITE_SERVER;
   const [logo, setLogo] = useState(null);
   const [isMainActive, setMainActive] = useState(true);
   const [isModernActive, setModernActive] = useState(false);
@@ -80,7 +82,7 @@ function Nav({ sendPage }) {
 
   async function getLogo(){
     try {
-      const response = await axios.get('http://localhost:3001/api/gallery');
+      const response = await axios.get(SERVER + '/api/gallery');
       let images = response.data;
       for(let i=0; i < images.length; i++){
         const logoImg = images.find(img => img.title == 'logo');   
