@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import Button from "react-bootstrap/Button";
+import SocialMedia from './SocialMedia';
 import '../style.css';
 import axios from 'axios';
 
@@ -44,7 +45,7 @@ function Menu() {
     
 
    return (
-    <Button onClick={() => logOut()}>Log Out</Button>
+    <Button id='logout-btn' onClick={() => logOut()}>Log Out</Button>
    )
   };
 
@@ -73,27 +74,28 @@ function Menu() {
   return (
     <>
       <div className={`menu-bar-wrapper ${isCollapsed ? 'collapsed' : ''}`}>
+        <button id='menu-btn' onClick={collapseMenu}>
+              {menuBtn !== null ? (
+                <img src={menuBtn.link} alt="menu button" />
+              ) : ''}
+        </button>
+
         <div className='profile'>
           <img className='profile-pic' alt="Profile"></img>
           {!isCollapsed && <h3 className='greeting'>
             {!currentUser ? 'Welcome!' : currentUser.username}
           </h3>}
           <div>
-            <button id='menu-btn' onClick={collapseMenu}>
-              {menuBtn !== null ? (
-                <img src={menuBtn.link} alt="menu button" />
-              ) : ''}
-            </button>
           </div>
         </div>
 
         <div className={`menu-links ${isCollapsed ? 'hide-links' : ''}`}>
           {!currentUser ? (
             <div>
-             <Link id='login' to="/login">
+             <Link id='login-btn' to="/login">
                <Button>Log In</Button>
              </Link>
-             <Link id='login' to="/new-user">
+             <Link id='register-btn' to="/new-user">
                <Button>New User</Button>
              </Link>
             </div>
@@ -120,6 +122,8 @@ function Menu() {
             ) : ''}
           </div>
         </div>
+
+        <SocialMedia/>
       </div>
     </>
   );

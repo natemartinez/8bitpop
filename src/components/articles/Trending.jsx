@@ -64,39 +64,43 @@ function Trending() {
     <>
     <div>
       <Menu></Menu>
-      <div>
-        <Button><Link className='text-white text-decoration-none' to={"/"}>Home</Link></Button>      
-      </div>
-     {!loading ? '' :
-     <div> 
-      <div className='container d-flex justify-content-center'>
-       <div className='article-cover-wrapper'>
-         {!coverImg ? '' : <img className='article-cover' src={coverImg} alt="steam" />}
-       </div>
-       <h2 id='title'></h2>
-      </div>
-      <div className='container'>
-       <div id='tob'></div>
-       <div id='content'></div>
-       <div className='next-articles'>
-        <Carousel interval={null}>
-        {nextArticlesLoaded ? nextArticles.map((post, index)  => 
-          <CarouselItem key={index}>
-           <div className='game-tip'>
-            <h2></h2>
-            <Button className='btn-warning'>Beginner</Button>
-           </div>
-          </CarouselItem>
+      
 
-        ) : ''}  
-        </Carousel>
+     {!loading ? '' :
+     <div className='container'> 
+       <div className='d-flex container justify-content-center mt-3 mb-2'>
+         <div className='d-flex col-6'>
+            {!coverImg ? '' : <img className='article-cover' src={coverImg} alt="steam" />} 
+         </div>
+         <div className=' d-flex align-items-center col-6'>
+            <h2 id='title'></h2>
+         </div>            
        </div>
-       <div id='comment-field'>
-          <h2>COMMENT SECTION</h2>
+  
+       <div className='d-flex mt-4 container justify-content-center'>
+        <div className='col-2'></div>
+        <div className='col-9'>
+         <div id='tob'></div>
+         <div id='content'></div>
+         <div className='next-articles'>
+          <Carousel interval={null}>
+           {nextArticlesLoaded ? nextArticles.map((post, index)  => 
+             <CarouselItem key={index}>
+              <div className='game-tip'>
+               <h2></h2>
+               <Button className='btn-warning'>Beginner</Button>
+              </div>
+             </CarouselItem>
+            ) : ''}  
+          </Carousel>
+         </div>
+          <div id='comment-field'>
+           <h2>COMMENT SECTION</h2>
+          </div>
+        </div>
+        <div className='col-1'></div>
        </div>
-      </div>
-     </div> 
-     }
+     </div> }
      <SocialMedia></SocialMedia>
      </div>
     </>

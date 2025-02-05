@@ -15,6 +15,10 @@ const Chatbot = () => {
         const newMessages = [...messages, { sender: "user", text: input }];
         setMessages(newMessages);
 
+        // Rather than allow the user to type in a string
+        // What if I had pre-defined options that will feed a strong demand?
+        // In future, I want to have a model for game dev
+
         try {
             const response = await axios.post('http://localhost:3001/generate', {
                 input: input,

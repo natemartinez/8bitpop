@@ -188,3 +188,9 @@ textarea{
     background-color:#385462;
     border-radius:10px;
 }
+.roadmap-card{
+    width: 300px;
+    height: 200px;
+    background-color: #007bff;
+}
+

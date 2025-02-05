@@ -36,15 +36,15 @@ function SocialMedia(){
    }, []);
 
     return (
-       <div className="container">
+       <div className="container mt-3">
          <div className="sm-div d-flex flex-column">
-          <div className="heading">
+          <div className="sm-heading">
             <h1>Follow us on Social Media!</h1>
           </div>
           {links ? 
-            <div className="links">
+            <div className="d-flex sm-links align-items-center">
              <Link><img src={facebook} alt="Facebook" className='sm-links' /></Link>
-             <Link><img src={instagram} alt="Instagram" className='sm-links'/></Link>
+             <Link><img src={instagram} alt="Instagram" id='ig-link' className='sm-links'/></Link>
              <Link><img src={twitter} alt="Twitter" className='sm-links'/></Link>   
            </div> : '' }
           

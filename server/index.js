@@ -347,6 +347,31 @@ app.get('/api/devtips', async (req, res) => {
     res.status(500).send('Error fetching data from Sanity');
   }
 });
+const fetch = async () => {
+  try {
+    const query = '*[_type == "devTips"]{title, content}';
+    const response = await axios.get(sanityUrl, {
+      params: { query },
+      headers: sanityToken ? { Authorization: `Bearer ${sanityToken}` } : {}
+    });
+
+    const data = response.data.result;
+    return data;
+  } catch (error) {
+    console.error('Error fetching data from Sanity:', error);
+    throw error;
+  }
+};
+app.get('/api/devtips', async (req, res) => {
+  try {
+    const data = await fetchDevTips();
+    res.json(data);
+  } catch (error) {
+    res.status(500).send('Error fetching data from Sanity');
+  }
+});
+
+
 
 app.post('/api/createPost', async (req, res) => {
   const { title, content, tags } = req.body;

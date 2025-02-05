@@ -620,9 +620,7 @@ function Main() {
                             </div>     
                           </div>
                        </div>
-                      </div> : ''}
-
-          <SocialMedia></SocialMedia>    
+                      </div> : ''}  
                   
         </div> 
        }            

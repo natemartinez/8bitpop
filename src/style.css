@@ -42,13 +42,20 @@ a:hover{
     display: flex;
     justify-content: center;
 }
+.btn.active{
+   margin: 0 auto;
+   background-color: rgb(37, 37, 186)!important;
+}
 
 @media screen and (min-width: 1023px){
     .nav-btn-divs{
-        font-size: 1.5vw;
+        font-size: 1em;
         display: flex;
         margin-bottom: 1.5em;
         margin-top: 1.5em;
+    }
+    .btn.active{
+        font-size: 1.25em;
     }
    
 }
@@ -90,14 +97,21 @@ a:hover{
     align-items: center;
 }
 .profile-pic{
-    width: 5.5em;
-    height: 5.5em;
+    width: 2.5em;
+    height: 2.5em;
     border-radius: 50%;
     background: white;
     margin: 1em;
 }
 .greeting{
     font-size: 0.75em;
+}
+
+#login-btn{
+    font-size: 10px;
+}
+#logout-btn{
+    font-size: 15px;
 }
 
 #menu-btn{
@@ -116,18 +130,27 @@ a:hover{
     text-decoration: none;
     color: white
 }
-.ad-space-wrapper{
-    width: 100%;
-    height: 250px;
-    padding: 10%;
-    margin-top: 2.5em;
-    position: relative;
+
+/* Social Media */
+.sm-div{
+    display: flex;
+    width: 150px;
+    height: 100px;
+    background-color: #232326;
+    border: solid 1px white;
+    border-radius: 10px;
+    margin: 0 auto;
+    padding: 0.25em 0.75em;
 }
-.ad-space{
-    width: 100%;
-    height: 350px;
-    background-color: #40404d;
-    border-radius: 10px;   
+.sm-div h1{
+    font-size: 20px;
+}
+.sm-links{
+    flex-direction: row;
+    width: 1.5em;
+}
+#ig-link{
+    width: 2em;
 }
 
 
@@ -271,12 +294,11 @@ a:hover{
 /*Main page */
 .main-content{
     width: 100%;
-    padding: 5em 0em;
+    padding: 2.5em 0em;
 }
 
 /* Main: Trending*/
 .main-post{
-  
   margin: 3vw 3vw;
   flex-wrap: wrap;
   font-size: 1.5em;
@@ -297,7 +319,7 @@ a:hover{
     padding: 0.5em;
 }
 .mainpost-desc p{
-    font-size: 2em;
+    font-size: 1em;
 }
 
 
@@ -312,16 +334,68 @@ a:hover{
 }
 .news-list{
     margin-top: 1em;
+    width: 200px;
 }
 .news-list-wrapper{
     background-color: #232326;
     box-shadow: rgba(0, 0, 0, 0.25) 0px 54px 55px, rgba(0, 0, 0, 0.12) 0px -12px 30px, rgba(0, 0, 0, 0.12) 0px 4px 6px, rgba(0, 0, 0, 0.17) 0px 12px 13px, rgba(0, 0, 0, 0.09) 0px -3px 5px;
+}
+.news-list-items{
+    margin: 0.75em;
 }
 
 @media screen and (max-width: 500px){
     .trend-topics{
         flex-direction: column;
     }
+    .main-post-wrapper{
+        width: 100%;
+    }
+    .main-post{
+        margin: 0 auto;
+    }
+    .mainpost-desc p{
+        font-size: 1em;
+    }
+    .news-list-wrapper{
+        width: 500px;
+    }
+}
+@media screen and (min-width:501px) and (max-width: 768px){
+    .trend-topics{
+        flex-direction: column;
+    }
+    .main-post{
+        width: 375px;
+    }
+    .main-post-wrapper{
+        width: 500px;
+    }
+    .news-list-wrapper{
+        width: 500px;
+    }
+    .news-list{
+        width: 100%;
+    }
+    .news-list-items{
+        font-size: 1em;
+    }
+}
+@media screen and (min-width: 769px) and (max-width: 1000px){
+   .main-post{
+    width: 250px;
+   }
+   .news-list-wrapper{
+     width: 350px;
+     margin-left: 2.5em;
+   }
+   .news-list{
+    width: 350px;
+    font-size: 1em;
+   }
+   .news-list-items{
+    font-size: 1.5em;
+}
 }
 
 @media screen and (min-width: 1023px){
@@ -357,7 +431,11 @@ a:hover{
         font-size: 1.5em;
     }
     .news-list-wrapper{
+        width: 500px;
         padding: 1em;
+    }
+    .news-list{
+        width: 450px;
     }
        
     .post-title{
@@ -492,10 +570,57 @@ a:hover{
 
 /*Articles*/
 .article-cover-wrapper{
-    width: 66%;
+    padding: 3em;
 }
 .article-cover{
-    width: 100%;
+    width: 350px;
+    margin: 0 auto;
+}
+#title{
+    padding: 0.5em;
+
+}
+#content{
+    font-size: 1.25vw;
+}
+#comment-field{
+    width: 45%;
+    height: 250px;
+    background-color: transparent;
+    border: 1px solid white;
+    margin: 0 auto;
+}
+
+/*Actual article content*/
+@media screen and (max-width:500px) {
+
+    #content{
+        margin-top: 2.5em;
+        margin-bottom: 5em;
+        padding-bottom: 5em;
+        border-bottom: 1px solid white;
+        border-width: 50%;
+    }
+    #comment-field{
+        width: 80%!important;
+        height: 250px;
+        background-color: transparent;
+        border: 1px solid white;
+        margin: 0 auto;
+        position: relative;
+    }
+
+    .next-articles{
+        margin-top: 5em;
+        margin-bottom: 10em;
+    }
+
+}
+@media screen and (max-width: 1024px){
+    .article-cover{
+        width: 225px;
+        height: 200px;
+    }
 }
 
 
@@ -962,54 +1087,6 @@ a:hover{
 }
 
 
-/* Social Media */
-.sm-div{
-    display: flex;
-    width: 100%;
-    justify-content: space-evenly;
-    margin-top: 5em;
-}
-.heading{
-    background-color: #232326;
-
-}
-.sm-links{
-    width: 5em;
-}
-
-/*Actual article content*/
-@media screen and (max-width:500px) {
-
-    #content{
-        margin-top: 5em;
-        margin-bottom: 5em;
-        padding-bottom: 5em;
-        border-bottom: 1px solid white;
-        border-width: 50%;
-    }
-    #comment-field{
-        width: 80%!important;
-        height: 250px;
-        background-color: transparent;
-        border: 1px solid white;
-        margin: 0 auto;
-        position: relative;
-    }
-
-    .next-articles{
-        margin-top: 5em;
-        margin-bottom: 10em;
-    }
-
-}
-
-#comment-field{
-    width: 45%;
-    height: 250px;
-    background-color: transparent;
-    border: 1px solid white;
-    margin: 0 auto;
-}
 
 /* Sign up and Log In pages */
 .input-form{

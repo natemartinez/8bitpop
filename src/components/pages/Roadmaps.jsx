@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { XMLParser } from "fast-xml-parser";
+import './pageStyles.css'
 
 const Roadmaps = () => {
   const [error, setError] = useState(null);
@@ -13,28 +14,47 @@ const Roadmaps = () => {
     setProgram(str)
   };
 
-  const setProgram = () => {
+ async function setProgram() {
     // this function is going to grab from the sanity api
+    // list of modules within the game genre (Currency in a RPG, or gun pattern in FPS)
+    // content connected with IGDB, maybe have a mixture of SANITY and SERVER info
 
+    const articles = await axios.get('http://localhost:3001/api/content');
+
+    console.log(articles)
     
   };
 
   return (
     <div className="container">
       {error && <p>{error}</p>}
-      {!selection ? <h2>Roadmap</h2>: 
+      <h2>Roadmap</h2> 
       <ul className="d-flex roadmap-list">
-        <li>
+        <div className="col gap-2">
+         <li className="m-3">
           <div className="roadmap-card">
-            <a href="#" onClick={() => switchCard('RPG')}><h2>RPG's</h2></a>
+            <a href="#" onClick={() => switchCard('rpg')}><h2>RPG's</h2></a>
           </div>
-        </li>
-        <li>
+         </li>
+         <li className="m-3">
           <div className="roadmap-card">
            <a href="#" onClick={() => switchCard('shooters')}><h2>Shooters</h2></a> 
           </div>
-        </li>
-      </ul>}
+         </li>          
+        </div>
+        <div className="col">
+          <li className="m-3">
+           <div className="roadmap-card">
+            <a href="#" onClick={() => switchCard('casual')}><h2>Casual</h2></a> 
+           </div>
+          </li>
+          <li className="m-3">
+           <div className="roadmap-card">
+             <a href="#" onClick={() => switchCard('puzzle')}><h2>Puzzle</h2></a> 
+           </div>
+          </li>        
+        </div>
+      </ul>
 
     </div>
   );
