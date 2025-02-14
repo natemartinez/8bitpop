@@ -9,15 +9,9 @@ const ItchFeed = () => {
   useEffect(() => {
     const fetchRSSFeed = async () => {
       try {
-        const response = await axios.get(
-            `https://api.allorigins.win/raw?url=${encodeURIComponent('https://itch.io/feed/featured.xml')}`
-        );
-          
-
-        const parser = new XMLParser();
-        const jsonData = parser.parse(response.data);
-        const items = jsonData?.rss?.channel?.item || [];
-        console.log(items)
+        const response = await axios.get('http://localhost:3001/api/itch-feed');
+        const items = response.data?.rss?.channel?.item || [];
+        console.log(items);
         setFeedItems(items);
       } catch (err) {
         setError("Failed to load RSS feed");
@@ -29,7 +23,7 @@ const ItchFeed = () => {
 
   return (
     <div className="itch-feed container">
-      <h2 className="text-center">Featured Games from Itch.io</h2>
+      <h2 className="text-center m-3">Featured Games from Itch.io:</h2>
       {error && <p>{error}</p>}
       <ul>
         {feedItems.map((item, index) => (
@@ -37,9 +31,9 @@ const ItchFeed = () => {
             <img className="itch-game" src={item.imageurl} alt="game cover" />
             <div>
               <a className="itch-link" href={item.link} target="_blank" rel="noopener noreferrer">
-               {item.plainTitle}
+                {item.title}
               </a>
-              <p>{item.description.split('\n')[0]}</p>            
+              <p>{item.description.split('\n')[0]}</p>
             </div>
           </div>
         ))}

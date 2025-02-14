@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { Carousel } from 'react-responsive-carousel';
 import { CarouselItem } from 'react-bootstrap';
+import { Link } from 'react-router-dom';
 import "react-responsive-carousel/lib/styles/carousel.min.css"; 
 import axios from "axios";
 import Button from "react-bootstrap/Button";
@@ -70,9 +71,9 @@ function FeatureMain(){
                       <div className="feature-cover-wrapper ">
                         <img className="feature-cover img-fluid" src={post.coverLink} alt="" />
                       </div>
-                      <a href="#" className="post-title text-white text-decoration-none">
+                      <Link className="post-title text-white text-decoration-none" state={{message:'hello'}} to={'/articles/featured'}>
                         <h3 className="p-3 text-center">{post.title}</h3>
-                      </a>
+                      </Link>
                     </div>
                   </div>
                 </div>

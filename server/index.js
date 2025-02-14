@@ -6,7 +6,6 @@ const cors = require('cors');
 const app = express();
 const jwt = require('jsonwebtoken');
 
-
 const UserModel = require('./models/User.js');
 const PostModel = require('./models/Post.js');
 const { MongoClient } = require('mongodb');
@@ -14,6 +13,8 @@ const connectDB = require('./db.js');
 const User = require('./models/User.js');
 const Post = require('./models/Post.js');
 const bodyParser = require('body-parser');
+const { XMLParser } = require('fast-xml-parser');
+
 
 app.use(bodyParser.json());
 app.use((req, res, next) => {
@@ -40,7 +41,6 @@ const igdbTOKEN = process.env.IGDB_TOKEN;
 
 const AITOKEN = process.env.AI_TOKEN;
 
-
 const axiosHeaders = {
   'Client-ID': igdbID,
   'Authorization': `Bearer ${igdbTOKEN}`,
@@ -48,10 +48,9 @@ const axiosHeaders = {
   'Content-Type': 'text/plain'
 };
 
-
-
 app.post('/api/register', async (req, res) => {
   const { username, password } = req.body;
+  const preferences = [];
 
   if (!username || !password) {
     return res.status(400).json({
@@ -125,7 +124,6 @@ app.post('/api/login', async (req, res) => {
   }
 });
 
-
 app.post('/api/curate', async (req, res) => {
   const preferences = req.body;
   curateContent(preferences);
@@ -142,7 +140,6 @@ const curateContent = async (data) => {
     await currentUser.save();
   }
 };
-
 
 const fetchContent = async (params) => {
   try {
@@ -276,6 +273,19 @@ app.get('/api/spotlight', async (req, res) => {
     res.status(500).send('Error fetching data from Sanity');
   }
 });
+
+app.get('/api/itch-feed', async (req, res) => {
+  try {
+    const response = await axios.get('https://itch.io/feed/featured.xml');
+    const parser = new XMLParser();
+    const jsonData = parser.parse(response.data);
+    res.status(200).json(jsonData);
+  } catch (error) {
+    console.error('Error fetching Itch.io feed:', error);
+    res.status(500).json({ message: 'Error fetching Itch.io feed' });
+  }
+});
+
 
 const fetchFacts = async () => {
   try {

@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import Button from "react-bootstrap/Button";
-import SocialMedia from './SocialMedia';
+import SocialMedia from './widgets/SocialMedia';
 import '../style.css';
 import axios from 'axios';
 
@@ -54,9 +54,15 @@ function Menu() {
     // Check if user data is stored in localStorage, if it doesn't exist, set currentUser to null
     const storedUser = localStorage.getItem("userData");
     if (storedUser) {
-      setCurrentUser(JSON.parse(storedUser));
+      try {
+        setCurrentUser(JSON.parse(storedUser));
+      } catch (error) {
+        console.error('Error parsing UserData', error)
+      }
+      
     } else {
-      setCurrentUser(null); 
+      setCurrentUser(null);
+      console.log('No user data') 
     }
   }, []);
 
@@ -71,12 +77,14 @@ function Menu() {
   return (
     <>
       <div className={`menu-bar-wrapper ${isCollapsed ? 'collapsed' : ''}`}>
-        <button id='menu-btn' onClick={collapseMenu}>
+        <div className='d-flex'>
+          <button id='menu-btn' onClick={collapseMenu}>
               {menuBtn !== null ? (
                 <img src={menuBtn.link} alt="menu button" />
               ) : ''}
-        </button>
-
+          </button>
+          <h4 className={`${isCollapsed ? 'inactive' : ''}`} >Close</h4>    
+        </div>
         <div className='profile'>
           <img className='profile-pic' alt="Profile"></img>
           {!isCollapsed && <h3 className='greeting'>
@@ -85,7 +93,6 @@ function Menu() {
           <div>
           </div>
         </div>
-
         <div className={`menu-links ${isCollapsed ? 'hide-links' : ''}`}>
           {!currentUser ? (
             <div>
@@ -119,9 +126,8 @@ function Menu() {
             ) : ''}
           </div>
         </div>
-
         <SocialMedia/>
-      </div>
+      </div> 
     </>
   );
 }

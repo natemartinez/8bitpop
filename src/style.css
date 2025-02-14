@@ -65,6 +65,7 @@ a:hover{
 .menu-bar-wrapper{
     position: fixed;
     left: 0;
+    top: 0;
     width: 15%;
     height: 100%;
     z-index: 3;
@@ -74,6 +75,10 @@ a:hover{
 
 .menu-bar-wrapper.collapsed {
     width: 80px; 
+}
+
+.inactive{
+    display: none;
 }
   
 .menu-links {
@@ -124,7 +129,7 @@ a:hover{
 
 .link-wrapper{
     margin-top: 2em;
-    font-size: 1.75em;
+    font-size: 2vw;
 }
 .link-wrapper a{
     text-decoration: none;
@@ -189,7 +194,6 @@ a:hover{
         display: none!important;
     }
     .link-wrapper {
-        font-size: 1.75em;
         margin-top: 0em;
     }
 }
@@ -394,7 +398,7 @@ a:hover{
     font-size: 1em;
    }
    .news-list-items{
-    font-size: 1.5em;
+    font-size: 1.25em;
 }
 }
 
@@ -428,7 +432,7 @@ a:hover{
     }
 
     .news-list-items{
-        font-size: 1.5em;
+        font-size: 1.25em;
     }
     .news-list-wrapper{
         width: 500px;
@@ -569,6 +573,9 @@ a:hover{
 }
 
 /*Articles*/
+.article-content{
+    padding: 0em 10em;
+}
 .article-cover-wrapper{
     padding: 3em;
 }
@@ -850,7 +857,6 @@ a:hover{
     border-radius: 10px;
 }
 
-
 .top-ten{
     position: relative;
     margin: 0 auto;
@@ -948,8 +954,6 @@ a:hover{
         background-color: black;
         border: 2px solid white;
     }
-    
-
 
     .modernPage{
         flex-direction: column;
@@ -962,7 +966,6 @@ a:hover{
         padding: 1em;
     }
     
-
     .game-tip{
         width: 75%;
         height: 15em;
@@ -1022,24 +1025,26 @@ a:hover{
 
 /*Modern, Retro, Future Main post */
 .era-main{
-    width: 50%;
+    width: 750px;
+    height: 250px;
     background-color: #303039;
     padding: 1em;
     border-radius: 10%;
 }
-
 /* Modern, Retro, Future posts */
 .era-posts{
-    width: 50%;
     border-radius: 10px;
-    background-color: #40404d;
-    padding: 5em;
+    background-color: #303039;
+    padding: 2.55em;
+    margin-top: 5em;
 }
 
-.game-art-title{
-    width: 10em;
-    height: 5em;
-    background-color: #303039;
+.post-blocks img{
+    width: 300px!important;
+    height: 225px!important;
+}
+.featured-img{
+    width: 450px;
 }
 
 
