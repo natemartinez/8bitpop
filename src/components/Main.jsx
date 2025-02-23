@@ -208,7 +208,7 @@ function Main() {
  
   return (
     <div>       
-       <div className='container'>
+       <div className=''>
         <Menu state={currentUser}></Menu>
         <Nav sendPage={changePage}></Nav>
         
@@ -217,34 +217,37 @@ function Main() {
           {retroPage ? <Retro/> : ''}
           {modernPage ? <Modern/> : ''}
           {futurePage ? <Future/> : ''}
-          {mainPage ? <div className='container'>
+          {mainPage ? <div className='main-page'>
                <TrendMain/>
                <FeaturedMain/>
-               <div className='dyk d-flex justify-content-center mt-5 mb-5 container'>
+               <div className='dyk d-flex container'>
                         {fact !== null && factTopic !== null && factImage !== null ? 
-                        <div className='dyk-box d-flex flex-column'>
+                        <div className='dyk-box d-flex flex-column justify-content-center'>
                           <h4 className='text-center mb-3'>{factTopic}</h4>
-                          <div className='d-flex flex-row'>
-                            <div className='col-6'>
+                          <div className='row'>
+                            <div className='col-12 col-md-12 col-lg-6'>
                               <img src={factImage} id='fact-image' alt="fact image" />
                             </div>
-                            <div className='col-6'>
+                            <div className='col-12 col-md-12 col-lg-6'>
                                <p id='fact'>{fact}</p> 
                             </div>         
                           </div>  
                         </div> : ''}
                </div> 
-               <div className='indie-spotlight-wrapper d-flex mt-4 container'>
-                        <h2 className='spotlight-header text-center mb-3'>Indie Game Spotlight</h2>
-                        {spotlight !== null ? spotlight.map((game, index) =>
-                          <div key={index} className='indie-spotlight d-flex flex-column mt-4'>  
-                              <div className=' d-flex justify-content-center featured-indie-cover'>
-                                <div className='d-flex flex-column align-items-center'>
-                                 <h2 className='m-5'>{game.title}</h2>
+               <div className='indie-spotlight-wrapper d-flex container'>
+                  <h1 className='spotlight-header text-center mb-3'>Indie Game Spotlight</h1>
+
+                   {spotlight !== null ? spotlight.map((game, index) =>
+                      <div key={index} className='indie-spotlight'>  
+                              <div className='row'>
+                                <div className='col-12 col-md-6 d-flex flex-column align-items-center'>
+                                 <h2 className='m-3'>{game.title}</h2>
                                  <h4><strong>Platforms:</strong></h4> 
                                  <h4>{game.platforms}</h4>                                  
                                 </div>
-                                <img id='indie-game-cover' src={game.link} alt="game cover" />
+                                <div className='col-12 col-md-6 d-flex justify-content-center align-items-center'>
+                                  <img id='indie-game-cover' src={game.link} alt="game cover" />
+                                </div>                
                               </div>
                               <div className='d-flex align-items-center flex-column mt-3'>
                                 <div className='d-flex row mt-4'>
@@ -254,7 +257,7 @@ function Main() {
                                   <p>{game.description}</p>
                                 </div>
                               </div>
-                          </div>): ''}                    
+                      </div>): ''}                    
                </div>
                <div className='game-releases-div container'>
                          <h2 className=' text-center mt-5 mb-5'>Upcoming Games</h2>
@@ -308,7 +311,7 @@ function Main() {
                <div className='mechanic-wrapper container'>
                         <div className='d-flex row mb-4'>
                          <div className='col-2'></div>
-                         <div className='col-8'>
+                         <div className='col-lg-8 col-sm-12'>
                           <div className='mechanic-info'>
                             <div className='mechanic-bkgrd-wrapper'>
                              {mechanicBkgrd !== null ? <img id='mechanic-bkgrd' src={mechanicBkgrd.link} alt=""/> : ''} 
@@ -326,7 +329,7 @@ function Main() {
                         </div>
                         <div className='d-flex row mt-4'>
                           <div className='col-2'></div>
-                          <div className='col-8 accordion-div'>
+                          <div className='col-lg-8 col-sm-12 accordion-div'>
                            <Accordion defaultActiveKey="0" id="mech-accordion">
                               {mechanics !== null ? mechanics.map((mechanic, index) => (
                                <Accordion.Item eventKey={index} key={index}>

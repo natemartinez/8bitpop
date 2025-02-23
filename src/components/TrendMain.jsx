@@ -38,8 +38,8 @@ function TrendMain() {
 
   return (
     <div className="trend-topics container">
-      <div className="col-1"></div>
-      <div className="col-4">
+     <div className="row justify-content-center">
+      <div className="col-md-6 col-lg-6 col-12">
         <div className="main-post-wrapper">
           <div className="main-post d-flex justify-content-center">
             <div className="mainpost-cover-wrapper mb-1 d-flex justify-content-center">
@@ -56,11 +56,10 @@ function TrendMain() {
           </div>                
         </div>            
       </div>
-      <div className="col-1"></div>
-      <div className="col-5">
+      <div className="col-md-6 col-lg-6 col-12">
         <div className="news-list-wrapper">
-          <h2 className="text-center other-trend-title mt-1">Other Trending News</h2>
           <div className="news-list">
+            <h2 className="text-center other-trend-title">Other Trending News</h2>  
             {newsList ?  
               newsList.map((post, index) => 
                 <div key={index} className="d-flex align-items-center">
@@ -72,8 +71,9 @@ function TrendMain() {
               ) : ''}
           </div>              
         </div>
-      </div>
-      <div className="col-1"></div>
+      </div>    
+    </div>
+
     </div>
   );
 }

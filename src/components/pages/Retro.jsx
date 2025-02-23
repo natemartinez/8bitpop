@@ -6,10 +6,14 @@ import { connect } from "react-redux";
 
 const Retro = () => {
     const SERVER = import.meta.env.VITE_SERVER;
+    const accessToken = import.meta.env.IGDB_TOKEN;
+    const accessID = import.meta.env.IGDB_ID;
 
     const [retroGOTW, setRetroGOTW] = useState(null);
     const [retroPosts, setRetroPosts] = useState([]);
     const [archiveContent, setArchiveContent] = useState(null);
+
+    const [similarGames, setSimilarGames] = useState([]);
 
     async function fetchContent(){
       try {
@@ -20,9 +24,8 @@ const Retro = () => {
       } catch (error) {
         console.error(error)
       }
-   }
-
-   function sortContent(content){
+    };
+    function sortContent(content){
       let posts = [];
 
       for(let i=0; i < content.length; i++){
@@ -35,11 +38,29 @@ const Retro = () => {
         }
       }
       setRetroPosts(posts);
-   };
-
-   useEffect(() => {
+    };
+ 
+    async function fetchGameData(){
+      try {
+         const serverData = await axios.get(SERVER + '/api/gameData');
+         const gameArray = serverData.data.similarGames;
+         console.log('Similar Games: ', gameArray);
+         setSimilarGames(gameArray);
+      } catch (error) {
+        console.error(error);
+      }
+    };
+ 
+    useEffect(() => {
       fetchContent();
-   }, [])
+      fetchGameData();
+    }, [])
+
+   /* SIMILAR GAMES: 
+     - I want to make each similar game into a carousel
+     - I want to make either the loading time is faster or 
+     make a 'loading screen'
+   */
 
   return (
     <div className="container d-flex justify-content-center" >
@@ -62,16 +83,21 @@ const Retro = () => {
     
                 <div>
                   <h2>Similar games list</h2>
+                  {similarGames !== null ? similarGames.map((game, index) => 
+                    <li key={index}>
+                        {game}
+                    </li>
+                   ) : ''}
                 </div>
               </div> : '' } 
              </div>     
              {retroPosts !== null ? retroPosts.map((post, index) =>  
                 <div className='retro-feature mb-5 d-flex justify-content-center' key={index}>
                   <div className='d-flex flex-row era-posts p-5'>
-                    <div className='retro-feature-div border border-primary'>
+                    <div className='retro-feature-div'>
                       <img className='retro-feature-img' src={post.coverLink} alt="" />
                     </div>                 
-                   <div>
+                   <div className='p-3'>
                     <h2>{post.title}</h2>
                     <p>This is just an example of the mini description for the article.</p>
                     <p>The description should be intriging.</p>

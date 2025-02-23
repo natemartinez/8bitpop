@@ -78,12 +78,12 @@ function Menu() {
     <>
       <div className={`menu-bar-wrapper ${isCollapsed ? 'collapsed' : ''}`}>
         <div className='d-flex'>
-          <button id='menu-btn' onClick={collapseMenu}>
+          <button id='close-menu' onClick={collapseMenu}>
               {menuBtn !== null ? (
                 <img src={menuBtn.link} alt="menu button" />
               ) : ''}
           </button>
-          <h4 className={`${isCollapsed ? 'inactive' : ''}`} >Close</h4>    
+          <h4 className={`${isCollapsed ? 'inactive' : ''}`} id='close' >Close</h4>    
         </div>
         <div className='profile'>
           <img className='profile-pic' alt="Profile"></img>
@@ -95,7 +95,7 @@ function Menu() {
         </div>
         <div className={`menu-links ${isCollapsed ? 'hide-links' : ''}`}>
           {!currentUser ? (
-            <div>
+            <div className='menu-btns'>
              <Link id='login-btn' to="/login">
                <Button>Log In</Button>
              </Link>
@@ -105,18 +105,22 @@ function Menu() {
             </div>
           ) : <LogOutButton />}
 
-          <div className='link-wrapper d-flex justify-content-center'>
-            <Link to="/">Home</Link>
+          <div className='page-links'>
+            <div className='link-wrapper d-flex justify-content-center'>
+              <Link to="/">Home</Link>
+            </div>
+            <div className='link-wrapper d-flex justify-content-center'>
+              <Link to="/pages/build">Build</Link>
+            </div>
+            <div className='link-wrapper d-flex justify-content-center'>
+              <Link to="/pages/community">Community</Link>
+            </div>
+            <div className='link-wrapper d-flex justify-content-center'>
+              <Link to="/pages/profile">Profile</Link>
+            </div>          
           </div>
-          <div className='link-wrapper d-flex justify-content-center'>
-            <Link to="/pages/build">Build</Link>
-          </div>
-          <div className='link-wrapper d-flex justify-content-center'>
-            <Link to="/pages/community">Community</Link>
-          </div>
-          <div className='link-wrapper d-flex justify-content-center'>
-            <Link to="/pages/profile">Profile</Link>
-          </div>
+
+
           <div className='featured-review-wrapper d-flex justify-content-center'>
             {mainReview !== null ? (
               <div className='featured-review'>

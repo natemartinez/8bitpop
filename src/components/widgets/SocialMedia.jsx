@@ -38,7 +38,7 @@ function SocialMedia(){
 
     return (
        <div className="container mt-3">
-         <div className="sm-div d-flex flex-column">
+         <div className="sm-div">
           <div className="sm-heading">
             <h1>Follow us on Social Media!</h1>
           </div>
@@ -47,7 +47,8 @@ function SocialMedia(){
              <Link><img src={facebook} alt="Facebook" className='sm-links' /></Link>
              <Link><img src={instagram} alt="Instagram" id='ig-link' className='sm-links'/></Link>
              <Link><img src={twitter} alt="Twitter" className='sm-links'/></Link>   
-           </div> : '' }
+           </div> : '' 
+          }
           
          </div>
           

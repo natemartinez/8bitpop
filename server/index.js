@@ -357,31 +357,67 @@ app.get('/api/devtips', async (req, res) => {
     res.status(500).send('Error fetching data from Sanity');
   }
 });
-const fetch = async () => {
-  try {
-    const query = '*[_type == "devTips"]{title, content}';
-    const response = await axios.get(sanityUrl, {
-      params: { query },
-      headers: sanityToken ? { Authorization: `Bearer ${sanityToken}` } : {}
-    });
 
-    const data = response.data.result;
-    return data;
-  } catch (error) {
-    console.error('Error fetching data from Sanity:', error);
-    throw error;
-  }
+const fetchIDGBData = async () => {
+    try {
+      const response = await fetch(
+        "https://api.igdb.com/v4/games",
+        { method: 'POST',
+          headers: {
+            'Client-ID': igdbID,
+            'Authorization': `Bearer ${igdbTOKEN}`,
+            'Accept': 'application/json',
+          },
+          body: `fields name, similar_games;
+                where name = "Paper Mario: The Thousand-Year Door";
+                limit 1;`
+        
+       })
+       const data = response.json();
+       return data;
+
+    } catch (error) {
+      console.error(error);
+    }
+
 };
-app.get('/api/devtips', async (req, res) => {
+const fetchSimilarGames = async (gamesArr) => {
+  let similarGames = [];
+
+  for(const gameId of gamesArr){  
+    try {
+     const response = await fetch(
+      "https://api.igdb.com/v4/games",
+      { 
+        method: 'POST',
+        headers: {
+          'Client-ID': igdbID,
+          'Authorization': `Bearer ${igdbTOKEN}`,
+          'Accept': 'application/json',
+        },
+        body: `fields name; where id = ${gameId};`
+     })
+
+     const data = await response.json();
+     similarGames.push(data[0].name);
+    } catch (error) {
+    console.error(error);
+    } 
+  }
+
+  return similarGames;
+
+};
+app.get('/api/gameData', async (req, res) => {
   try {
-    const data = await fetchDevTips();
-    res.json(data);
+    const data = await fetchIDGBData();
+    const similarGames = await fetchSimilarGames(data[0].similar_games);
+    console.log(similarGames)
+    res.json({data, similarGames});
   } catch (error) {
     res.status(500).send('Error fetching data from Sanity');
   }
 });
-
-
 
 app.post('/api/createPost', async (req, res) => {
   const { title, content, tags } = req.body;
