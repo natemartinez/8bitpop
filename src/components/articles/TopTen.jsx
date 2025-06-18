@@ -5,7 +5,7 @@ import DOMPurify from 'dompurify';
 import ArticleLayout from './ArticleLayout';
 import Menu from '../Menu';
 
-function Trending() {
+function TopTen() {
   const location = useLocation();
   const { post } = location.state || {};
   const SERVER = import.meta.env.VITE_SERVER;
@@ -46,4 +46,4 @@ function Trending() {
   );
 }
 
-export default Trending;
+export default TopTen;

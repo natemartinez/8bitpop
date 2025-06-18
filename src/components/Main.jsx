@@ -26,6 +26,7 @@ function Main() {
   const { state } = location;
   const [currentUser, setCurrentUser] = useState(null);
   const [message, setMessage] = useState('Loading...');
+  const [isMenuCollapsed, setIsMenuCollapsed] = useState(false);
 
   /*Content for other Pages in Nav */
   const [mainPage, setMainPage] = useState(true);
@@ -51,6 +52,7 @@ function Main() {
   const [featuredJam, setFeaturedJam] = useState(null);
   const [alakajamLogo, setAlakajamLogo] = useState(null);
   const [itchIoLogo, setItchIoLogo] = useState(null);
+  const [topTenArticles, setTopTenArticles] = useState([]);
 
   function changePage(newPage){
     setLoading(true);
@@ -87,6 +89,10 @@ function Main() {
     }
     setLoading(false);
 
+  };
+
+  const handleMenuCollapse = (collapsed) => {
+    setIsMenuCollapsed(collapsed);
   };
 
   async function fetchMedia(page) {
@@ -171,6 +177,7 @@ function Main() {
   async function fetchJams() {
     try {
       const facts = await axios.get(SERVER + '/api/jams');
+      console.log('Jams: ', facts.data);
       sortJams(facts.data);
     } catch (error) {
       console.error(error)
@@ -183,9 +190,20 @@ function Main() {
     const featuredJam = {
        name: arr.title,
        dates: arr.display_dates,
-       link: arr.url
+       link: arr.url,
+       status: arr.status,
+       results: arr.status_results,
     }
     setFeaturedJam(featuredJam);
+  };
+
+  async function fetchTopTen() {
+    try {
+      const response = await axios.get(SERVER + '/api/topten');
+      setTopTenArticles(response.data);
+    } catch (error) {
+      console.error('Error fetching top 10 articles:', error);
+    }
   };
 
   useEffect(() => {
@@ -196,33 +214,38 @@ function Main() {
       fetchJams();
       fetchReleases();
       fetchMechanics();
+      fetchTopTen();
     }           
 
   }, [mainPage])
 
   useEffect(() => {
     if(state !== null){
-      setCurrentUser(state.userData)
+      let userData = JSON.parse(state);
+      setCurrentUser(userData)
+    } else{
+      console.log('User isnt signed in')
     }
   },[state])
  
   return (
     <div>       
        <div className=''>
-        <Menu state={currentUser}></Menu>
-        <Nav sendPage={changePage}></Nav>
+        <Menu state={currentUser} onMenuCollapse={handleMenuCollapse}></Menu>
+        <Nav sendPage={changePage} isMenuCollapsed={isMenuCollapsed}></Nav>
         
         {loading ? <h1 className='text-center'>{message}</h1> :
         <div className='main-content'>
           {retroPage ? <Retro/> : ''}
           {modernPage ? <Modern/> : ''}
           {futurePage ? <Future/> : ''}
-          {mainPage ? <div className='main-page'>
+          {mainPage ? <div className={`main-page ${isMenuCollapsed ? 'menu-collapsed' : ''}`}>
                <TrendMain/>
                <FeaturedMain/>
                <div className='dyk d-flex container'>
                         {fact !== null && factTopic !== null && factImage !== null ? 
                         <div className='dyk-box d-flex flex-column justify-content-center'>
+                          <h5>Did you Know... </h5>
                           <h4 className='text-center mb-3'>{factTopic}</h4>
                           <div className='row'>
                             <div className='col-12 col-md-12 col-lg-6'>
@@ -236,34 +259,30 @@ function Main() {
                </div> 
                <div className='indie-spotlight-wrapper d-flex container'>
                   <h1 className='spotlight-header text-center mb-3'>Indie Game Spotlight</h1>
-
                    {spotlight !== null ? spotlight.map((game, index) =>
                       <div key={index} className='indie-spotlight'>  
                               <div className='row'>
-                                <div className='col-12 col-md-6 d-flex flex-column align-items-center'>
-                                 <h2 className='m-3'>{game.title}</h2>
+                                <div className='col-12 col-md-6 d-flex flex-column mt-4 align-items-center'> 
+                                 <img id='indie-game-cover' src={game.link} alt="game cover" />                           
+                                 <h3 className='m-3'>{game.title}</h3>
                                  <h4><strong>Platforms:</strong></h4> 
-                                 <h4>{game.platforms}</h4>                                  
+                                 <h4>{game.platforms}</h4>    
                                 </div>
-                                <div className='col-12 col-md-6 d-flex justify-content-center align-items-center'>
-                                  <img id='indie-game-cover' src={game.link} alt="game cover" />
+                                <div className='plot-div col-12 col-md-5 d-flex justify-content-center mt-5'>
+                                 <div className='d-flex flex-column'>
+                                  <h3 className='text-center'>Plot:</h3>                                                             
+                                  <p>{game.description}</p>
+                                 </div>
                                 </div>                
                               </div>
-                              <div className='d-flex align-items-center flex-column mt-3'>
-                                <div className='d-flex row mt-4'>
-                                 <h3>Plot:</h3>                                    
-                                </div>
-                                <div className='row indie-description'>                           
-                                  <p>{game.description}</p>
-                                </div>
-                              </div>
+
                       </div>): ''}                    
                </div>
                <div className='game-releases-div container'>
                          <h2 className=' text-center mt-5 mb-5'>Upcoming Games</h2>
                          <div>
                           <ul className='game-releases'>
-                            {gameReleases !== null ? 
+                            {Array.isArray(gameReleases) && gameReleases.length > 0 ? 
                               gameReleases.map((element, index) =>
                                <li key={index} className='release-titles mt-4 flex-column d-flex'>
                                 {element.cover?.url ? 
@@ -272,13 +291,13 @@ function Main() {
                                 }
                                 <p>{element.name}</p>
                                </li>
-                              ) : ''}                  
+                              ) : <li>No upcoming games available</li>}                  
                           </ul>
                          </div>
                </div>
                <ItchFeed />
                <div className='game-tips-wrapper d-flex flex-column align-items-center mt-5 container'>
-                         <h2 className='text-center mb-5'>Game Dev Tips</h2>
+                         <h1 className='text-center mb-5'>Game Dev Tips</h1>
                          <Carousel interval={null} className=''>
                             <CarouselItem>
                               <div className='game-tip'>
@@ -317,8 +336,8 @@ function Main() {
                              {mechanicBkgrd !== null ? <img id='mechanic-bkgrd' src={mechanicBkgrd.link} alt=""/> : ''} 
                             </div>
                            <div id='mechanic-text'>
-                            <h3> Deep dive into games with the best</h3>
-                            <h1>Game Mechanics</h1>
+                            
+                            <h1>Understanding <br></br>Game Mechanics</h1>
                              <p id='mechanic-desc'>
                               Lorem ipsum dolor sit amet consectetur adipisicing elit.<br></br> Consectetur fugit, aliquam ipsam animi officiis amet omnis explicabo<br></br> excepturi nesciunt quidem voluptas suscipit culpa quibusdam,<br></br> esse, perspiciatis magnam? Cupiditate, eligendi accusantium?
                              </p>
@@ -340,7 +359,7 @@ function Main() {
                                     
                                       <div key={linkIndex}>
                                         <button className={mechanic.class}>
-                                          <img src={link.logoLink} alt="Mechanic icon" />
+                                          <img src={link.logoLink} className='mechanic-icon' alt="Mechanic icon" />
                                           <a href={link.route}>{link.title}</a>
                                         </button>
                                        
@@ -353,22 +372,25 @@ function Main() {
                                 </Accordion.Item>
                               )) : ''}
                             </Accordion>
-
-
                           </div> 
                           <div className='col-2'></div>                          
                         </div>
                </div>             
                <div className='game-jams-wrapper mt-5 mb-5 container align-items-center'>
                           <h2 className='text-center mb-5 mt-3'>Upcoming Game Jams</h2>
-                          <div className='game-jams-list'>
+                          <div className='d-flex justify-content-center game-jams-list'>
                             {featuredJam !== null ? 
                               <div>
-                                <div className='d-flex flex-row justify-content-center'>
+                                <div>
                                   {alakajamLogo !== null ? <img src={alakajamLogo.link} alt="Alakajam Logo" id='alakajam-logo'/> : ''}    
                                   <div id='gamejam-info'>
                                     <h4>{featuredJam.name}</h4>
                                     <p>{featuredJam.dates}</p>
+                                    <p>GameStatus: 
+                                     <button className={featuredJam.status} href={featuredJam.link}>
+                                    {featuredJam.status}</button>
+                                    </p>
+                                  
                                     <button className='btn btn-secondary'>
                                       <a href={featuredJam.link} target="_blank" rel="noopener noreferrer">Link to Jam</a>
                                     </button>
@@ -378,32 +400,23 @@ function Main() {
                               </div> : ''}
                           </div>         
                </div>
-               <div className='top-ten d-flex align-items-center flex-column mt-4'>
-                          <h2 className='mt-5'>Top 10's</h2>
-                          <div className='top-ten-modules'>
-                            <div>
-                              <h4>Top 10 redemption arcs in Gaming</h4> 
+               <div className='top-ten d-flex align-items-center flex-column mt-4 '>
+                          <h2 className='top-ten-header mt-5'>Top 10's</h2>
+                          {topTenArticles.map((article, index) => (
+                            <div key={index} className='top-ten-modules'>
+                              <div className='d-flex justify-content-between align-items-center p-3'>
+                                <div>
+                                  <Link state={{post: article}} to={'/articles/topten'}><h4>{article.title}</h4></Link>
+                                  {article.description && <p className='text-muted'>{article.description}</p>}
+                                </div>
+                                {article.coverLink && (
+                                  <div className='ms-3'>
+                                    <img src={article.coverLink} alt={article.title} style={{ width: '15em', height: '15em', objectFit: 'cover' }} />
+                                  </div>
+                                )}
+                              </div>
                             </div>
-                            <div>
-
-                            </div>
-                          </div>
-                          <div className='top-ten-modules'>
-                            <div>
-                              <h4>Top 10 Debuts for Game Studios</h4>
-                            </div>
-                            <div>
-
-                            </div>
-                          </div>
-                          <div className='top-ten-modules'>
-                            <div>
-                              <h4>Top 10 redemption arcs in Gaming</h4>  
-                            </div>
-                            <div>
-
-                            </div>     
-                          </div>
+                          ))}
                </div>
               </div> : ''}             
         </div> 

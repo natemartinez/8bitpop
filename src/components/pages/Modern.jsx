@@ -13,7 +13,7 @@ function Modern(){
       try {
         const response = await axios.get(SERVER + '/api/content');
         const modernContent = response.data.filter(obj => obj.page == 'modern');
-       // console.log(modernContent);
+       console.log('Modern:',modernContent);
         setContent(modernContent);
       } catch (error) {
         console.error(error)
@@ -26,16 +26,21 @@ function Modern(){
 
 
 return (
-   <div className='content modernPage'>             
-    <div className='d-flex flex-column align-items-center'>
-     <div className='era-main d-flex justify-content-center'>
+   <div className='modern-content'>             
+    <div className='container'>
+     <div className='row'>
       {content ? content.map((post, index) =>
-        <div key={index} className='post-blocks'>
-          <h2>{post.title}</h2>
+        <div key={index} className='modern-card'>
+           <div>
+            <img className='modern-img' src={post.coverLink} alt="" />
+           </div>
+           <div className='modern-card-title'>
+            <h3>{post.title}</h3>
+           </div>      
         </div>
       ): ''}                  
      </div>
-     <div className='d-flex flex-column align-items-center mt-1 mb-3 era-posts'>
+     <div className=''>
        <div>
          <p className='modern-long-title'>Games with <strong>cartoon </strong>animations</p>
        </div>
@@ -59,7 +64,7 @@ return (
                 </Carousel> 
        </div>
      </div>
-     <div className='d-flex flex-column mt-3 mb-3 era-posts'>
+     <div className=''>
        <div className='p-3'>
          <p className='modern-title'><strong>Palworld Trailer</strong></p>
        </div>                  
@@ -73,7 +78,7 @@ return (
        </div>
 
      </div>
-     <div className='d-flex flex-column mt-3 mb-3 era-posts'>
+     <div className=''>
        <div>
          <p className='modern-long-title'><strong>VR Indie Game Development</strong></p>
        </div>
@@ -86,7 +91,7 @@ return (
         </div>                    
        </div>       
      </div>
-     <div className='d-flex flex-column mt-3 mb-3 era-posts'>
+     <div className=''>
        <div>
        <p className='modern-long-title'><strong>Popular games with unique gameplay</strong></p>
        </div>

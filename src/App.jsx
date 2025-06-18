@@ -16,6 +16,7 @@ import Community from './components/pages/Community';
 import Profile from './components/pages/Profile';
 
 import ArticleLayout from './components/articles/ArticleLayout';
+import TopTen from './components/articles/TopTen';
 
 function App() {
   return (
@@ -28,6 +29,7 @@ function App() {
       <Route path='/articles' element={<ArticleLayout />}>
        <Route path="trending" element={<Trending />} />
        <Route path="featured" element={<Featured />} />  
+       <Route path="topten" element={<TopTen />} />  
             
       </Route>
 

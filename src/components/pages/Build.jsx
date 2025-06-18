@@ -9,7 +9,6 @@ import ToolsandFrameworks from './ToolsandFrameworks';
 import Settings from './Settings';
 
 import XpCircle from '../widgets/XpCircle';
-import Compiler from '../widgets/Compiler';
 import Chatbot from '../widgets/Chatbot';
 
 const Build = () => {
@@ -38,7 +37,6 @@ const Build = () => {
 
   const changePage = (newPage) => {
    // setLoading(true);
-    setEditor(false);
     setRoadmaps(false);
     setNotes(false);
     setSettings(false);
@@ -88,11 +86,6 @@ const Build = () => {
         <div className="build-nav d-flex row justify-content-start">
          <ul className="nav justify-content-center">
           <li className="build-nav-item">
-            {editor ? <a className='nav-link active' href='#'>Editor</a> :
-             <a className="nav-link" href="#" onClick={() => changePage('Editor')}>Editor</a>
-            }          
-          </li>
-          <li className="build-nav-item">
             {roadmaps ? <a className='nav-link active' href='#'>Roadmaps</a> :
              <a className="nav-link" href="#" onClick={() => changePage('Roadmaps')}>Roadmaps</a>
             }
@@ -118,7 +111,6 @@ const Build = () => {
        <div className='d-flex container'>
         <div className='col-2'></div>
         <div className='col-9'>
-        {editor && <Compiler />}
         {roadmaps && <Roadmaps />}
         {notes && <Notes />}
         {toolsandFrameworks && <ToolsandFrameworks />}

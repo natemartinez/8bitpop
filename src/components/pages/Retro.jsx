@@ -9,6 +9,8 @@ const Retro = () => {
     const accessToken = import.meta.env.IGDB_TOKEN;
     const accessID = import.meta.env.IGDB_ID;
 
+    const [loading, setLoading] = useState(true);
+
     const [retroGOTW, setRetroGOTW] = useState(null);
     const [retroPosts, setRetroPosts] = useState([]);
     const [archiveContent, setArchiveContent] = useState(null);
@@ -19,7 +21,6 @@ const Retro = () => {
       try {
         const response = await axios.get(SERVER + '/api/content');
         const retroContent = response.data.filter(obj => obj.page == 'retro');
-        console.log('Retro Content: ', retroContent);
         sortContent(retroContent);
       } catch (error) {
         console.error(error)
@@ -39,13 +40,12 @@ const Retro = () => {
       }
       setRetroPosts(posts);
     };
- 
     async function fetchGameData(){
       try {
          const serverData = await axios.get(SERVER + '/api/gameData');
          const gameArray = serverData.data.similarGames;
-         console.log('Similar Games: ', gameArray);
          setSimilarGames(gameArray);
+         setLoading(false);
       } catch (error) {
         console.error(error);
       }
@@ -60,6 +60,7 @@ const Retro = () => {
      - I want to make each similar game into a carousel
      - I want to make either the loading time is faster or 
      make a 'loading screen'
+     - I want the similar games to stay the same once they're loaded in for the first time
    */
 
   return (
@@ -68,32 +69,33 @@ const Retro = () => {
              <div className='d-flex mt-4 mb-4 '>
              {retroGOTW !== null ?    
               <div className='d-flex flex-column align-items-center'>
-                <div className='mb-5 mt-3'>
-                    <h3>Retro Game of the Week</h3>
+                <div className='mb-3 mt-3'>
+                    <h1 className="fw-bold">Retro Game of the Week</h1>
                 </div>  
-                <div className='d-flex justify-content-center container mt-3'>
+                <div className='d-flex retro-gotw justify-content-center container mt-3'>
                   <div className='col-lg-5'>
-                    <img className='retro-gotw' src={retroGOTW.coverLink} alt={retroGOTW.title} />
+                    <img className='retro-gotw-img' src={retroGOTW.coverLink} alt={retroGOTW.title} />
                   </div>
-                  <div className='era-main col-lg-3 mx-5'>
+                  <div className='era-main col-lg-3 '>
                     <h3 className='text-center'>A look back at:</h3>
                     <p className='retro-gotw-title text-center'>{retroGOTW.title}</p>
                   </div>
                 </div>  
     
-                <div>
-                  <h2>Similar games list</h2>
-                  {similarGames !== null ? similarGames.map((game, index) => 
-                    <li key={index}>
-                        {game}
-                    </li>
-                   ) : ''}
-                </div>
+               {loading !== true ? 
+                 <div className="mt-4 similar-games-list">
+                   <h2 className="mb-3 text-center">Similar games like <span className="fw-bold">{retroGOTW.title}</span></h2>
+                   {similarGames !== null ? similarGames.map((game, index) =>
+                     <h4><li key={index}>{game}</li></h4>) : ''
+                   }           
+                 </div> : <div><h1>Loading...</h1></div>
+                } 
               </div> : '' } 
              </div>     
+             <h1 className='mt-5 mb-3 fw-bold'>Featured Posts</h1>
              {retroPosts !== null ? retroPosts.map((post, index) =>  
                 <div className='retro-feature mb-5 d-flex justify-content-center' key={index}>
-                  <div className='d-flex flex-row era-posts p-5'>
+                  <div className='d-flex era-posts p-5'>
                     <div className='retro-feature-div'>
                       <img className='retro-feature-img' src={post.coverLink} alt="" />
                     </div>                 

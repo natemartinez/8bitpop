@@ -37,18 +37,19 @@ function FeatureMain() {
 
   return (
     <div className="feat-topics d-flex justify-content-center">
+      <h1>Featured Articles</h1>
       <div className='feature-posts justify-content-center row'>
         {viewportWidth < 500 ? (
           <Carousel interval={null}>
             {posts && posts.length > 0 ? posts.map((post, index) =>
               <div key={index} className="col-12 mb-4">
                 <div className="feature-card h-100">
-                  <div>
+                  <div className="slide-content">
                     <div className="feature-cover-wrapper">
                       <img className="feature-cover img-fluid" src={post.coverLink} alt="" />
                     </div>
-                    <a href="#" className="post-title text-white text-decoration-none">
-                      <p className="p-3">{post.title}</p>
+                    <a href="" className="post-title text-white text-decoration-none">
+                      <h3 className="p-3">{post.title}</h3>
                     </a>
                   </div>
                 </div>
@@ -63,7 +64,7 @@ function FeatureMain() {
                   <div className="feature-cover-wrapper">
                     <img className="feature-cover img-fluid" src={post.coverLink} alt="" />
                   </div>
-                  <Link className="post-title text-white text-decoration-none" state={{message:'hello'}} to={'/articles/featured'}>
+                  <Link className="post-title text-white text-decoration-none" state={{post: post}} to={'/articles/featured'}>
                     <h3 className="p-3 text-center">{post.title}</h3>
                   </Link>
                 </div>

@@ -5,8 +5,7 @@ import SocialMedia from './widgets/SocialMedia';
 import '../style.css';
 import axios from 'axios';
 
-function Menu() {
-
+function Menu({state, onMenuCollapse}) {
   const SERVER = import.meta.env.VITE_SERVER;
 
   const [bookIcon, setBookIcon] = useState(null);
@@ -16,7 +15,6 @@ function Menu() {
   const [isCollapsed, setIsCollapsed] = useState(false);
 
   const location = useLocation();
-  const { state } = location;
   const [currentUser, setCurrentUser] = useState(null);
 
   // Function to fetch menu items
@@ -31,11 +29,13 @@ function Menu() {
     }
   }
 
-  const collapseMenu = () =>{
-    setIsCollapsed(prevState => !prevState);
+  const collapseMenu = () => {
+    const newCollapsedState = !isCollapsed;
+    setIsCollapsed(newCollapsedState);
+    onMenuCollapse(newCollapsedState);
   }
+
   const LogOutButton = () => {
-      // controls state to reload page when user logs out
     const navigate = useNavigate();
     
     const logOut = () => {
@@ -45,7 +45,7 @@ function Menu() {
     }
     
     return (
-     <Button id='logout-btn' onClick={() => logOut()}>Log Out</Button>
+      <Button id='logout-btn' onClick={() => logOut()}>Log Out</Button>
     )
   };
 
@@ -53,13 +53,12 @@ function Menu() {
     getMenuItems();
     // Check if user data is stored in localStorage, if it doesn't exist, set currentUser to null
     const storedUser = localStorage.getItem("userData");
-    if (storedUser) {
+    if (storedUser !== null) {
       try {
         setCurrentUser(JSON.parse(storedUser));
       } catch (error) {
         console.error('Error parsing UserData', error)
       }
-      
     } else {
       setCurrentUser(null);
       console.log('No user data') 
@@ -67,10 +66,8 @@ function Menu() {
   }, []);
 
   useEffect(() => {
-   if (state) {
-      setCurrentUser(state.userData);
-      localStorage.setItem('userData', JSON.stringify(state.userData));
-      console.log(localStorage.getItem('userData'));
+    if (state !== null && state !== undefined) {
+      console.log(state)  
     }
   },[state]);
 
@@ -79,9 +76,9 @@ function Menu() {
       <div className={`menu-bar-wrapper ${isCollapsed ? 'collapsed' : ''}`}>
         <div className='d-flex'>
           <button id='close-menu' onClick={collapseMenu}>
-              {menuBtn !== null ? (
-                <img src={menuBtn.link} alt="menu button" />
-              ) : ''}
+            {menuBtn !== null ? (
+              <img src={menuBtn.link} alt="menu button" />
+            ) : ''}
           </button>
           <h4 className={`${isCollapsed ? 'inactive' : ''}`} id='close' >Close</h4>    
         </div>
@@ -96,12 +93,12 @@ function Menu() {
         <div className={`menu-links ${isCollapsed ? 'hide-links' : ''}`}>
           {!currentUser ? (
             <div className='menu-btns'>
-             <Link id='login-btn' to="/login">
-               <Button>Log In</Button>
-             </Link>
-             <Link id='register-btn' to="/new-user">
-               <Button>New User</Button>
-             </Link>
+              <Link id='login-btn' to="/login">
+                <Button>Log In</Button>
+              </Link>
+              <Link id='register-btn' to="/new-user">
+                <Button>New User</Button>
+              </Link>
             </div>
           ) : <LogOutButton />}
 
@@ -120,7 +117,6 @@ function Menu() {
             </div>          
           </div>
 
-
           <div className='featured-review-wrapper d-flex justify-content-center'>
             {mainReview !== null ? (
               <div className='featured-review'>
@@ -130,7 +126,7 @@ function Menu() {
             ) : ''}
           </div>
         </div>
-        <SocialMedia/>
+        <SocialMedia isCollapsed={isCollapsed} />
       </div> 
     </>
   );

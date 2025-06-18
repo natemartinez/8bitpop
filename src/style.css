@@ -24,12 +24,19 @@ a:hover{
 /* Nav Bar */
 .nav-bar{
     position: relative;
+    transition: left 0.3s ease;
 }
+
+.nav-bar.menu-collapsed {
+    left: 0;
+}
+
 .nav-btns{
     width: 5em;
-    font-size: 1em!important;
+    font-size: 1em;
     margin: 0em 0.5em;
 }
+
 .main-btn{
     position: relative;
     background: transparent;
@@ -54,8 +61,9 @@ a:hover{
         margin-bottom: 1.5em;
         margin-top: 1.5em;
     }
-    .btn.active{
-        font-size: 1.25em;
+    .nav-btns{
+        width: 7.5em;
+        font-size: 1.5em !important;
     }
    
 }
@@ -113,9 +121,6 @@ a:hover{
     font-size: 0.75em;
 }
 
-#login-btn{
-    font-size: 10px;
-}
 #logout-btn{
     font-size: 15px;
 }
@@ -137,12 +142,13 @@ a:hover{
 /* Social Media */
 .sm-div{
     display: flex;
+    flex-direction: column;
     width: 150px;
     height: 100px;
     background-color: #232326;
     border: solid 1px white;
     border-radius: 10px;
-    margin: 0 auto;
+    margin: 50px auto;
     padding: 0.25em 0.75em;
 }
 .sm-div h1{
@@ -156,7 +162,15 @@ a:hover{
     width: 2em;
 }
 
-
+@media screen and (min-width: 500px){
+    .main-content{
+        margin-left: 0em!important;
+        padding: 0 15px;
+    }
+    .accordion-div{
+        margin-top: 20em!important;
+    }
+}
 @media screen and (max-width: 500px){
     #logo{
         width: 5em;
@@ -166,10 +180,12 @@ a:hover{
     }
     .nav-btn-divs{
         flex-direction: column;
+        align-items: center;
     }
     .nav-bar{
         margin-left: 0em;
         left: 0%;
+        width: 100%;
     }
 
     .main-btn{
@@ -180,8 +196,368 @@ a:hover{
     .profile{
         display: none!important;
     }
+    .main-post-wrapper{
+        width: 100%;
+        max-width: 375px;
+        margin: 0 auto;
+    }
+    .news-list-wrapper{
+        width: 100%;
+        max-width: 375px;
+        margin-bottom: 5em!important;
+    }
+    .feature-posts .col-12 {
+        display: flex;
+        justify-content: center;
+        width: 100%;
+        max-width: 500px;
+    }
+    .feat-topics{
+        text-align: center;
+        flex-direction: column;
+    }
+    .main-content{
+        margin-left: 0em!important;
+        padding: 0 15px;
+    }
+    .featured-review{
+        padding: 0em;
+        width: 100%;
+    }
+    .article-card{
+        width: 100%!important;
+        height: 20em!important;
+        margin: 0 auto;
+    }
+    .article-card p{
+        font-size: 1.5em;
+    }
+    .article-cover{
+        align-items: center;
+        width: 100%;
+        display: flex;
+        justify-content: center;
+    }
+    .article-cover-wrapper{
+        width: 75%;
+        margin: 0 auto;
+        flex-direction: column;
+    }
+    .mechanic-entry p {
+        font-size: 2.5em;
+    }
+    .main-feature-wrapper{
+        margin-top: 5em;
+        width: 100%;
+    }
+    .feature-carousel-wrapper .article-card{
+        margin: 0 auto;
+    }
+    
+    .feature-card-link{
+        font-size: 1.5em;
+        padding: 0em;
+        height: 30em;
+        text-align: center;
+    }
+    .carousel .control-prev.control-arrow{
+        left: -10px;
+    }
+    .carousel .control-next.control-arrow{
+        right: -10px;
+    }
+    .modernPage{
+        flex-direction: column;
+        align-items: center;
+    }
+    .post-blocks{
+        width: 100%;
+        max-width: 66%;
+        height: 10em;
+        background-color: #40404d;
+        padding: 1em;
+        margin: 0 auto;
+    }
+    .game-tip{
+        flex-direction: column;
+        align-items: center;
+        width: 100%;
+        max-width: 75%;
+        height: 25em!important;
+        margin: 0 auto;
+    }
+    .game-tip li{
+        text-decoration: none;
+        text-align: center;
+    }
+    .trend-icons{
+        width: 30px;
+        height: 30px;
+        margin-right: 10px;
+    }
+    .chest-img{
+        width: 75%;
+        height: 15em;
+        margin: 2em auto;
+        display: block;
+    }
+    .sm-links{
+        width: 20%;
+        margin: 0 auto;
+    }
+    .dyk-box {
+        width: 100%;
+        max-width: 375px;
+        margin: 0 auto;
+    }
+    .indie-spotlight-wrapper {
+        width: 100%;
+        padding: 0 15px;
+    }
+    .game-releases-div {
+        width: 100%;
+        padding: 0 15px;
+    }
+    .game-releases {
+        width: 100%;
+        max-width: 375px;
+        margin: 0 auto;
+        padding: 0;
+    }
+    .release-titles {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+        padding: 1em;
+    }
+    .game-releases-cover {
+        order: -1;
+        margin-bottom: 1em;
+        width: 150px !important;
+        height: auto;
+    }
+    .release-titles p {
+        margin: 0;
+        font-size: 1em;
+        font-weight: bold;
+    }
+    .mechanic-wrapper {
+        width: 100%;
+        padding: 0 15px;
+        margin-top: 10em!important;
+    }
+    .game-jams-wrapper {
+        width: 100%;
+        padding: 0 15px;
+    }
+    .game-jams-list {
+        width: 100%;
+        max-width: 375px;
+        margin: 0 auto;
+    }
+    .top-ten {
+        width: 100%;
+        padding: 0 15px;
+    }
+    .top-ten-modules {
+        width: 100%;
+        max-width: 375px;
+        margin: 1em auto;
+    }
+
+    /* Image above text for mobile */
+    .dyk-box .row {
+        flex-direction: column;
+    }
+    .dyk-box .col-12 {
+        order: -1; /* Makes image appear first */
+    }
+    .dyk-box img {
+        margin-bottom: 1em;
+    }
+
+    .indie-spotlight .row {
+        flex-direction: column;
+    }
+    .indie-spotlight .col-12 {
+        order: -1; /* Makes image appear first */
+    }
+    .indie-spotlight img {
+        margin-bottom: 1em;
+    }
+
+    
+    .feature-card img {
+        order: -1; /* Makes image appear first */
+        margin-bottom: 1em;
+    }
+
+    .article-card {
+        flex-direction: column;
+    }
+    .article-card img {
+        order: -1; /* Makes image appear first */
+        margin-bottom: 1em;
+    }
+
+    .top-ten-modules .d-flex {
+        flex-direction: column;
+    }
+    .top-ten-modules img {
+        order: -1; /* Makes image appear first */
+        margin-bottom: 1em;
+    }
+
+    .game-tip-bkgrd {
+        order: -1; /* Makes image appear first */
+        width: 100% !important;
+    }
+
+    .game-releases-cover {
+        order: -1; /* Makes image appear first */
+        margin-bottom: 1em;
+    }
+
+    .mechanic-bkgrd-wrapper {
+        order: -1;
+        margin-bottom: 1em;
+        width: 100%;
+    }
+    .mainpost-cover-wrapper {
+        order: -1;
+        margin-bottom: 1em;
+        width: 100%;
+    }
+    .mainpost-cover {
+        width: 100%;
+        height: auto;
+    }
+    .mainpost-desc {
+        text-align: center;
+        padding: 1em;
+    }
+
+    
+    .feature-cover {
+        width: 100%;
+        max-width: 300px;
+        height: auto;
+    }
+    .post-title{
+        font-size: 1.5em;
+    }
+
+    .article-cover-wrapper {
+        order: -1;
+        margin-bottom: 1em;
+        width: 100%;
+    }
+    .article-cover {
+        width: 100%;
+        max-width: 300px;
+        height: auto;
+    }
+
+    .top-ten-modules {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+    .top-ten-modules img {
+        order: -1;
+        margin-bottom: 1em;
+        width: 100%;
+        max-width: 300px;
+        height: auto;
+        object-fit: cover;
+    }
+
+
+    .mechanic-bkgrd-wrapper {
+        order: -1;
+        margin-bottom: 1em;
+        width: 100%;
+    }
+    #mechanic-bkgrd {
+        width: 100%;
+        height: 30em!important;
+        object-fit: cover;
+    }
+
+    .indie-spotlight {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+    #indie-game-cover {
+        order: -1;
+        margin-bottom: 1em;
+        width: 100%;
+        max-width: 300px;
+        height: auto;
+    }
+
+    .dyk-box {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+    #fact-image {
+        order: -1;
+        margin-bottom: 1em;
+        width: 100%;
+        max-width: 300px;
+        height: auto;
+    }
+    .news-list-items img {
+        order: -1;
+        margin-bottom: 1em;
+        width: 100%;
+        max-width: 300px;
+        height: auto;
+    }
+
+    /* Ensure all text content is centered */
+    .mainpost-desc p,
+    .feature-card h2,
+    .article-card p,
+    .top-ten-modules h4,
+    .game-tip h2,
+    #mechanic-text h1,
+    #mechanic-text h3,
+    #mechanic-text p,
+    .indie-spotlight h3,
+    .indie-spotlight h4,
+    .indie-spotlight p,
+    #fact,
+    .news-list-items p {
+        text-align: center;
+        margin: 0.5em 0;
+    }
+
+    /* Add Itch.io feed styling */
+    .itch-feed{
+        margin-top: 5em;
+        font-weight: bold;
+    }
+
+    .itch-feed .d-flex {
+        flex-direction: column;
+    }
+    .itch-feed img {
+        order: -1; /* Makes image appear first */
+        margin-bottom: 1em;
+        width: 100%;
+        max-width: 300px;
+        height: auto;
+        object-fit: cover;
+    }
+    .itch-feed .itch-game-info {
+        text-align: center;
+    }
 }
-@media screen and (max-width: 768px){
+@media screen and (max-width:768px){
     .menu-bar-wrapper{
         position: fixed;
         flex-direction: row;
@@ -218,6 +594,32 @@ a:hover{
     #close{
         display: none;
     }
+    .trend-topics{
+        flex-direction: column;
+    }
+    .main-post{
+        width: 100%;
+        margin: 0em;
+    }
+
+    .news-list{
+        width: 100%;
+        padding: 25px;
+    }
+
+
+    #mechanic-bkgrd{
+        height: 450px;
+    }
+    #mechanic-text{
+        padding: 10px;
+    }
+    .accordion-div{
+        margin-top: 20em!important;
+    }
+    #indie-game-cover{
+        margin-top: 2.5em;
+    }
 }
 
 @media screen and (min-width: 500px) and (max-width:1023px){
@@ -233,6 +635,9 @@ a:hover{
 @media screen and (min-width: 1024px){
     .nav-bar{
         left: 5em;
+    }
+    .nav-bar.menu-collapsed {
+        left: 0;
     }
 
     .trend-title{
@@ -251,9 +656,6 @@ a:hover{
         padding: 0em;
         align-items: center;
     }
-    .link-wrapper{
-        margin-top: 1em;   
-    }
 }
 
 /*Carousels*/
@@ -262,6 +664,14 @@ a:hover{
 }
 .carousel.carousel-slider .control-arrow{
     opacity: 100%;
+    background: rgba(35, 35, 38, 0.8);
+    border-radius: 50%;
+    height: 40px;
+    width: 40px;
+    margin: 0 10px;
+}
+.carousel.carousel-slider .control-arrow:hover {
+    background: rgba(35, 35, 38, 1);
 }
 .carousel-status{
     display: none;
@@ -298,159 +708,203 @@ a:hover{
     flex-direction: column;
     align-items: center;
     margin-left: 10em;
+    transition: margin-left 0.3s ease;
 }
-@media screen and (max-width:768px) {
+
+.main-page.menu-collapsed {
+    margin-left: 0;
+}
+
+@media screen and (max-width: 500px) {
+    .main-page{
+        margin-left: 0;
+    }
+}  
+
+@media screen and (min-width:501px) and (max-width:768px) {
     .main-page{
         margin-left: 2.5em;
     }
+    .main-page.menu-collapsed {
+        margin-left: 0;
+    }
 }
 
-/* Main: Trending*/
-.main-post{
-  margin: 3vw 3vw;
-  flex-wrap: wrap;
-  font-size: 1.5em;
-  padding: 0em;
-  background-color: #232326;
-  border-radius: 10px;
-  box-shadow: rgba(0, 0, 0, 0.25) 0px 54px 55px, rgba(0, 0, 0, 0.12) 0px -12px 30px, rgba(0, 0, 0, 0.12) 0px 4px 6px, rgba(0, 0, 0, 0.17) 0px 12px 13px, rgba(0, 0, 0, 0.09) 0px -3px 5px;
+/* Base trend-topics styles */
+.trend-topics {
+    width: 100%;
+    padding: 0;
+    margin: 0;
 }
-.mainpost-cover-wrapper{
+.trend-topics .row {
+    margin: 0;
     width: 100%;
 }
+.trend-topics .col-12 {
+    padding: 0;
+}
+.other-trend-title{
+    font-size: 1.5em;
+    font-weight: bold;
+    margin-bottom: 1.5em; 
+}
+
+
+.main-post-wrapper {
+    width: 100%;
+    max-width: 500px;
+    margin: 0 auto;
+    background-color: #232326;
+}
 .mainpost-cover{
-    width: 450px;
+    width: 100%;
 }
 
-.mainpost-desc{
-    padding: 0.5em;
-}
-.mainpost-desc p{
-    font-size: 1em;
-}
-
-
-.trend-topics{
-    display: flex;
-    flex-direction: row;
-    margin-bottom: 1.5em;
-    margin: 0em 7.5em!important;
-}
-
-.trend-icons{
-    width: 10%;
-}
-.news-list{
-    margin-top: 1em;
-    padding: 2.5em;
-}
-.news-list-wrapper{
-    width: 500px;
-    height: 500px;
+.news-list-wrapper {
+    width: 100%;
+    max-width: 500px;
+    margin: 0 auto;
     background-color: #232326;
     box-shadow: rgba(0, 0, 0, 0.25) 0px 54px 55px, rgba(0, 0, 0, 0.12) 0px -12px 30px, rgba(0, 0, 0, 0.12) 0px 4px 6px, rgba(0, 0, 0, 0.17) 0px 12px 13px, rgba(0, 0, 0, 0.09) 0px -3px 5px;
-}
-.news-list-items{
-    margin: 0.75em;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
 
-@media screen and (max-width: 500px){
-    .trend-topics{
-        flex-direction: column;
-    }
-    .main-post-wrapper{
+.news-list {
+    width: 100%;
+    padding: 2.5em;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.news-list-items {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    margin-bottom: 1em;
+}
+
+.trend-icons {
+    width: 30px;
+    height: 30px;
+    margin-right: 10px;
+}
+
+/* Mobile styles */
+@media screen and (max-width: 500px) {
+
+    .main-post-wrapper {
         width: 100%;
+        max-width: 375px;
+        margin: 0 auto;
     }
-    .mainpost-desc p{
+    .mainpost-desc p {
         font-size: 1em;
     }
-    .news-list-wrapper{
-        width: 375px;
+    .news-list {
+        padding: 1.5em;
     }
-
+    .news-list-items {
+        font-size: 1.2em;
+    }
+    .trend-icons {
+        width: 30px;
+        height: 30px;
+        margin-right: 10px;
+    }
 }
-@media screen and (max-width: 768px){
-    .trend-topics{
-        flex-direction: column;
+
+/* Tablet styles */
+@media screen and (min-width: 501px) and (max-width: 768px) {
+    .trend-topics {
+        padding: 0 15px;
     }
-    .main-post{
-        width: 450px;
-        margin: 0em;
+    .main-post-wrapper {
+        max-width: 450px;
     }
-    .main-post-wrapper{
-        width: 500px;
-    }
-    .news-list-wrapper{
-        width: 450px;
-        height: 550px;
-        margin-top: 5em;
-        margin-bottom: 2.5em;
-    }
-    .news-list{
+    .news-list-wrapper {
         width: 100%;
-        padding: 25px;
+        margin: 2em auto;
+    }
+
+}
+
+/* Desktop styles */
+@media screen and (min-width: 1024px) {
+    .trend-topics {
+        padding: 0 2em;
+    }
+    .news-list-wrapper {
+        width: 500px;
+        margin: 2em auto;
     }
 }
 
-@media screen and (min-width: 1023px){
-    .trend-topics{
-        margin-top: 1em;
-        margin-bottom: 5em;
+/* Large Desktop styles */
+@media screen and (min-width: 1440px) {
+    .trend-topics {
+        padding: 0 5em;
     }
-    .trend-icons{
-        margin: 1em;
-    }
-    .main-post-wrapper{
-        height: 500px;
-    }
-    .main-post{
-        margin: 0vw 1vw;
-    }
-    .mainpost-cover{
+    .mainpost-cover {
         width: 85%;
     }
-    .mainpost-desc{
-        padding: 0em;
-    }
-    .mainpost-desc p{
+    .mainpost-desc p {
         font-size: 0.75em;
     }
-
-    .news-list-items{
+    .news-list-items {
         font-size: 1.25em;
-    }s
-    .news-list{
-        width: 450px;
     }
-       
-    .post-title{
+    .news-list {
+        width: 100%;
+        padding: 2.5em;
+    }
+    .post-title {
         font-size: 1.5em;
-      
     }
-    .post-title h4{
+    .post-title h4 {
         font-size: 2rem;
     }
-    
-    .trend-topics{
+    .trend-topics {
         padding: 0em 5em;
     }
-    .trend-title{
+    .trend-title {
         font-size: 2em;
         padding: 1em;
     }
-    .other-trend-title{
+    .other-trend-title {
         font-size: 2em;
     }
-  
-    .trend-icons{
+    .trend-icons {
         width: 3.5vw;
         margin-top: 15px;
     }
+    .top-ten-modules {
+        margin: 2.5em 2.5em;
+        width: 75%;
+    }
+    .main-page:not(.menu-collapsed) .top-ten-modules {
+        margin: 2.5em 15em;
+    }
+}
 
+.social-media-container {
+    transition: all 0.3s ease;
+    max-height: 500px;
+    overflow: hidden;
+}
+
+.social-media-container.collapsed {
+    max-height: 0;
+    margin: 0;
+    padding: 0;
 }
 
 .feat-topics{
-    margin-top: 5em;
+    margin-top: 2.5em;
 }
 .feat-title{
     font-size: 2em;
@@ -486,22 +940,35 @@ a:hover{
 }
 
 @media (max-width: 500px) {
-    .feature-posts {
-      flex-direction: column;
-    }
+
     .feature-posts .col-12 {
-      display: flex;
-      justify-content: center;
+        display: flex;
+        justify-content: center;
+        width: 100%;
+        max-width: 500px;
     }
-    .feat-topics{
-        margin-left: 10em;
+    .feature-cover-wrapper {
+        width: 100%;
+        max-width: 500px;
+        margin: 0 auto;
+        display: flex;
+        justify-content: center;
+    }
+    .feature-cover {
+        width: 100%;
+        max-width: 500px;
+        height: auto;
+    }
+    .post-title {
+        text-align: center;
+        width: 100%;
+    }
+    .post-title h5 {
+        margin: 0;
+        padding: 1rem;
     }
 }
-@media screen and (max-width:768px) {
-    .feature-cover-wrapper{
-        width: 250px;
-    }
-}
+
 @media screen and (min-width: 1023px) {
     .feature-cover-wrapper{
         width: 250px;
@@ -536,8 +1003,8 @@ a:hover{
 
 /*Indie Spotlight*/
 #indie-game-cover{
-    width: 20em;
-    height: 20em;
+    width: 400px;
+    height: 400px;
 }
 .indie-spotlight-wrapper{
     display: flex;
@@ -545,20 +1012,25 @@ a:hover{
     align-items: center;
     margin-top: 5em;
 }
+.plot-div{
+    background-color: #232326;
+    border-radius: 10px;
+    border: 1px solid white;
+}
 
 @media screen and (max-width: 768px){
-
     #indie-game-cover{
         margin-top: 2.5em;
     }
 }
 @media screen and (min-width: 1024px){
     #indie-game-cover{
-        width: 250px!important;
-        height: 250px!important;
+        width: 225px!important;
+        height: 225px!important;
     }
     .indie-description{
         padding: 1.5em 10em;
+        margin: 5em;
         font-size: 1.25em;
     }
 }
@@ -580,6 +1052,7 @@ a:hover{
 }
 #content{
     font-size: 1.25vw;
+    margin-left: 20%;
 }
 #comment-field{
     width: 45%;
@@ -588,8 +1061,15 @@ a:hover{
     border: 1px solid white;
     margin: 0 auto;
 }
+.product-link{
+    text-decoration: none;
+    color: white;
+    font-size: 1.25em;
+}
+.product-link:hover{
+    color: aquamarine;
+}
 
-/*Actual article content*/
 @media screen and (max-width:500px) {
 
     #content{
@@ -648,6 +1128,7 @@ a:hover{
 /*Itch Feed*/
 .itch-game{
     width: 150px;
+    margin: 1.5em;
 }
 .itch-link{
     color: white;
@@ -682,7 +1163,7 @@ a:hover{
 
 .game-tip-bkgrd{
     width: 50%;
-    height: 100%;
+    height: 45%;
     filter: brightness(75%);
 }
 .game-tip-bkgrd img{
@@ -725,22 +1206,23 @@ a:hover{
 
 /*Game Mechanics*/
 .mechanic-wrapper{
-    margin: 10em 0em;
+    margin: 5em 0em;
     position: relative;
 }
 
 .mechanic-bkgrd-wrapper{
     max-height: 10em;
     position: relative;
-    margin-bottom: 10em;
+    margin-bottom: 5em;
 }
 #mechanic-bkgrd{
     width: 100%;
-    height:25em;
+    height: 30em!important;
     z-index: 1;
     filter: brightness(50%);
     border-radius: 5px;
     display: block;
+    object-fit: cover;
 }
 #mechanic-text{
     position: absolute;
@@ -756,7 +1238,7 @@ a:hover{
     position: relative;
 }
 .accordion-div{
-    margin-top: 5em!important;
+    margin-top: 5em;
 }
 .accordion-button{
     font-size: 1.25em!important;
@@ -766,6 +1248,10 @@ a:hover{
     font-size: 25px;
     font-weight: bold;
 }
+.mechanic-icon{
+    width: 2.5em;
+    height: 2.5em;
+}
 
 @media screen and (max-width:768px){
     #mechanic-bkgrd{
@@ -773,9 +1259,6 @@ a:hover{
     }
     #mechanic-text{
         padding: 10px;
-    }
-    .accordion-div{
-        margin-top: 10em!important;
     }
 }
 @media screen and (min-width:1024px){
@@ -821,7 +1304,7 @@ a:hover{
 }
 #alakajam-logo{
     width: 175px;
-    margin: 0em 2em;
+    margin: 1em 2em;
 }
 #gamejam-info{
     margin: 0em 2em;
@@ -838,7 +1321,30 @@ a:hover{
     font-size: 20px;
     text-decoration: none;
 }
-
+.open{
+    background-color: rgb(9, 180, 9);
+    color: white;
+    border: 1px solid white;
+    border-radius: 5px;
+    width: 85px;
+    height: 50px;
+    padding: 10px;
+    font-size: 20px;
+    font-weight: bold;
+    margin-left: 1em;
+}
+.closed{
+    background-color: rgb(210, 63, 63);
+    color: white;
+    border: 1px solid white;
+    border-radius: 5px;
+    width: 85px;
+    height: 50px;
+    padding: 10px;
+    font-size: 20px;
+    font-weight: bold;
+    margin-left: 1em;
+}
 
 /*Modding News*/
 .mod-news-wrapper{
@@ -865,106 +1371,44 @@ a:hover{
 .top-ten{
     position: relative;
     margin: 0 auto;
+    width: 100%;
+    max-width: 1200px;
+}
+.top-ten-header{
+    font-size: 3em;
+    font-weight: bold;
+    color: white;
+    margin:1em;
 }
 .top-ten-modules{
-    width: 66%;
-    height: 10em;
+    width: 100%;
+    min-height: 10em;
     border: 2px solid white;
     border-radius: 10px;
+    margin-bottom: 1.5em;
+    background-color: #232326;
+    transition: transform 0.2s ease-in-out;
+}
+.top-ten-modules:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+}
+.top-ten-modules h4 {
+    margin: 0;
+    font-size: 1.5em;
+    color: white;
+}
+.top-ten-modules p {
+    margin: 0.5em 0 0 0;
+    font-size: 1em;
+    color: #888;
+}
+.top-ten-modules img {
+    border-radius: 5px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.2);
 }
 
-@media screen and (max-width:500px) {
 
-    .btn.active{
-        font-size: 1.2em!important;
-        background-color: aqua!important;
-        pointer-events: none;
-    }
-
-    .main-content{
-        margin-left: 0em!important;
-    }
-    .featured-review{
-        padding: 0em;
-    }
-
-    .article-card{
-        width: 100%!important;
-        height: 20em!important;
-        
-    }
-    .article-card p{
-        font-size: 1.5em;
-    }
-    .article-cover{
-        align-items: center;
-        width: 100%;
-    }
-    .article-cover-wrapper{
-        width: 75%
-    }
-
-    .main-feature-wrapper{
-        margin-top: 5em;
-    }
-
-    .feature-carousel-wrapper .article-card{
-        margin-left: 2em;
-    }
-  
-    .feature-card{
-        width: 100%;
-        height: 25em;
-    }
-    .feature-card-link{
-        font-size: 1.5em;
-        padding: 0em;
-        height: 30em;
-    }
-
-    .carousel .control-prev.control-arrow {
-        left: -10px;
-    }
-    .carousel .control-next.control-arrow{
-        right: -10px;
-    } 
-
-
-    .modernPage{
-        flex-direction: column;
-    }
-
-    .post-blocks{
-        width: 66%;
-        height: 10em;
-        background-color: #40404d;
-        padding: 1em;
-    }
-    
-    .game-tip{
-        width: 75%;
-        height: 15em;
-        margin: 0 auto;
-    }
-    .game-tip li{
-        text-decoration: none;
-    }
-
-    /* Logos */
-    .trend-icons{
-        width: 15%;
-        height: 10%;
-    }
-    .chest-img{
-        width: 75%;
-        height: 15em;
-        margin-top: 2em;
-    }
-    .sm-links{
-        width: 20%;
-    }
-
-}
 @media screen and (max-width:768px){
     .game-tip{
         width: 100%;
@@ -1015,18 +1459,29 @@ a:hover{
 .era-main{
     width: 750px;
     height: 250px;
-    background-color: #303039;
+    background-color: #3e3e52;
     padding: 1em;
-    border-radius: 10%;
+    border-radius: 10px;
 }
 /* Modern, Retro, Future posts */
-.era-posts{
-    border-radius: 10px;
-    background-color: #303039;
-    padding: 2.55em;
-    margin-top: 5em;
+.modern-content{
+    margin: 0 auto;
+}
+.modern-card{
+    display: flex;
+    flex-direction: row;
 }
 
+.era-posts{
+    border-radius: 10px;
+    background-color: #3e3e52;
+    padding: 2.55em;
+    margin-top: 5em;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 2em;
+}
 .post-blocks img{
     width: 300px!important;
     height: 225px!important;
@@ -1034,7 +1489,44 @@ a:hover{
 .featured-img{
     width: 450px;
 }
+.modern-img{
+    width: 300px;
+    margin: 0px 150px;
+}
 
+@media screen and (max-width:500px){
+    .modern-card{
+        display: unset;
+    }
+    .modern-card-title{
+        text-align: center;
+        margin: 3em 0em;
+    }
+    .modern-img{
+        width: 350px;
+        margin: 0 auto;
+    }
+    .era-posts {
+        flex-direction: column;
+        padding: 1.5em;
+        margin-top: 2em;
+    }
+    
+    .retro-feature-div {
+        width: 100%;
+        margin-bottom: 1em;
+    }
+    
+    .retro-feature-img {
+        width: 100%;
+        height: auto;
+    }
+}
+@media screen and (min-width:769px){
+    .modern-img{
+        margin: 0px 150px;
+    }
+}
 
 /* Modern, Retro, Future videos */
 .modern-title{
@@ -1086,11 +1578,712 @@ a:hover{
     margin-top: 5em;
     align-items: center;
 }
-
+                                                        
 .info-field-wrapper{
     width: 75%;
 }
 .info-field{
     height: 4em;
     width: 100%;
+}
+
+/* Media Queries */
+
+/* Mobile (up to 500px) */
+@media screen and (max-width: 500px) {
+    #logo {
+        width: 5em;
+    }
+    .nav-wrapper {
+        margin-left: 0%!important;
+    }
+    .nav-btn-divs {
+        flex-direction: column;
+        align-items: center;
+    }
+    .nav-bar {
+        margin-left: 0em;
+        left: 0%;
+        width: 100%;
+    }
+    .main-btn {
+        position: relative;
+        top: unset;
+        left: unset;
+    }
+    .profile {
+        display: none!important;
+    }
+    .trend-topics {
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        margin: 0 auto !important;
+        width: 100%;
+        padding: 0 15px;
+    }
+    .trend-topics .row {
+        margin: 0;
+        width: 100%;
+    }
+    .trend-topics .col-12 {
+        padding: 0;
+    }
+    .main-post-wrapper {
+        width: 100%;
+        max-width: 375px;
+        margin: 0 auto;
+    }
+    .feature-posts {
+        flex-direction: column;
+        align-items: center;
+        width: 100%;
+        max-width: 500px;
+        margin-top: 2.5em!important;
+    }
+    .feature-posts .col-12 {
+        display: flex;
+        justify-content: center;
+        width: 100%;
+        max-width: 500px;
+    }
+
+    .main-content {
+        margin-left: 0em!important;
+        padding: 0 15px;
+    }
+    .featured-review {
+        padding: 0em;
+        width: 100%;
+    }
+    .article-card {
+        width: 100%!important;
+        height: 20em!important;
+        margin: 0 auto;
+    }
+    .article-card p{
+        font-size: 1.5em;
+    }
+    .article-cover {
+        align-items: center;
+        width: 100%;
+        display: flex;
+        justify-content: center;
+    }
+    .article-cover-wrapper {
+        width: 75%;
+        margin: 0 auto;
+    }
+    .main-feature-wrapper {
+        margin-top: 5em;
+        width: 100%;
+    }
+    .feature-carousel-wrapper .article-card {
+        margin: 0 auto;
+    }
+
+    .feature-card-link{
+        font-size: 1.5em;
+        padding: 0em;
+        height: 30em;
+        text-align: center;
+    }
+    .carousel .control-prev.control-arrow {
+        left: -10px;
+    }
+    .carousel .control-next.control-arrow {
+        right: -10px;
+    }
+    .modernPage {
+        flex-direction: column;
+        align-items: center;
+    }
+    .post-blocks {
+        width: 100%;
+        max-width: 66%;
+        height: 10em;
+        background-color: #40404d;
+        padding: 1em;
+        margin: 0 auto;
+    }
+
+
+    .trend-icons {
+        width: 30px;
+        height: 30px;
+        margin-right: 10px;
+    }
+    .chest-img {
+        width: 75%;
+        height: 15em;
+        margin: 2em auto;
+        display: block;
+    }
+    .sm-links {
+        width: 20%;
+        margin: 0 auto;
+    }
+    .dyk-box {
+        width: 100%;
+        max-width: 375px;
+        margin: 0 auto;
+    }
+    .indie-spotlight-wrapper {
+        width: 100%;
+        padding: 0 15px;
+    }
+    .game-releases-div {
+        width: 100%;
+        padding: 0 15px;
+    }
+    .game-releases {
+        width: 100%;
+        max-width: 375px;
+        margin: 0 auto;
+        padding: 0;
+    }
+    .release-titles {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+        padding: 1em;
+    }
+    .game-releases-cover {
+        order: -1;
+        margin-bottom: 1em;
+        width: 150px !important;
+        height: auto;
+    }
+
+    .mechanic-wrapper {
+        width: 100%;
+        padding: 0 15px;
+    }
+    .game-jams-wrapper {
+        width: 100%;
+        padding: 0 15px;
+    }
+    .game-jams-list {
+        width: 100%;
+        max-width: 375px;
+        margin: 0 auto;
+    }
+    .top-ten {
+       margin-bottom: 7.5em;
+    }
+    .top-ten-modules {
+        width: 100%;
+        max-width: 375px;
+        margin: 1em auto;
+    }
+
+    /* Image above text for mobile */
+    .dyk-box .row {
+        flex-direction: column;
+    }
+    .dyk-box .col-12 {
+        order: -1; /* Makes image appear first */
+    }
+    .dyk-box img {
+        margin-bottom: 1em;
+    }
+
+    .indie-spotlight .row {
+        flex-direction: column;
+    }
+    .indie-spotlight .col-12 {
+        order: -1; /* Makes image appear first */
+    }
+    .indie-spotlight img {
+        margin-bottom: 1em;
+    }
+
+    
+    .feature-card img {
+        order: -1; /* Makes image appear first */
+        margin-bottom: 1em;
+    }
+
+    .article-card {
+        flex-direction: column;
+    }
+    .article-card img {
+        order: -1; /* Makes image appear first */
+        margin-bottom: 1em;
+    }
+
+    .top-ten-modules .d-flex {
+        flex-direction: column;
+    }
+    .top-ten-modules img {
+        order: -1; /* Makes image appear first */
+        margin-bottom: 1em;
+    }
+
+    .game-releases-cover {
+        order: -1; /* Makes image appear first */
+        margin-bottom: 1em;
+    }
+
+    .mechanic-bkgrd-wrapper {
+        order: -1;
+        margin-bottom: 1em;
+        width: 100%;
+    }
+
+    /* Consistent image above text pattern for all sections */
+    .main-post {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+    .mainpost-cover-wrapper {
+        order: -1;
+        margin-bottom: 1em;
+        width: 100%;
+    }
+    .mainpost-desc {
+        text-align: center;
+        padding: 1em;
+    }
+
+    .feature-cover-wrapper {
+        order: -1;
+        margin-bottom: 1em;
+    }
+    .feature-cover {
+        width: 100%;
+        max-width: 300px;
+        height: auto;
+    }
+
+    .article-cover-wrapper {
+        order: -1;
+        margin-bottom: 1em;
+        width: 100%;
+    }
+    .article-cover {
+        width: 100%;
+        max-width: 300px;
+        height: auto;
+    }
+
+    .top-ten-modules {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+    .top-ten-modules img {
+        order: -1;
+        margin-bottom: 1em;
+        width: 100%;
+        max-width: 300px;
+        height: auto;
+        object-fit: cover;
+    }
+
+    .game-tip-bkgrd {
+        order: -1;
+        width: 100% !important;
+        margin-bottom: 1em;
+    }
+    .game-tip-bkgrd img {
+        width: 100%;
+        height: auto;
+        object-fit: cover;
+    }
+
+    .mechanic-bkgrd-wrapper {
+        order: -1;
+        margin-bottom: 1em;
+        width: 100%;
+    }
+    #mechanic-bkgrd {
+        width: 100%;
+        height: 30em!important;
+        object-fit: cover;
+    }
+
+    .indie-spotlight {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+    #indie-game-cover {
+        order: -1;
+        margin-bottom: 1em;
+        width: 100%;
+        max-width: 300px;
+        height: auto;
+    }
+
+    .dyk-box {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+    #fact-image {
+        order: -1;
+        margin-bottom: 1em;
+        width: 100%;
+        max-width: 300px;
+        height: auto;
+    }
+
+    .news-list-items img {
+        order: -1;
+        margin-bottom: 1em;
+        width: 100%;
+        max-width: 300px;
+        height: auto;
+    }
+
+    /* Ensure all text content is centered */
+    .mainpost-desc p,
+    .feature-card h2,
+    .article-card p,
+    .top-ten-modules h4,
+    .game-tip h2,
+    #mechanic-text h1,
+    #mechanic-text h3,
+    #mechanic-text p,
+    .indie-spotlight h3,
+    .indie-spotlight h4,
+    .indie-spotlight p,
+    #fact,
+    .news-list-items p {
+        text-align: center;
+        margin: 0.5em 0;
+    }
+
+    /* Add Itch.io feed styling */
+    .itch-feed .d-flex {
+        flex-direction: column;
+    }
+    .itch-feed img {
+        order: -1; /* Makes image appear first */
+        margin-bottom: 1em;
+        width: 100%;
+        max-width: 300px;
+        height: auto;
+        object-fit: cover;
+    }
+    .itch-feed .itch-game-info {
+        text-align: center;
+    }
+
+    .retro-gotw{
+       flex-direction: column;
+    }
+    .retro-gotw-img{
+        width: 100%;
+        margin-left: 0em;
+    }
+    .era-main{
+        width: 450px;
+        margin-left: 0em;
+        margin-top: 2.5em;
+        padding:2em;
+    }
+    .similar-games-list{
+        padding: 2.5em;
+    }
+
+
+    .future-posts{
+        width: 100%;
+        margin-top: 5em;
+    }
+    .future-img{
+        width: 100%;
+    }
+    .future-posts-wrapper{
+        margin-bottom:10em
+    }
+
+}
+
+/* Tablet (501px to 768px) */
+@media screen and (min-width: 501px) and (max-width: 768px) {
+    .menu-bar-wrapper {
+        position: fixed;
+        flex-direction: row;
+        width: 100%!important;
+        height: 10%;
+        bottom: 0;
+        z-index: 3;
+        top: unset;
+    }
+    .page-links {
+        flex-direction: row;
+        justify-content: space-evenly;
+    }
+    .profile {
+        display: none;
+    }
+    .menu-links {
+        margin-top: 0%;    
+    }
+    .menu-btns {
+        display: none;
+    }
+    .sm-div {
+        display: none!important;
+    }
+    .link-wrapper a {
+        margin: 5px;
+        font-size: 25px;
+    }
+    #close-menu {
+        display: none;
+    }
+    #close {
+        display: none;
+    }
+    .trend-topics {
+        flex-direction: column;
+    }
+    .main-post {
+        width: 450px;
+        margin: 0em;
+    }
+    .main-post-wrapper {
+        width: 500px;
+    }
+    .news-list {
+        padding: 2em;
+    }
+    .feature-cover-wrapper {
+        width: 250px;
+    }
+    .game-tip {
+        width: 100%;
+    }
+    .game-tip-bkgrd {
+        width: auto;
+    }
+    #mechanic-bkgrd {
+        height: 450px;
+    }
+    #mechanic-text {
+        padding: 10px;
+    }
+    #indie-game-cover {
+        margin-top: 2.5em;
+    }
+}
+
+/* Desktop (769px to 1023px) */
+@media screen and (min-width: 769px) and (max-width: 1023px) {
+    .menu-bar-wrapper {
+        width: 15%;
+    }
+    .main-content {
+        padding: 0.5em!important;  
+        margin: 5em 0em!important;
+    }
+    .react-calendar {
+        width: 450px;
+    }
+    .react-calendar abbr {
+        font-size: 1.5em;
+    }
+    .game-jams-list {
+        width: 30em;
+        height: 30em;
+    }
+    .jam-names {
+        font-size: 2.5em;
+    }
+    .news-list-wrapper {
+        width: 350px;
+        margin: 2em auto;
+    }
+    .news-list-items {
+        font-size: 20px;
+    }
+    .trend-icons {
+        width: 50px;
+    }
+    .main-post-wrapper {
+        width: 275px;
+    }
+    .main-post {
+        margin: 2vw 2vh;
+    }
+    .mainpost-cover {
+        width: 250px;
+    }
+    .feature-cover-wrapper {
+        width: 250px;
+    }
+    .post-title h3 {
+        font-size: 1em;
+    }
+    .feature-posts {
+        padding-left: 5em;
+    }
+}
+
+/* Large Desktop (1024px to 1439px) */
+@media screen and (min-width: 1024px) {
+    .nav-bar {
+        left: 5em;
+    }
+    .nav-bar.menu-collapsed {
+        left: 0;
+    }
+    .trend-title {
+        font-size: 2em!important;
+    }
+    .other-trend-title {
+        font-size: 1.5em!important;
+    }
+    .feat-title {
+        font-size: 1.75em!important;
+    }
+    .menu-links{
+        font-size: 20px;
+        padding: 0em;
+        align-items: center;
+    }
+    .link-wrapper {
+        margin-top: 2em;
+        margin-bottom: 1em;   
+    }
+    .link-wrapper a {
+        font-size: 1.5em;
+        font-weight: 500;
+    }
+    .accordion-button {
+        width: 75%;
+        font-size: 0.66em!important;
+    }
+    .carousel {
+        width: 80%;
+    }
+    #mechanic-bkgrd {
+        height: 300px;
+    }
+    #mechanic-text {
+        padding: 2.5em 5em;
+    }
+    #mechanic-text h3 {
+        font-size: 1.25em;
+    }
+    #mechanic-text h1 {
+        font-size: 2.25em;
+    }
+    #mechanic-text p {
+        font-size: 1em;
+    }
+    #mech-accordion {
+        margin-top: 0em;
+    }
+    .react-calendar {
+        width: 500px;
+    }
+    .react-calendar abbr {
+        font-size: 1.5em;
+    }
+    .jam-names {
+        font-size: 1.5em;
+    }
+    .indie-description {
+        padding: 1.5em 10em;
+        font-size: 1.25em;
+    }
+    .game-releases {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(225px, 1fr));
+        padding: 0em 10em;
+        gap: 25px;
+    }
+    .release-titles {
+        background-color: #232326;
+        font-size: 1.25em;
+        border-radius: 10px;
+    }
+    #indie-game-cover {
+        width: 225px!important;
+        height: 225px!important;
+    }
+}
+
+/* Extra Large Desktop (1440px and above) */
+@media screen and (min-width: 1440px) {
+    .trend-topics {
+        margin-top: 1em;
+        margin-bottom: 5em;
+    }
+    .trend-icons {
+        margin: 1em;
+    }
+    .main-post {
+        margin: 3vh 5vw;
+    }
+    .mainpost-cover {
+        width: 85%;
+    }
+    .mainpost-desc {
+        padding: 0.5em;
+    }
+    .mainpost-desc p {
+        font-size: 0.75em;
+    }
+    .news-list-wrapper {
+        width: 600px;
+        margin: 2em auto;
+    }
+    .news-list-items {
+        font-size: 1.25em;
+    }
+    .news-list {
+        width: 100%;
+        padding: 2.5em;
+    }
+    .post-title {
+        font-size: 1.5em;
+    }
+    .post-title h4 {
+        font-size: 2rem;
+    }
+    .trend-topics {
+        padding: 0em 5em;
+    }
+    .trend-title {
+        font-size: 2em;
+        padding: 1em;
+    }
+    .other-trend-title {
+        font-size: 2em;
+    }
+    .trend-icons {
+        width: 3.5vw;
+        margin-top: 15px;
+    }
+    .top-ten-modules {
+        margin: 2.5em 2.5em;
+        width: 75%;
+    }
+    .main-page:not(.menu-collapsed) .top-ten-modules {
+        margin: 2.5em 15em;
+    }
+}
+
+@media (max-width: 600px) {
+  .carousel .slide {
+    /* No override here to avoid breaking carousel transforms */
+    min-width: 100%;
+  }
+  
+  /* Center the contents inside the slide */
+  .carousel .slide .slide-content {
+    margin-left: auto;
+    margin-right: auto;
+    text-align: center;
+    /* Optionally adjust width if needed */
+    width: 90%;
+  }
 }

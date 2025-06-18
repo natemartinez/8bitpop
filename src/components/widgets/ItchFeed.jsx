@@ -23,7 +23,7 @@ const ItchFeed = () => {
 
   return (
     <div className="itch-feed container">
-      <h2 className="text-center m-3">Featured Games from Itch.io:</h2>
+      <h1 className="text-center m-3">Featured Games from Itch.io:</h1>
       {error && <p>{error}</p>}
       <ul>
         {feedItems.map((item, index) => (

@@ -38,15 +38,29 @@ const sanityUrl = `https://${sanityProjectId}.api.sanity.io/v${sanityApiVersion}
 const igdbID = process.env.IGDB_ID;
 const igdbSECRET = process.env.IGDB_SECRET;
 const igdbTOKEN = process.env.IGDB_TOKEN;
-
 const AITOKEN = process.env.AI_TOKEN;
-
 const axiosHeaders = {
   'Client-ID': igdbID,
   'Authorization': `Bearer ${igdbTOKEN}`,
   'Accept': 'application/json',
   'Content-Type': 'text/plain'
 };
+
+const getTwitchToken = require('./refreshToken');
+
+const refreshTwitchToken = async () => {
+  try {
+    global.twitchToken = await getTwitchToken();
+    console.log('Twitch Token refreshed:', global.twitchToken);
+  } catch (error) {
+    console.error('Error refreshing Twitch token:', error);
+  }
+};
+
+
+// Fetch the token initially when the server starts
+refreshTwitchToken();
+
 
 app.post('/api/register', async (req, res) => {
   const { username, password } = req.body;
@@ -286,7 +300,6 @@ app.get('/api/itch-feed', async (req, res) => {
   }
 });
 
-
 const fetchFacts = async () => {
   try {
     const query = '*[_type == "facts"]{topic, fact, imageLink}';
@@ -474,8 +487,30 @@ const options = {
   }
 });
 
+const fetchTopTen = async () => {
+  try {
+    const query = '*[_type == "article" && class == "topTen"]{title, content, coverLink, description}';
+    const response = await axios.get(sanityUrl, {
+      params: { query },
+      headers: sanityToken ? { Authorization: `Bearer ${sanityToken}` } : {}
+    });
 
+    const data = response.data.result;
+    return data;
+  } catch (error) {
+    console.error('Error fetching top 10 articles:', error);
+    throw error;
+  }
+};
 
+app.get('/api/topten', async (req, res) => {
+  try {
+    const data = await fetchTopTen();
+    res.json(data);
+  } catch (error) {
+    res.status(500).send('Error fetching top 10 articles');
+  }
+});
 
 app.listen(port, () => {
   console.log(`Server is running on http://localhost:${port}`);
