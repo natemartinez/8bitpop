@@ -237,11 +237,16 @@ a:hover{
         width: 100%;
         display: flex;
         justify-content: center;
+        margin-top: 2.5em;
     }
     .article-cover-wrapper{
-        width: 75%;
         margin: 0 auto;
         flex-direction: column;
+        padding: 1em!important;
+    }
+    .intro{
+        font-size: 2.75em;
+        margin-bottom: 2em;
     }
     .mechanic-entry p {
         font-size: 2.5em;
@@ -446,17 +451,6 @@ a:hover{
     }
     .post-title{
         font-size: 1.5em;
-    }
-
-    .article-cover-wrapper {
-        order: -1;
-        margin-bottom: 1em;
-        width: 100%;
-    }
-    .article-cover {
-        width: 100%;
-        max-width: 300px;
-        height: auto;
     }
 
     .top-ten-modules {
@@ -823,12 +817,14 @@ a:hover{
     .trend-topics {
         padding: 0 15px;
     }
-    .main-post-wrapper {
-        max-width: 450px;
-    }
+
     .news-list-wrapper {
         width: 100%;
         margin: 2em auto;
+    }
+
+    .article-cover-wrapper{
+        padding: 4em 0em;
     }
 
 }
@@ -841,6 +837,10 @@ a:hover{
     .news-list-wrapper {
         width: 500px;
         margin: 2em auto;
+    }
+    .article-cover-wrapper{
+        margin: 0em auto;
+        padding: 5em!important;
     }
 }
 
@@ -1033,19 +1033,39 @@ a:hover{
         margin: 5em;
         font-size: 1.25em;
     }
+
+    .article-cover{
+        width: 350px;
+        margin: 0 auto;
+    }
 }
 
 /*Articles*/
 .article-content{
     padding: 0em 10em;
+    margin-left: 10em;
+    transition: margin-left 1s ease;
 }
-.article-cover-wrapper{
-    padding: 3em;
+
+.article-content.menu-collapsed {
+    margin-left: 0;
 }
-.article-cover{
-    width: 350px;
-    margin: 0 auto;
+
+@media screen and (max-width: 500px) {
+    .article-content{
+        margin-left: 0;
+    }
+}  
+
+@media screen and (min-width:501px) and (max-width:768px) {
+    .article-content{
+        margin-left: 2.5em;
+    }
+    .article-content.menu-collapsed {
+        margin-left: 0;
+    }
 }
+
 #title{
     padding: 0.5em;
 
@@ -1073,8 +1093,7 @@ a:hover{
 @media screen and (max-width:500px) {
 
     #content{
-        margin-top: 2.5em;
-        margin-bottom: 5em;
+        margin: 5em 0em 10em 0em;
         padding-bottom: 5em;
         border-bottom: 1px solid white;
         border-width: 50%;
@@ -1093,12 +1112,6 @@ a:hover{
         margin-bottom: 10em;
     }
 
-}
-@media screen and (max-width: 1024px){
-    .article-cover{
-        width: 225px;
-        height: 200px;
-    }
 }
 
 
@@ -1664,16 +1677,6 @@ a:hover{
     .article-card p{
         font-size: 1.5em;
     }
-    .article-cover {
-        align-items: center;
-        width: 100%;
-        display: flex;
-        justify-content: center;
-    }
-    .article-cover-wrapper {
-        width: 75%;
-        margin: 0 auto;
-    }
     .main-feature-wrapper {
         margin-top: 5em;
         width: 100%;
@@ -1748,6 +1751,9 @@ a:hover{
         align-items: center;
         text-align: center;
         padding: 1em;
+    }
+    .release-titles p{
+        font-size: 0.75em;
     }
     .game-releases-cover {
         order: -1;
@@ -1858,16 +1864,6 @@ a:hover{
         height: auto;
     }
 
-    .article-cover-wrapper {
-        order: -1;
-        margin-bottom: 1em;
-        width: 100%;
-    }
-    .article-cover {
-        width: 100%;
-        max-width: 300px;
-        height: auto;
-    }
 
     .top-ten-modules {
         display: flex;
@@ -1882,11 +1878,13 @@ a:hover{
         height: auto;
         object-fit: cover;
     }
+    .top-ten-header{
+        font-size: 2em;
+    }
 
     .game-tip-bkgrd {
         order: -1;
         width: 100% !important;
-        margin-bottom: 1em;
     }
     .game-tip-bkgrd img {
         width: 100%;
@@ -2002,6 +2000,22 @@ a:hover{
         margin-bottom:10em
     }
 
+    #tip-title{
+        width: 100%;
+        padding: 10px 25px;
+    }
+
+    .closed{
+        margin-left: 0.5em
+    }
+
+    #title{
+        font-size: 2.5em;
+        text-align: center;
+    }
+    #content{
+        font-size: 5vw;
+    }
 }
 
 /* Tablet (501px to 768px) */
@@ -2033,7 +2047,8 @@ a:hover{
     }
     .link-wrapper a {
         margin: 5px;
-        font-size: 25px;
+        font-size: 2em;
+        font-weight: bold;
     }
     #close-menu {
         display: none;
@@ -2043,13 +2058,6 @@ a:hover{
     }
     .trend-topics {
         flex-direction: column;
-    }
-    .main-post {
-        width: 450px;
-        margin: 0em;
-    }
-    .main-post-wrapper {
-        width: 500px;
     }
     .news-list {
         padding: 2em;
@@ -2072,6 +2080,29 @@ a:hover{
     #indie-game-cover {
         margin-top: 2.5em;
     }
+
+    .news-list-wrapper {
+        margin: 0em;
+    }
+    .news-list-items{
+        font-size: 1em;
+    }
+
+    .feat-topics{
+        flex-direction: column;
+    }
+
+    .feat-title{
+        font-size: 1em;
+    }
+
+    .article-cover{
+        width: 20em;
+    }
+    #content{
+        font-size: 3vw;
+        margin: 0em 1em;
+    }
 }
 
 /* Desktop (769px to 1023px) */
@@ -2083,6 +2114,14 @@ a:hover{
         padding: 0.5em!important;  
         margin: 5em 0em!important;
     }
+    .main-page.menu-collapsed{
+        margin-left: 5em;
+    }
+    .nav-bar.menu-collapsed{
+        left: 2.5em;
+    }
+
+    
     .react-calendar {
         width: 450px;
     }
@@ -2096,25 +2135,13 @@ a:hover{
     .jam-names {
         font-size: 2.5em;
     }
-    .news-list-wrapper {
-        width: 350px;
-        margin: 2em auto;
-    }
     .news-list-items {
         font-size: 20px;
     }
     .trend-icons {
         width: 50px;
     }
-    .main-post-wrapper {
-        width: 275px;
-    }
-    .main-post {
-        margin: 2vw 2vh;
-    }
-    .mainpost-cover {
-        width: 250px;
-    }
+
     .feature-cover-wrapper {
         width: 250px;
     }
@@ -2124,6 +2151,15 @@ a:hover{
     .feature-posts {
         padding-left: 5em;
     }
+
+    .feat-topics{
+        flex-direction: column;
+    }
+    .feature-cover{
+        width: 80%;
+    }
+
+
 }
 
 /* Large Desktop (1024px to 1439px) */
@@ -2286,4 +2322,8 @@ a:hover{
     /* Optionally adjust width if needed */
     width: 90%;
   }
+}
+
+.article-cover-wrapper{
+    padding: 3em;
 }

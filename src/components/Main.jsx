@@ -95,6 +95,10 @@ function Main() {
     setIsMenuCollapsed(collapsed);
   };
 
+  const handleLogout = () => {
+    setCurrentUser(null);
+  };
+
   async function fetchMedia(page) {
     try {
       const response = await axios.get(SERVER + '/api/gallery');
@@ -221,8 +225,7 @@ function Main() {
 
   useEffect(() => {
     if(state !== null){
-      let userData = JSON.parse(state);
-      setCurrentUser(userData)
+      setCurrentUser(state.userData)
     } else{
       console.log('User isnt signed in')
     }
@@ -231,8 +234,8 @@ function Main() {
   return (
     <div>       
        <div className=''>
-        <Menu state={currentUser} onMenuCollapse={handleMenuCollapse}></Menu>
-        <Nav sendPage={changePage} isMenuCollapsed={isMenuCollapsed}></Nav>
+        <Menu state={currentUser} onMenuCollapse={handleMenuCollapse} onLogout={handleLogout}></Menu>
+        <Nav sendPage={changePage} isMenuCollapsed={isMenuCollapsed} currentUser={currentUser}></Nav>
         
         {loading ? <h1 className='text-center'>{message}</h1> :
         <div className='main-content'>

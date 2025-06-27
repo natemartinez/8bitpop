@@ -4,6 +4,7 @@ import axios from 'axios';
 import DOMPurify from 'dompurify';
 import ArticleLayout from './ArticleLayout';
 import Menu from '../Menu';
+import NavMain from '../NavMain';
 
 function TopTen() {
   const location = useLocation();
@@ -14,6 +15,11 @@ function TopTen() {
   const [coverImg, setCoverImg] = useState(null);
   const [title, setTitle] = useState('');
   const [content, setContent] = useState('');
+  const [isMenuCollapsed, setIsMenuCollapsed] = useState(false);
+
+  const handleMenuCollapse = (collapsed) => {
+    setIsMenuCollapsed(collapsed);
+  };
 
   useEffect(() => {
     if (post) {
@@ -30,10 +36,10 @@ function TopTen() {
 
   return (
     <div>
-     <Menu/>
+     <Menu onMenuCollapse={handleMenuCollapse}/>
      <div>
       {!loading && (
-        <div className='container d-flex flex-column justify-content-center article-content'>   
+        <div className={`container d-flex flex-column justify-content-center article-content ${isMenuCollapsed ? 'menu-collapsed' : ''}`}>   
           <div className='d-flex article-cover-wrapper'>
             {coverImg && <img className='article-cover' src={coverImg} alt="cover" />}
             <h2 id='title'>{title}</h2>

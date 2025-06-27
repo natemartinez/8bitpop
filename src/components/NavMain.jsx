@@ -5,7 +5,7 @@ import '../style.css';
 import axios from 'axios';
 import { Carousel } from 'react-responsive-carousel';
 
-function Nav({ sendPage, isMenuCollapsed }) {
+function Nav({ sendPage, isMenuCollapsed, currentUser }) {
 
   const SERVER = import.meta.env.VITE_SERVER;
   const [logo, setLogo] = useState(null);
@@ -104,6 +104,7 @@ function Nav({ sendPage, isMenuCollapsed }) {
     <div className='container'>
      <nav className={`nav-bar ${isMenuCollapsed ? 'menu-collapsed' : ''}`}>
        <div className='d-flex mb-4 mt-4 justify-content-center align-items-center'>
+         {currentUser && <span className='username-display me-3'>Welcome, {currentUser.username}!</span>}
         {logo ? <img id='logo' src={logo} alt="logo" /> : ''} 
          <h1 id='site-name'>8BitPOP</h1>
        </div>  

@@ -4,6 +4,7 @@ import axios from 'axios';
 import DOMPurify from 'dompurify';
 import ArticleLayout from './ArticleLayout';
 import Menu from '../Menu';
+import NavMain from '../NavMain';
 
 function Trending() {
   const location = useLocation();

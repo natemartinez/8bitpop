@@ -37,7 +37,7 @@ function FeatureMain() {
 
   return (
     <div className="feat-topics d-flex justify-content-center">
-      <h1>Featured Articles</h1>
+      <h1 className="text-center">Featured Articles</h1>
       <div className='feature-posts justify-content-center row'>
         {viewportWidth < 500 ? (
           <Carousel interval={null}>

@@ -39,7 +39,7 @@ function TrendMain() {
   return (
     <div className="trend-topics container-fluid">
       <div className="row justify-content-center g-0">
-        <div className="col-12 col-md-6 col-lg-6 mb-4 mb-md-0">
+        <div className="col-12 col-md-4 col-lg-6 mb-4 mb-md-0">
           <div className="main-post-wrapper">
             <div className="main-post d-flex flex-column align-items-center">
               <div className="mainpost-cover-wrapper mb-3">
@@ -57,7 +57,7 @@ function TrendMain() {
             </div>                
           </div>            
         </div>
-        <div className="col-12 col-md-6 col-lg-6">
+        <div className="col-12 col-md-8 col-lg-6 px-5">
           <div className="news-list-wrapper">
             <div className="news-list">
               <h2 className="text-center other-trend-title">Other Trending News</h2>  

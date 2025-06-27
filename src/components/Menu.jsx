@@ -5,7 +5,7 @@ import SocialMedia from './widgets/SocialMedia';
 import '../style.css';
 import axios from 'axios';
 
-function Menu({state, onMenuCollapse}) {
+function Menu({state, onMenuCollapse, onLogout}) {
   const SERVER = import.meta.env.VITE_SERVER;
 
   const [bookIcon, setBookIcon] = useState(null);
@@ -15,6 +15,7 @@ function Menu({state, onMenuCollapse}) {
   const [isCollapsed, setIsCollapsed] = useState(false);
 
   const location = useLocation();
+  const navigate = useNavigate();
   const [currentUser, setCurrentUser] = useState(null);
 
   // Function to fetch menu items
@@ -35,41 +36,25 @@ function Menu({state, onMenuCollapse}) {
     onMenuCollapse(newCollapsedState);
   }
 
-  const LogOutButton = () => {
-    const navigate = useNavigate();
-    
-    const logOut = () => {
-      localStorage.removeItem('userData');
-      setCurrentUser(null);
-      navigate('/');
-    }
-    
-    return (
-      <Button id='logout-btn' onClick={() => logOut()}>Log Out</Button>
-    )
-  };
+  const logOut = () => {
+    setCurrentUser(null);
+    onLogout(); // Call the logout function from Main component
+    // Navigate to home page without any state
+    navigate('/', { replace: true });
+  }
 
   useEffect(() => {
     getMenuItems();
-    // Check if user data is stored in localStorage, if it doesn't exist, set currentUser to null
-    const storedUser = localStorage.getItem("userData");
-    if (storedUser !== null) {
-      try {
-        setCurrentUser(JSON.parse(storedUser));
-      } catch (error) {
-        console.error('Error parsing UserData', error)
-      }
-    } else {
-      setCurrentUser(null);
-      console.log('No user data') 
-    }
   }, []);
 
   useEffect(() => {
+    // Update currentUser when state changes (when user logs in/out)
     if (state !== null && state !== undefined) {
-      console.log(state)  
+      setCurrentUser(state);
+    } else {
+      setCurrentUser(null);
     }
-  },[state]);
+  }, [state]);
 
   return (
     <>
@@ -100,7 +85,11 @@ function Menu({state, onMenuCollapse}) {
                 <Button>New User</Button>
               </Link>
             </div>
-          ) : <LogOutButton />}
+          ) : (
+            <div className='menu-btns'>
+              <Button id='logout-btn' onClick={logOut}>Log Out</Button>
+            </div>
+          )}
 
           <div className='page-links'>
             <div className='link-wrapper d-flex justify-content-center'>
